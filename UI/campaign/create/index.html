@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en" class="no-focus">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        <title>AdChat</title>
+
+        <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+
+        <!-- Open Graph Meta -->
+        <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
+        <meta property="og:site_name" content="Codebase">
+        <meta property="og:description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+        <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta property="og:url" content="http://www.pigno.se/barn/PIGNOSE-HyperModel">
+        <meta property="og:type" content="product">
+        <meta property="og:title" content="hypermodel">
+        <meta property="og:description" content="HyperModel helps you make related model design with jQuery.">
+        <meta property="og:image" content="http://www.pigno.se/barn/PIGNOSE-HyperModel/demo/images/cover@250.png">
+        <meta property="og:site_name" content="PIGNOSE">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="../../assets/media/favicons/favicon.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="../../assets/media/favicons/favicon-192x192.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../assets/media/favicons/apple-touch-icon-180x180.png">
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="../../assets/js/plugins/slick/slick.css">
+        <link rel="stylesheet" href="../../assets/js/plugins/slick/slick-theme.css">
+
+        <link rel="stylesheet" href="../../assets/js/plugins/datatables/dataTables.bootstrap4.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+        <!-- Fonts and Codebase framework -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
+        <link rel="stylesheet" id="css-main" href="../../assets/css/codebase.min.css">
+
+        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+        <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
+        <!-- END Stylesheets -->
+        <!-- HyperModal -->
+        <link rel="shortcut icon" type="image/x-icon" href="../../assets/demo/images/pignose-ico.ico">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/dist/hypermodel.min.css">
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/components/icon.min.css">
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.13.0/themes/prism.min.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/demo/css/style.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/demo/css/ui.css">
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
+       <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <style>
+            .req:after{
+            content:"*" ;
+            color:red   
+            }
+        </style>
+        <link rel="stylesheet" href="../../assets/js/custom.css">
+    </head>
+    <body>
+
+        <!-- Page Container -->
+        
+        <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
+            <!-- Side Overlay-->
+            
+            <!-- END Side Overlay -->
+
+            <!-- Sidebar -->
+            <!--
+                Helper classes
+
+                Adding .sidebar-mini-hide to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
+                Adding .sidebar-mini-show to an element will make it visible (opacity: 1) when the sidebar is in mini mode
+                    If you would like to disable the transition, just add the .sidebar-mini-notrans along with one of the previous 2 classes
+
+                Adding .sidebar-mini-hidden to an element will hide it when the sidebar is in mini mode
+                Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
+                    - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
+            -->
+            <nav id="sidebar">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Side Header -->
+                    <div class="content-header content-header-fullrow px-15">
+                        <!-- Mini Mode -->
+                        <div class="content-header-section sidebar-mini-visible-b">
+                            <!-- Logo -->
+                            <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
+                                <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
+                            </span>
+                            <!-- END Logo -->
+                        </div>
+                        <!-- END Mini Mode -->
+
+                        <!-- Normal Mode -->
+                        <div class="content-header-section text-center align-parent sidebar-mini-hidden">
+                            <!-- Close Sidebar, Visible only on mobile screens -->
+                            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                            <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                                <i class="fa fa-times text-danger"></i>
+                            </button>
+                            <!-- END Close Sidebar -->
+
+                            <!-- Logo -->
+                            <div class="content-header-item">
+                                <a class="link-effect font-w700" href="#">
+                                    
+                                    <span class="font-size-xl text-dual-primary-dark">Ad</span><span class="font-size-xl text-primary">Chat</span>
+                                </a>
+                            </div>
+                            <!-- END Logo -->
+                        </div>
+                        <!-- END Normal Mode -->
+                    </div>
+                    <!-- END Side Header -->
+
+                   
+
+                    <!-- Side Navigation -->
+                    <div class="content-side content-side-full">
+                        <ul class="nav-main">
+                            
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">CAMPAIGN</span></a>
+                                <ul>
+                                    
+                                            <li>
+                                                <a href="#" class="active">CREATE</a>
+                                            </li>
+                                            <li>
+                                                <a href="../list/">LIST</a>
+                                            </li>
+                                            
+                                        
+                                    
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <!-- END Side Navigation -->
+                </div>
+                <!-- Sidebar Content -->
+            </nav>
+            <!-- END Sidebar -->
+
+            <!-- Header -->
+            <header id="page-header">
+                <!-- Header Content -->
+                <div class="content-header">
+                    <!-- Left Section -->
+                    <div class="content-header-section">
+                        <!-- Toggle Sidebar -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="sidebar_toggle">
+                            <i class="fa fa-navicon"></i>
+                        </button>
+                        <!-- END Toggle Sidebar -->
+
+                        
+
+                        
+                        <!-- END Layout Options -->
+                    </div>
+                    <!-- END Left Section -->
+
+                    <!-- Right Section -->
+                    <div class="content-header-section">
+                        <!-- User Dropdown -->
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="user_name"></span> <i class="fa fa-angle-down ml-5"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
+                                <a class="dropdown-item" id="signout">
+                                        <i class="si si-logout mr-5"></i> Sign Out
+                                </a>
+                               
+                            </div>
+                        </div>
+                        <!-- END User Dropdown -->
+
+                    </div>
+                    <!-- END Right Section -->
+                </div>
+                <!-- END Header Content -->
+
+                <!-- Header Search -->
+                <div id="page-header-search" class="overlay-header">
+                    <div class="content-header content-header-fullrow">
+                        <form action="be_pages_generic_search.html" method="post">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <!-- Close Search Section -->
+                                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                                    <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <!-- END Close Search Section -->
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- END Header Search -->
+
+                <!-- Header Loader -->
+                <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
+                <div id="page-header-loader" class="overlay-header bg-primary">
+                    <div class="content-header content-header-fullrow text-center">
+                        <div class="content-header-item">
+                            <i class="fa fa-sun-o fa-spin text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Header Loader -->
+            </header>
+            <!-- END Header -->
+
+            <!-- Main Container -->
+            <main id="main-container" style="min-height: 255px;">
+
+                <!-- Page Content -->
+                <div class="content">
+                 
+                        <h6><b>CREATE NEW CAMPAIGN</b></h6>
+                    
+
+                    <!-- Dynamic Table Full Pagination -->
+                    <div class="block">
+                        
+
+
+                    <!--////////////////////////////////////////////////////////////////////////////////////-->
+
+                        
+                                <!-- Simple Wizard 2 -->
+                                <div class="js-wizard-simple block">
+                                    <!-- Step Tabs -->
+                                    <ul class="nav nav-tabs nav-tabs-alt nav-fill" role="tablist">
+                                        <li class="nav-item" id="tab_first">
+                                            <a class="nav-link active" href="#step1" data-toggle="tab">Campaign</a>
+                                        </li>
+                                        <li class="nav-item" id="tab_second">
+                                            <a class="nav-link" href="#step2" data-toggle="tab">Platform</a>
+                                        </li>
+                                        <li class="nav-item" id="tab_second">
+                                            <a class="nav-link" href="#step3" data-toggle="tab">Flow Builder</a>
+                                        </li>
+                                        
+                                    </ul>
+                                    <!-- END Step Tabs -->
+    
+                                    <!-- Form -->
+                                    <form>
+                                        <!-- Steps Content -->
+                                        <div class="block-content block-content-full tab-content" style="min-height: 267px;">
+                                            <!-- Step 1 -->
+                                  
+                                            <div class="tab-pane active" id="step1" role="tabpanel">
+                                                    <div class="form-group required control-label">
+                                                        <div class="form-material floating">
+                                                            <input class="form-control" type="text" id="campaign-name" required="required"/>
+                                                            <label for="wizard-simple2-firstname" class="req">Campaign Name </label>
+                                                            <p id="campaignnamewarn" style="color:red"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="form-material floating">
+                                                            <input class="form-control" type="text" id="description">
+                                                            <label for="wizard-simple2-lastname" class="req">Description </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="form-material floating">
+                                                            <p class="wizard-simple2-email req">Start Date </p>
+                                                            <!-- <input type="file" id="file" accept="application/json"> -->
+                                                            <input class="form-control" type="text" id="start-date" required="required"/>
+                                                            <!-- <label for="wizard-simple2-firstname" class="req">Start Date </label> -->
+                                                            <p id="startdatewarn" style="color:red"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <div class="form-material floating">
+                                                                <p class="wizard-simple2-email req">End Date </p>
+                                                                <!-- <input type="file" id="file" accept="application/json"> -->
+                                                                <input class="form-control" type="text" id="end-date" required="required"/>
+                                                                <!-- <label for="wizard-simple2-firstname" class="req">Start Date </label> -->
+                                                                <p id="enddatewarn" style="color:red"></p>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Step 1 -->
+    
+                                            <!-- Step 2 -->
+                                            <div class="tab-pane" id="step2" role="tabpanel">
+                                                <div class="form-group">
+                                                    <div class="form-material floating">
+                                                        <!-- <input type="text" class="form-control" id="status"> -->
+                                                            <select class="form-control" id="status">
+                                                                <option value="active">Active</option>
+                                                                <option value="inactive ">Inactive </option>
+                                                                <option value="paused">Paused</option>
+                                                            </select>
+                                                        <label for="wizard-simple2-bio">Status</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                        <div class="form-material floating">
+                                                            <!-- <input type="text" class="form-control" id="platform"> -->
+                                                                <select class="form-control" id="platform">
+                                                                    <option value="sms">SMS</option>
+                                                                    
+                                                                </select>
+                                                            <label for="wizard-simple2-bio">Platform</label>
+                                                        </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                        <div class="form-material floating">
+                                                            <!-- <input type="text" class="form-control" id="status"> -->
+                                                                <select class="form-control" id="number">
+                                                                    <option value="2">Select a Number</option>
+                                                                </select>
+                                                            <label for="wizard-simple2-bio" class="req">Select a Number </label>
+                                                            <p id="selectnumberwarn" style="color:red"></p>
+                                                        </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <!-- END Step 2 -->
+                                            <!-- Step 3 -->  
+                                            <!-- HYPER MODAL CODE  -->
+                                            <div class="tab-pane" id="step3" role="tabpanel">
+                                                <!-- <div id="wrapper"> -->
+                                                    <!-- <div class="article"> -->
+                                                        <div class="hypermodel-container" style="overflow: auto;" >
+                                                            <div class="hypermodel-area" id='AppendDiv'>
+                                                                <div id='child00' data-text='1'></div>
+                                                                <div id='isFallback00' data-text='false'></div>
+                                                                <div id='id00' data-text='root'></div>
+                                                                <div id='parent00' data-text="0"></div>
+                                                                <div class="hypermodel-column" id='root' data-text="00" >
+                                                                    <div class="hypermodel-grid" >
+                                                                        <div class="hypermodel-header" style="background:#3f9ce8; ">
+                                                                            <h3 style="margin-left:-5%;color:white;" id="title00" data-text="Start">Start</h3>
+                                                                        </div>
+                                                                        <div class="hypermodel-body" id='mainModel'>
+                                                                            <!-- User Says -->
+                                                                            <div id='child001' data-text='1'></div>
+                                                                            <div  id="block"style="margin-left:-10px;margin-right:-10px;margin-top:-5px;">
+                                                                                <div class="block-header" style="padding-top:5%;padding-bottom:0%;background:#bbdcf7;">
+                                                                                    <p class="block-title" style="margin-left:-5%;margin-top:-5%;font-size: 90%; color: #575757;"><b>User Says</b></p>
+                                                                                    <i class="fa fa-caret-down fa-sm" aria-hidden="true"  style="margin-top: -10%;"  data-target="#UserSays" id='colapse'></i>
+                                                                                </div>
+                                                                                    <div id='UserSays' style="background:white;margin-top: -5%;margin-bottom: -5%;">
+                                                                                        <div id='UserSaysBody00'>
+                                                                                            <div class="col-md-12 " id="TraningPhasediv0"  style="padding-top: 3%;">
+                                                                                                <div class="hypermodel-item" >
+                                                                                                    <div class="TraningPhaseSpan 00 0" id='TraningPhasediv001' style="float:left; width:80%;" onclick="onClick(this)" >
+                                                                                                        <span style="font-size: 90%;" id='TraningPhasediv001Span' data-text='Add text here'>Add text here</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>   
+                                                                                        </div>
+                                                                                        <div id="model-n1000" style="margin-top: 3%; margin-bottom: 3%; padding-bottom: 3%;">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="hypermodel-item">
+                                                                                                    <div class="row 00 0" style="padding-bottom: 5%;" id='plusButton' onclick='addnewTraningPhaseCard(this)' >
+                                                                                                        <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
+                                                                                                                <i class="fa fa-plus"></i>
+                                                                                                    </button>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Responses Part -->
+                                                                            <div class="hypermodel-body" id='ResponseModel'>
+                                                                                    <div id='responsesChilds00' data-text='0'></div>
+                                                                                <div  id="block"style="margin-left:-10px;margin-right:-10px;margin-top:-5px;">
+                                                                                    <div class="block-header" style="padding-top:5%;padding-bottom:0%; background:#bbdcf7;">
+                                                                                        <p class="block-title" style="margin-left:-5%;margin-top:-5%;font-size: 90%; color: #575757;;"><b>Responses</b></p>
+                                                                                        <i class="fa fa-caret-down fa-sm" aria-hidden="true"  style="margin-top: -10%;"  data-target="#responsesBody" id='colapseResponses'></i>
+                                                                                    </div>
+                                                                                    <div id='responses' style="background: #FFFFFF; margin-top: -5%;">
+                                                                                        <div id="responsesBody00" style="padding-top:1%;"></div>
+                                                                                        <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%; ">
+                                                                                            <div class="row btn btn-sm btn-alt-default dropdown" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                    <i class="fa fa-plus"></i>
+                                                                                                <div class="dropdown-menu " aria-labelledby="btnGroupVerticalDrop2">
+                                                                                                    <a class="dropdown-item 00 0" onclick="textFunction(this)" >
+                                                                                                        <i class="fa fa-fw fa-envelope-o mr-5"></i>Text
+                                                                                                    </a>
+                                                                                                    <div class="dropdown-divider"></div>
+                                                                                                    <a class="dropdown-item 00 0" onclick="imageFunction(this)">
+                                                                                                        <i class="fa fa-file-image-o mr-5" aria-hidden="true"></i> Picture
+                                                                                                    </a>
+                                                                                                    <div class="dropdown-divider"></div>
+                                                                                                    <a class="dropdown-item 00 0" onclick="delayFunction(this)">
+                                                                                                        <i class="fa fa-fw fa-clock-o fa-lg" aria-hidden="true"></i> Delay
+                                                                                                    </a>                                                         
+                                                                                                </div>      
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </div>
+                                                                            </div>
+                                            
+                                                                            <!-- User Inputs -->
+                                                                            <div class="hypermodel-body" id='userInputModal'>
+                                                                                <div id='ChildCounter00' data-text='0'></div>
+                                                                                <div  id="block"style="margin-left:-10px;margin-right:-10px;margin-top:-5px;">
+                                                                                    <div class="block-header" style="padding-top:5%;padding-bottom:0%; background:#bbdcf7;" >
+                                                                                        <p class="block-title" style="margin-left:-5%;margin-top:-5%;font-size: 90%; color: #575757;;"><b>User Inputs</b></p>
+                                                                                        <i class="fa fa-caret-down fa-sm" aria-hidden="true"  style="margin-top: -10%;"  data-target="#userInput" id='colapseUserInputs'></i>
+                                                                                    </div>
+                                                                                    <div id='userInput' style="background: #FFFFFF; margin-top: -5%;" id='createdFallback0' data-text='-1'>
+                                                                                        <div id="userInputBody0" style="padding-top:1%;"></div>
+                                                                                        <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%; ">
+                                                                                            <div class="row btn btn-sm btn-alt-default dropdown" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='dropdown' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                    <i class="fa fa-plus"></i>
+                                                                                                <div class="dropdown-menu " aria-labelledby="btnGroupVerticalDrop2" id="fallbackCounter" data-text='-1'>
+                                                                                                    <a class="dropdown-item 0 00 0 btn root" id='fall0' data-text='0' onclick='addFirstFallback(this)'>
+                                                                                                        FallBack
+                                                                                                    </a>
+                                                                                                    <div class="dropdown-divider" id="generalCounter" data-text='-1'></div>
+                                                                                                    <a class="dropdown-item 0 00 root"  onclick='addFirstGenral(this)'>
+                                                                                                        General
+                                                                                                    </a>
+                                                                                                    <div class='f0' id='createdFallback'></div>                                        
+                                                                                                </div>      
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <!-- </div> -->
+                                                <!-- </div>            -->
+                                                <!-- Slide Right Modal -->
+                                                <!--                                                      MODAL CODE                        -->
+                                                <!-- Image Model -->
+                                                    <div class="modal fade" id="modal-slideright" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="block block-themed block-transparent mb-0">
+                                                                    <div class="block-header bg-primary-dark">
+                                                                        <h3 class="block-title">Image Modal</h3>
+                                                                        <div class="block-options">
+                                                                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                                <i class="si si-close"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="block-content">
+                                                                            <img id="output" width="200" />
+                                                                        <input type="file" class="form-control" accept="image/*" name="image" id="img"  onchange="loadFile(event)" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer f" id='footer'>
+                                                                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addImage'>
+                                                                        <i class="fa fa-check"></i> Perfect
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <!-- END Slide Right Modal -->
+                                            
+                                            <!-- Update Image Modal -->
+                                               <div class="modal fade" id="modal-updateImage" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content" id='modaContent'>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Update Image</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content" id='updateImageBlock'>
+                                                                    <img id="updateOutput" width="200" />
+                                                                    <input type="file" class="form-control" accept="image/*" src='' name="image" id="updateImage"  onchange="loadUpdatedImage(event)" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer f" id='updateImageFooter'>
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateImageBtn'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Slide Right Modal -->
+                                            
+                                            
+                                            <!-- Text Model -->
+                                               <!-- Slide Right Modal -->
+                                               <div class="modal fade" id="modal-text" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content" id='modalContent'>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Text Modal</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content">
+                                                                    <form>
+                                                                        <div class="md-form amber-textarea active-amber-textarea" id="res">
+                                                                            <label for="form19">Text</label>
+                                                                            <textarea id="addTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer" >
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addText'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Slide Right Modal -->
+                                            
+                                            <!-- Update Text Modal -->
+                                               <div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content" id='modalContent'>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Update Modal</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content">
+                                                                    <form>
+                                                                        <div class="md-form amber-textarea active-amber-textarea" id="updateRes">
+                                                                            <label for="form19">Text</label>
+                                                                            <textarea id="updateTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateText'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Slide Right Modal -->
+                                            
+                                            <!-- delay model -->
+                                               <!-- Slide Right Modal -->
+                                               <div class="modal fade" id="modal-delay" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content" id='modalContent'>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Delay Modal</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content" style="margin-bottom: 2%;">
+                                                                   <div class="col-md-6" style="float: left;padding-left: 0px;padding-right: 0px;">
+                                                                       <input type="number" class="form-control" id='delayInput'>
+                                                                   </div>
+                                                                   <div class="col-md-1 input-group-prepend" style="padding-left: 0px;">
+                                                                    <select class="btn btn-outline-secondary" aria-expanded="false" id="unit" style="padding-top:4px">
+                                                                        <option value="Seconds">Seconds</option>
+                                                                        <option value="Minutes">Minutes</option>
+                                                                        <option value="Hours">Hours</option>
+                                                                        <option value="Days">Days</option>
+                                                                    </select>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addDelay'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Slide Right Modal -->
+                                            <!-- Update Delay Modal -->
+                                            <!-- delay model -->
+                                               <!-- Slide Right Modal -->
+                                               <div class="modal fade" id="modal-updateDelay" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                    <div class="modal-content" id='modalContent'>
+                                                        <div class="block block-themed block-transparent mb-0">
+                                                            <div class="block-header bg-primary-dark">
+                                                                <h3 class="block-title">Update Delay</h3>
+                                                                <div class="block-options">
+                                                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                        <i class="si si-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="block-content" style="margin-bottom: 2%;">
+                                                               <div class="col-md-6" style="float: left;padding-left: 0px;padding-right: 0px;">
+                                                                   <input type="number" class="form-control" id='updateDelayInput'>
+                                                               </div>
+                                                               <div class="col-md-1 input-group-prepend" style="padding-left: 0px;" id='delayDiv'>
+                                                                <select class="btn btn-outline-secondary" aria-expanded="false" id="updateUnit" style="padding-top:4px">
+                                                                    <option value="Seconds">Seconds</option>
+                                                                    <option value="Minutes">Minutes</option>
+                                                                    <option value="Hours">Hours</option>
+                                                                    <option value="Days">Days</option>
+                                                                </select>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateDelay'>
+                                                                <i class="fa fa-check"></i> Perfect
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END Slide Right Modal -->
+                                            <!-- Training Phase Model -->
+                                               <div class="modal fade"  id="modal-trainingPhase" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content" id='modalContent'>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Text Model</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content">
+                                                                    <form>
+                                                                        <div class="md-form amber-textarea active-amber-textarea" id='text'>
+                                                                            <label for="form19">Text</label>
+                                                                            <textarea id="addTraningPhase" class="md-textarea form-control trainingPhase" rows="3" required></textarea>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addTraning'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- END Slide Right Modal -->
+                                            <!--                                                                 Use Inputs Modals                     -->
+                                            <!-- Fall Back Modal -->
+                                               <div class="modal fade" id="modal-fallBack" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                    <div class="modal-content">
+                                                            <div id='fallbackParentDivid'></div>
+                                                            <div id='childCounter'></div>
+                                                        <div class="block block-themed block-transparent mb-0">
+                                                            <div class="block-header bg-primary-dark">
+                                                                <h3 class="block-title">Text Modal</h3>
+                                                                <div class="block-options">
+                                                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                        <i class="si si-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="block-content" id='blockContent'>
+                                                                <form>
+                                                                    <div class="md-form amber-textarea active-amber-textarea col-md-6" id="fallback">
+                                                                        <label for="form19">Fallback Name:</label>
+                                                                        <input type="text" class="form-control" id='fallbackName'>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" >
+                                                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addFallback'>
+                                                                <i class="fa fa-check"></i> Perfect
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END Slide Right Modal -->
+                                            <!-- Update Fall Back Modal -->
+                                            <!-- Fall Back Modal -->
+                                            <div class="modal fade" id="modal-updateFallBack" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="block block-themed block-transparent mb-0">
+                                                            <div class="block-header bg-primary-dark">
+                                                                <h3 class="block-title">Update FallBack Name</h3>
+                                                                <div class="block-options">
+                                                                    <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                        <i class="si si-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="block-content">
+                                                                <form>
+                                                                    <div class="md-form amber-textarea active-amber-textarea col-md-6" id="fallback">
+                                                                        <label for="form19">Fallback Name:</label>
+                                                                        <input type="text" class="form-control" id='updateFallbackName'>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer" >
+                                                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateFallback'>
+                                                                <i class="fa fa-check"></i> Perfect
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- General Modal Box -->
+                                            <div class="modal fade" id="modal-general" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content">
+                                                            <div id='parentDivid'></div>
+                                                            <div id='p00'></div>
+                                                            <div id='childCounter'></div>
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">General Modal</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content">
+                                                                    <form>
+                                                                        <div class="md-form amber-textarea active-amber-textarea col-md-6" id="fallback">
+                                                                            <label for="form19">General Name:</label>
+                                                                            <input type="text" class="form-control" id='generalName'>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer" >
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addGeneral'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <!-- Update General Modal -->
+                                            <div class="modal fade" id="modal-updateGeneral" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-slideright" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="block block-themed block-transparent mb-0">
+                                                                <div class="block-header bg-primary-dark">
+                                                                    <h3 class="block-title">Update General Name</h3>
+                                                                    <div class="block-options">
+                                                                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                                            <i class="si si-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="block-content">
+                                                                    <form>
+                                                                        <div class="md-form amber-textarea active-amber-textarea col-md-6" id="generaldiv">
+                                                                            <label for="form19">General Name:</label>
+                                                                            <input type="text" class="form-control" id='updateGeneralName'>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer" >
+                                                                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateGeneral'>
+                                                                    <i class="fa fa-check"></i> Perfect
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>              
+                                                                                            
+                                            </div>
+                                            <!-- END Step 3 -->
+                                            
+                                        </div>
+                                        <!-- END Steps Content -->
+    
+                                        <!-- Steps Navigation -->
+                                        <div class="block-content block-content-sm block-content-full bg-body-light">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-alt-secondary" data-wizard="prev">
+                                                        <i class="fa fa-angle-left mr-5"></i> Previous
+                                                    </button>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <button type="button" id='json' onclick="loadJson()" class="btn btn-alt-secondary next" data-wizard="next">
+                                                        Next <i class="fa fa-angle-right ml-5"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" >
+                                                        <i class="fa fa-check mr-5"></i> Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END Steps Navigation -->
+                                    </form>
+                                    <!-- END Form -->
+                                </div>
+                                <!-- END Simple Wizard 2 -->
+                        
+                        
+                    </div>
+                    
+                    
+                   
+                  
+
+            
+                    <!-- END Dynamic Table Full Pagination -->
+
+                    
+                </div>
+                <!-- END Page Content -->
+
+                
+
+            </main>
+            <!-- END Main Container -->
+
+            
+        </div>
+        <!-- END Page Container -->
+
+
+
+        
+        <script src="../../assets/js/codebase.core.min.js"></script>
+
+        <!--
+            Codebase JS
+
+            Custom functionality including Blocks/Layout API as well as other vital and optional helpers
+            webpack is putting everything together at assets/_es6/main/app.js
+        -->
+        <script src="../../assets/js/codebase.app.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.core.js"></script> -->
+
+        <!-- Page JS Plugins -->
+        <!-- <script src="../../assets/js/plugins/chartjs/Chart.bundle.min.js"></script>
+        <script src="../../assets/js/plugins/slick/slick.min.js"></script>
+
+        <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script> -->
+
+        <script src="../../assets/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+        <script src="../../assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="../../assets/js/plugins/jquery-validation/additional-methods.js"></script>
+
+        <!-- Page JS Code -->
+        <!-- <script src="../../assets/js/pages/be_pages_dashboard.min.js"></script> -->
+        
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+        <script src="../../assets/js/pages/be_forms_wizard.min.js"></script>
+
+
+        <script src="./script.js"></script>
+        <!-- My script -->
+        <!-- <script src="./JQuery/customScript.js"></script> -->
+        <!-- HyperModal -->
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+       <script type="text/javascript" src="../../assets/js/hypermodel.js"></script>
+       <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
+       <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
+       <script src="../../campaign/create/flowBuilderScript.js"></script>
+       <!-- <script src="../../campaign/create/reverseFlowBuilder.js"></script> -->
+       <script src="../../assets/js/HyperModal.js"></script>
+       <!-- <script type="text/javascript" src="./JQuery/HyperModal.js"></script> -->
+    <!-- <script type="text/javascript" src="../assets/" -->
+    </body>
+</html>

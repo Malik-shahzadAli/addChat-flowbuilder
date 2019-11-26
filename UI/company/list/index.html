@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en" class="no-focus">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+        <title>AdChat</title>
+
+        <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+
+        <!-- Open Graph Meta -->
+        <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
+        <meta property="og:site_name" content="Codebase">
+        <meta property="og:description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="../../assets/media/avatars/logo.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="../../assets/media/avatars/logo.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../assets/media/avatars/logo.png">
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="../../assets/js/plugins/slick/slick.css">
+        <link rel="stylesheet" href="../../assets/js/plugins/slick/slick-theme.css">
+
+        <link rel="stylesheet" href="../../assets/js/plugins/datatables/dataTables.bootstrap4.css">
+
+        <!-- Fonts and Codebase framework -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
+        <link rel="stylesheet" id="css-main" href="../../assets/css/codebase.min.css">
+
+        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+        <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
+        <!-- END Stylesheets -->
+        <style>
+                 #hiddenrow{
+            display: none;
+        }
+        .lefttd {
+            width: 120px;
+            overflow: hidden;
+            table-layout: fixed;
+        }
+        .righttd{
+            width: 265px;
+            overflow: hidden;
+            table-layout: fixed;
+        }
+        
+            .req:after{
+            content:"*" ;
+            color:red   
+            }
+        
+        </style>
+    </head>
+    <body>
+
+        <!-- Page Container -->
+        
+        <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
+            <!-- Side Overlay-->
+            
+            <!-- END Side Overlay -->
+
+            <!-- Sidebar -->
+            <!--
+                Helper classes
+
+                Adding .sidebar-mini-hide to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
+                Adding .sidebar-mini-show to an element will make it visible (opacity: 1) when the sidebar is in mini mode
+                    If you would like to disable the transition, just add the .sidebar-mini-notrans along with one of the previous 2 classes
+
+                Adding .sidebar-mini-hidden to an element will hide it when the sidebar is in mini mode
+                Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
+                    - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
+            -->
+            <nav id="sidebar">
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Side Header -->
+                    <div class="content-header content-header-fullrow px-15">
+                        <!-- Mini Mode -->
+                        <div class="content-header-section sidebar-mini-visible-b">
+                            <!-- Logo -->
+                            <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
+                                <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
+                            </span>
+                            <!-- END Logo -->
+                        </div>
+                        <!-- END Mini Mode -->
+
+                        <!-- Normal Mode -->
+                        <div class="content-header-section text-center align-parent sidebar-mini-hidden">
+                            <!-- Close Sidebar, Visible only on mobile screens -->
+                            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                            <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                                <i class="fa fa-times text-danger"></i>
+                            </button>
+                            <!-- END Close Sidebar -->
+
+                            <!-- Logo -->
+                            <div class="content-header-item">
+                                <a class="link-effect font-w700" href="#">
+                                    
+                                    <span class="font-size-xl text-dual-primary-dark">Ad</span><span class="font-size-xl text-primary">Chat</span>
+                                </a>
+                            </div>
+                            <!-- END Logo -->
+                        </div>
+                        <!-- END Normal Mode -->
+                    </div>
+                    <!-- END Side Header -->
+
+                   
+
+                    <!-- Side Navigation -->
+                    <div class="content-side content-side-full">
+                        <ul class="nav-main">
+                            
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">COMPANY</span></a>
+                                <ul>
+                                    
+                                            <li>
+                                                <a href="../create/">CREATE</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="active">LIST</a>
+                                            </li>
+                                            
+                                        
+                                    
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <!-- END Side Navigation -->
+                </div>
+                <!-- Sidebar Content -->
+            </nav>
+            <!-- END Sidebar -->
+
+            <!-- Header -->
+            <header id="page-header">
+                <!-- Header Content -->
+                <div class="content-header">
+                    <!-- Left Section -->
+                    <div class="content-header-section">
+                        <!-- Toggle Sidebar -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="sidebar_toggle">
+                            <i class="fa fa-navicon"></i>
+                        </button>
+                        <!-- END Toggle Sidebar -->
+
+                        
+
+                        
+                        <!-- END Layout Options -->
+                    </div>
+                    <!-- END Left Section -->
+
+                    <!-- Right Section -->
+                    <div class="content-header-section">
+                        <!-- User Dropdown -->
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="user_name"></span> <i class="fa fa-angle-down ml-5"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
+                                <a class="dropdown-item" id="signout">
+                                        <i class="si si-logout mr-5"></i> Sign Out
+                                </a>
+                               
+                            </div>
+                        </div>
+                        <!-- END User Dropdown -->
+
+                    </div>
+                    <!-- END Right Section -->
+                </div>
+                <!-- END Header Content -->
+
+                <!-- Header Search -->
+                <div id="page-header-search" class="overlay-header">
+                    <div class="content-header content-header-fullrow">
+                        <form action="be_pages_generic_search.html" method="post">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <!-- Close Search Section -->
+                                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                                    <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <!-- END Close Search Section -->
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- END Header Search -->
+
+                <!-- Header Loader -->
+                <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
+                <div id="page-header-loader" class="overlay-header bg-primary">
+                    <div class="content-header content-header-fullrow text-center">
+                        <div class="content-header-item">
+                            <i class="fa fa-sun-o fa-spin text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Header Loader -->
+            </header>
+            <!-- END Header -->
+
+            <!-- Main Container -->
+            <main id="main-container" style="min-height: 255px;">
+
+                <!-- Page Content -->
+                <div class="content">
+
+                    
+                 
+                    
+
+                    
+                    
+                    
+                   
+                  
+
+            
+                    <!-- END Dynamic Table Full Pagination -->
+
+                    
+                    <div class="block">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title"><b>Companies List</b></h3>
+                            <div class="block-options">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="location.href='../create/';">Create Company</button>
+                            </div>
+                        </div>
+                        <div class="block-content">
+                            <div class="table-responsive">
+                                <table id = "table_id" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>COMPANY NAME</th>
+                                            <th>CITY</th>
+                                            <th>STATE</th>
+                                            <th>ACTIONS</th>
+                                        
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody id= "data">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                
+                </div>
+                <!-- END Page Content -->
+
+                
+                    
+                
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+                          
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="data1"></div>
+                                
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-success" id="btnupdate" onclick="updateCompany()">Update</button>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <!--Modal for copy username and password-->
+                <div class="modal fade" id="copyModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Copy Credentials</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email address</label>
+                                  <!-- <input type="text" class="form-control" id="credential-email"> -->
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="credential-email">
+                                    <div class="input-group-append">
+                                      <button class="btn btn-success" id="copy-btn" type="button" data-toggle="tooltip" data-placement="right" title="Copied!">Copy</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Password</label>
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="credential-password">
+                                    <div class="input-group-append">
+                                      <button class="btn btn-success" id="copy-btn-pwd" type="button" data-toggle="tooltip" data-placement="right" title="Copied!">Copy</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                  <!-- <input type="text" class="form-control" id="credential-password"> -->
+                                
+                                
+                                <!-- <button type="button" id="copy-btn" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Copied!">Copy</button> -->
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <!--Modal for send credentials using different email address-->
+
+                <div class="modal fade" id="emailModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Send Credentials</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email Address </label>
+                                  <!-- <input type="text" class="form-control" id="credential-email"> -->
+                                  <div class="input-group mb-3">
+                                    <input type="email" class="form-control req" id="sender-email">
+                                   </div>
+                                   <p id="emailrequiredwarn" style="color:red"></p>
+
+                                </div>
+                                <button class="btn btn-success" id="send-mail-btn" type="button">Send Email <span><img src="../../assets/media/loader.gif" id="img" style="display:none; height: 15px;"/></span></button>
+
+                                  <!-- <input type="text" class="form-control" id="credential-password"> -->
+                                
+                                
+                                <!-- <button type="button" id="copy-btn" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Copied!">Copy</button> -->
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            </main>
+            <!-- END Main Container -->
+
+            
+        </div>
+        <!-- END Page Container -->
+
+
+
+        
+        <script src="../../assets/js/codebase.core.min.js"></script>
+
+        <!--
+            Codebase JS
+
+            Custom functionality including Blocks/Layout API as well as other vital and optional helpers
+            webpack is putting everything together at assets/_es6/main/app.js
+        -->
+        <script src="../../assets/js/codebase.app.min.js"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="../../assets/js/plugins/chartjs/Chart.bundle.min.js"></script>
+        <script src="../../assets/js/plugins/slick/slick.min.js"></script>
+
+        <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page JS Code -->
+        <script src="../../assets/js/pages/be_pages_dashboard.min.js"></script>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
+
