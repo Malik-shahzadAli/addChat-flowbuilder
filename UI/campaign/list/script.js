@@ -142,11 +142,8 @@ function viewCampaign(id)
         dataType: 'json',
         contentType: "application/json",
         success : function(status){
-
             console.log(status)
             let data = status.campaign;
-
-            
         table+='<table class="table table-bordered table-striped table-vcenter">'
                 +'<tr id="hiddenrow"><td class="lefttd"></td><td id="idtoupdate" class="righttd">'+data._id+'</td></tr>'
                 +'<tr><td class="lefttd">Name</td><td class="righttd"><input type="text" id="modalname" class="form-control" value="'+data.name+'"/><p id="companynamewarn" style="color:red;"></p></td></tr>'     

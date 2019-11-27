@@ -463,15 +463,42 @@ $('#addFallback').click(function(){
     if(fallBackName != ''  ){
         addFallBack++;
         totalBoxes++;
-        var box=addNewBox+''+totalBoxes;
+        var box=0;
         var id=parent+''+childCounter;
         //checking if first fall back 
-        if( fallbackCounter != -1){appendFallback1(fallbackCounter, addNewBox,totalBoxes,counter,parent,childCounter)}
-        else{appendFallback1(btnClass, addNewBox,totalBoxes,counter,parent,childCounter)}
-        if( btnClass== addNewBox){createNewBoxRow(parent,childCounter,box,id)}
-        else{createNewBox(parseInt(btnClass)+1,parent,childCounter,box,id);}
-        $(`#title${addNewBox}${totalBoxes}`).text(fallBackName);
-        $(`#title${addNewBox}${totalBoxes}`).data('text',fallBackName);
+        if( fallbackCounter != -1){
+            if(btnClass == addNewBox){
+                var newBox=parseInt(addNewBox)+1;
+            }
+            else{
+                var newBox=addNewBox;
+            }
+            appendFallback1(fallbackCounter, newBox,totalBoxes,counter,parent,childCounter)
+        }
+        else{
+            if(btnClass == addNewBox){
+                var newBox=parseInt(addNewBox)+1;
+            }
+            else{
+                var newBox=addNewBox;
+            }
+            appendFallback1(btnClass, newBox,totalBoxes,counter,parent,childCounter)
+        }
+        if( btnClass== addNewBox){
+            box=parseInt(addNewBox)+1+''+totalBoxes
+            createNewBoxRow(parent,childCounter,box,id)
+            var newbox=parseInt(addNewBox)+1;
+            //add class on general dropdown
+            $(`#genDropdown${newbox}`).addClass(parent+counter);
+        }
+        else{
+            box=addNewBox+''+totalBoxes;
+            createNewBox(parseInt(btnClass)+1,parent,childCounter,box,id);
+            $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+            
+        }
+        $(`#title${box}`).text(fallBackName);
+        $(`#title${box}`).data('text',fallBackName);
         Refresh();
         //getting delay input + selected unit
         var name=$('#fallbackName').val();
@@ -494,13 +521,14 @@ $('#addFallback').click(function(){
         //puting name on the box
         $('.modelTitle').text(name);
         //add class in fallDropdown
-        $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
-        //add class on general dropdown
-        $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+         $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
+        // //add class on general dropdown
+        // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
         $(`#parent${box}`).data('text',parent);
-        $(`#id${box}`).data('text',parent+childCounter)
+        $(`#id${box}`).data('text',parent+childCounter);
+        prepareOneBoxJSON(box,btnClass);
     }
-    prepareOneBoxJSON(addNewBox+""+totalBoxes,btnClass);
+    
 })
 
 
@@ -612,12 +640,19 @@ $('#addGeneral').click(function(e){
         //increasing total boxes
         totalBoxes++;
         var id=parent+''+childCounter;
-        var box=addNewBox+''+totalBoxes;
-        addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter)
+        var box=0;
+        var nBox=0;
         if( btnClass== addNewBox){
+             box=parseInt(addNewBox)+1+''+totalBoxes;
+             nBox=parseInt(addNewBox)+1;
             createNewGenralRow(parent,childCounter,box,id);
         }
-        else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,box,id);}
+        else{
+            nBox=addNewBox;
+            box=addNewBox+''+totalBoxes;
+            createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,box,id);
+        }
+        addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
         var newAddNewBox=parseInt(addNewBox)-1;
         $(`#title${addNewBox}${totalBoxes}`).data('text',generalName);
         $(`#title${addNewBox}${totalBoxes}`).text(generalName);
@@ -634,11 +669,11 @@ $('#addGeneral').click(function(e){
         $(`#genDropdown${totalBoxes}`).addClass(parent+counter);
         $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
         $(`#parent${addNewBox}${totalBoxes}`).data('text',parent);
-        $(`#id${addNewBox}${totalBoxes}`).data('text',parent+childCounter)
+        $(`#id${addNewBox}${totalBoxes}`).data('text',parent+childCounter);
+        prepareOneBoxJSON(box,btnClass);
     }
     Refresh();
-    $('.hypermodel-container').hypermodel('repaint');
-    prepareOneBoxJSON(addNewBox+""+totalBoxes,btnClass);
+    
   
 })
                                                     ////////////////////
@@ -646,7 +681,7 @@ $('#addGeneral').click(function(e){
                                                   ////////////////////
 //when user click on the card
 function updateGeneralName(e) {
-    // console.log(e);
+     console.log(e);
     //toggle the update text modal
     jQuery('#modal-updateGeneral').modal('toggle');
     //empty old text from modal
@@ -977,6 +1012,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
     // console.log('this is the child counter :'+childCounter);
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
+
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var b=$('#gCount').data('text');
     var a=parent+''+childCounter;
@@ -1139,7 +1175,7 @@ function appendFallback1(fallCounter, addnewBox,totalboxes,count,parent,childCou
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
-            <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addnewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
+            <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addnewBox}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
             <div class="buttonClass btn ${count} ${addnewBox} ${c} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
@@ -1177,11 +1213,7 @@ function RemoveFallback(e){
 }
 //prepare json
 function prepareOneBoxJSON(boxno,row){
-    // console.log('here box no :'+boxno);
-    //  console.log('here row No :'+row);
-    // console.log('This is row :'+row);
     var newRow=parseInt(row)+1;
-    //sending row no
     var totalChilds=$(`#colum${newRow}`).children()
     var boxNo = []
     for (const i of totalChilds) {
@@ -1264,7 +1296,7 @@ function prepareOneBoxJSON(boxno,row){
             response.push(responsesObject[res]);
         }
     }
-    parent=parent.toString();
+    // parent=parent.toString();
     obj.trainingPhrase=trainingPhrase;
     obj.responses=response;
     obj.id=id
@@ -1352,15 +1384,15 @@ function deleteJson(id){
         
 //     });
 // }
-function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count){
+function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox){
     var gen=parent+''+childCounter;
     $('#userInputBody'+gn).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
-            <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addNewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
+            <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${nBox}${totalBoxes}' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} ${addNewBox} ${gen} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} ${nBox} ${gen} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1389,13 +1421,6 @@ function createCampaign(){
     let compaignNumber = $('#number').find(":selected").val();
     
     let body = {
-        name : campaignName,
-        description : description,
-        startDate : startDate,
-        endDate : endDate,
-        status : status,
-        platform:platform,
-        twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
 

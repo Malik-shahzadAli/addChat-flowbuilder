@@ -283,10 +283,10 @@ function zoomInFunction(){
         zoom++;
         // console.log(zoom)
         $('.hypermodel-column').width(
-            $(".hypermodel-column").width() / 0.7
+            $(".hypermodel-column").width() / 0.8
         )
         $('.hypermodel-column').height(
-            $(".hypermodel-column").height() / 0.7
+            $(".hypermodel-column").height() / 0.8
         )
     }
 }
@@ -295,27 +295,28 @@ function  zoomOutFunction() {
         zoom--;
         // console.log(zoom)
         $('.hypermodel-column').width(
-            $(".hypermodel-column").width() * 0.7
+            $(".hypermodel-column").width() * 0.8
         )
         $('.hypermodel-column').height(
-            $(".hypermodel-column").height() * 0.7
+            $(".hypermodel-column").height() * 0.8
         )
     }
 
 }
-// $(".hypermodel-column").on("mousewheel DOMMouseScroll", function (e) {
-// //   console.log(e);
-// })
-// $('.hypermodel-column').bind('DOMMouseScroll', function(e){
-//     if(e.originalEvent.detail > 0) {
-//         console.log('Downnn')
-//         //scroll down
-//         zoomOutFunction();
-//     }else {
-//         //scroll up
-//         zoomInFunction();
-//     }
-
-//     //prevent page fom scrolling
-//     // return false;
-// });
+var f = (function(){
+    var oldPos = window.scrollY;
+    function fu(e) {
+        var newPos = window.scrollY;
+        if (newPos>oldPos) {
+            zoomOutFunction();
+        } else if(newPos<oldPos) {
+            zoomInFunction();
+        } else {
+            
+            console.log('same');
+        }
+        oldPos = newPos;
+    }
+    return fu;
+})();
+window.addEventListener('scroll',f);
