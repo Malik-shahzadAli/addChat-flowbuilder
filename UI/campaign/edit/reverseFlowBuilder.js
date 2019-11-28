@@ -16,7 +16,8 @@ $(document).ready(function(){
             $('#spinner').addClass('hide');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log(errorThrown);
+            $('#spinner').addClass('hide');
+            window.location.replace("http://localhost:3000/campaign/list/");
         }
     });
 })
@@ -226,7 +227,7 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
     if(boxNo){
         $('#userInputBody'+boxNo).append(`
         <div class="col-md-12 ${row}"  style="margin-top:3%;" id='div${counter}' >
-            <div class="hypermodel-item ui-sortable-handle" data-target='${childCounter-1}'>
+            <div class="hypermodel-item ui-sortable-handle" data-target='${gen}'>
                 <div style="float:left; width:80%;" id="generalDiv${row}${childCounter}" class='${row}${childCounter}' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${row}${childCounter}Span' style="font-size: 90%; " > </span>
                 </div>
@@ -256,7 +257,7 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
     if(boxNo){
         $('#userInputBody'+boxNo).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${counter}' >
-            <div class="hypermodel-item ui-sortable-handle" data-target='${childCounter-1}'>
+            <div class="hypermodel-item ui-sortable-handle" data-target='${c}'>
                 <div style="float:left; width:80%;" id="fallbackDiv${counter}" class='${addNewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                     <span id='fallbackDiv${counter}Span' style="font-size: 90%; " > </span>
                 </div>
@@ -303,20 +304,20 @@ function  zoomOutFunction() {
     }
 
 }
-var f = (function(){
-    var oldPos = window.scrollY;
-    function fu(e) {
-        var newPos = window.scrollY;
-        if (newPos>oldPos) {
-            zoomOutFunction();
-        } else if(newPos<oldPos) {
-            zoomInFunction();
-        } else {
+// var f = (function(){
+//     var oldPos = window.scrollY;
+//     function fu(e) {
+//         var newPos = window.scrollY;
+//         if (newPos>oldPos) {
+//             zoomOutFunction();
+//         } else if(newPos<oldPos) {
+//             zoomInFunction();
+//         } else {
             
-            console.log('same');
-        }
-        oldPos = newPos;
-    }
-    return fu;
-})();
-window.addEventListener('scroll',f);
+//             console.log('same');
+//         }
+//         oldPos = newPos;
+//     }
+//     return fu;
+// })();
+// window.addEventListener('scroll',f);

@@ -1,3 +1,5 @@
+import { relative } from "path";
+
 (function ($) {
     var matches = [];
     var index = 0;
@@ -28,7 +30,7 @@
             strokeHighlightWidth: 6,
             strokeDashWidth: 6,
             strokeDashWeight: 8,
-            strokeDashMargin: 6
+            strokeDashMargin: 6 
         };
         $.extend(_opt, opt);
 

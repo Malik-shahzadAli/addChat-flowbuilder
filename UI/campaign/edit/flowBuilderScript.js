@@ -334,6 +334,10 @@ function loadFile(e) {
     $('#footer').data('text','');
     //getting image source
     var src= URL.createObjectURL(e.target.files[0]);
+    //convert
+//     src.convertToBase64(function(base64){
+//         console.log(base64);
+//    }) 
     //display user selected image
     $('#output').attr('src',src);
     //setting image source in the div footer
@@ -716,6 +720,7 @@ $('#updateGeneral').click(function(e){
 ///////////////////////////////////////////////////////////////////
 function createNewBoxRow(parent,childCounter,box,id){
     addNewBox++;
+
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
@@ -729,7 +734,7 @@ function createNewBoxRow(parent,childCounter,box,id){
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
     <div class="hypermodel-column " id='colum${addNewBox}'>
-    <div  class="hypermodel-grid ${id}" >
+    <div id='model-n${id}' class="hypermodel-grid ${id}" >
     <div class="hypermodel-header" style="background:#3f9ce8; ">
         <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
     </div>
@@ -818,7 +823,7 @@ function createNewBox(number,parent,childCounter,box,id){
     <div id='id${box}'></div>
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
-    <div class="hypermodel-grid ${id}"  >
+    <div id='model-n${id}' class="hypermodel-grid ${id}"  >
         <div class="hypermodel-header" style="background:#3f9ce8; ">
             <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
         </div>
@@ -906,7 +911,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     <div id='parent${boxNo}'></div>
     <div id='${id}' data-text='${boxNo}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
-        <div  class="hypermodel-grid ${id}">
+        <div id='model-n${id}' class="hypermodel-grid ${id}">
             <div class="hypermodel-header" style="background:#3f9ce8; ">
                 <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
             </div>
@@ -1024,7 +1029,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
     <div id='id${boxNo}' data-text=${a}></div>
     <div id='parent${boxNo}' data-text=${b}></div>
     <div id='${id}' data-text='${boxNo}'></div>
-    <div class="hypermodel-grid ${id}" >
+    <div id='model-n${id}' class="hypermodel-grid ${id}" >
     <div class="hypermodel-header" style="background:#3f9ce8; ">
         <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
     </div>
@@ -1174,7 +1179,7 @@ function appendFallback1(fallCounter, addnewBox,totalboxes,count,parent,childCou
     var c=parent+''+childCounter;
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
-        <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
+        <div class="hypermodel-item ui-sortable-handle" data-target='${c}'>
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addnewBox}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
@@ -1297,7 +1302,7 @@ function prepareOneBoxJSON(boxno,row){
         }
     }
     // parent=parent.toString();
-    obj.trainingPhrase=trainingPhrase;
+    obj.trainingPhrases=trainingPhrase;
     obj.responses=response;
     obj.id=id
     obj.parent=parent;
@@ -1388,7 +1393,7 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
     var gen=parent+''+childCounter;
     $('#userInputBody'+gn).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
-        <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
+        <div class="hypermodel-item ui-sortable-handle" data-target='${gen}'>
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${nBox}${totalBoxes}' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>

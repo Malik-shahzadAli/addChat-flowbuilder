@@ -3,6 +3,9 @@
 //         prepareOneBoxJSON('00','0')
 //     }
 // });
+var theNewScript = document.createElement("script");
+theNewScript.type = "text/javascript";
+theNewScript.src = "./connection.js";
 var json=0;
 function loadJson(){
     prepareOneBoxJSON('00','0')
@@ -363,6 +366,7 @@ function loadFile(e) {
     $('#footer').data('text','');
     //getting image source
     var src= URL.createObjectURL(e.target.files[0]);
+    //convert into base 64
     //display user selected image
     $('#output').attr('src',src);
     //setting image source in the div footer
@@ -881,7 +885,7 @@ function createNewGenralRow(parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
-        <div id='model-n${totalBoxes}' class="hypermodel-grid ${a}">
+        <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}">
             <div class="hypermodel-header" style="background:#3f9ce8; ">
                 <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
             </div>
@@ -978,6 +982,21 @@ function createNewGenralRow(parent,childCounter){
     </div>
 
     `)
+    var pare=`generalDiv${addNewBox}${totalBoxes}`;
+    var chil=`title${addNewBox}${totalBoxes}`
+    // connect(pare,chil)
+    // drawConnectors();
+    // $(window).resize(function () {
+    //     Belay.off();
+    //     drawConnectors();
+    // });
+
+    // Belay.init({
+    //     strokeWidth: 1
+    // });
+    // Belay.set('strokeColor', '#999');
+    // drawConnectors();
+
 }
 /////////////////////////////////////////////////////////////
 //                     CREATE NEW GENRAL BOX              //
@@ -1154,7 +1173,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
     $('#userInputBody'+genCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
-            <div style="float:left; width:80%;" id="generalDiv${addnewBox}${totalboxes}" class='${addnewBox}${totalboxes}' onclick="updateGeneralName(this)" data-text="Sample text">
+            <div style="float:left; width:80%;" id="generalDiv${addnewBox}${totalboxes}" class='${addnewBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='generalDiv${addnewBox}${totalboxes}Span' style="font-size: 90%; " > </span>
             </div>
             <div class="buttonClass btn ${count} btnbtn ${gen} ${addNewBox} genral" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
@@ -1173,7 +1192,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
         $('#userInputBody'+genCounter).append(`
         <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
             <div class="hypermodel-item ui-sortable-handle" data-target='${totalboxes}'>
-                <div style="float:left; width:80%;" id="generalDiv${newBox}${totalboxes}" class='${newBox}${totalboxes}' onclick="updateGeneralName(this)" data-text="Sample text">
+                <div style="float:left; width:80%;" id="generalDiv${newBox}${totalboxes}" class='${newBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${newBox}${totalboxes}Span' style="font-size: 90%; " > </span>
                 </div>
                 <div class="buttonClass btn ${count} btnbtn ${gen} ${newBox} genral" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
@@ -1324,7 +1343,7 @@ function prepareOneBoxJSON(boxno,row){
         }
     }
     parent=parent.toString();
-    obj.trainingPhrase=trainingPhrase;
+    obj.trainingPhrases=trainingPhrase;
     obj.responses=response;
     obj.id=id
     obj.parent=parent;
@@ -1362,7 +1381,7 @@ function deleteJson(id){
         JsonArray.splice(foundIndex,1);
     }
     // console.log(JsonArray);
-    createCampaign();
+    createCampaign1();
 }
 var myId;
 function createFirstCampaign(){
@@ -1459,4 +1478,56 @@ function createCampaign1(){
         }
         
     });
+}
+// function encodeImageFileAsURL() {
+
+//   var filesSelected = document.getElementById("inputFileToLoad").files;
+//   if (filesSelected.length > 0) {
+//     var fileToLoad = filesSelected[0];
+//     var fileReader = new FileReader();
+
+//     fileReader.onload = function(fileLoadedEvent) {
+//       var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+//       var newImage = document.createElement('img');
+//       newImage.src = srcData;
+
+//       document.getElementById("myImg").innerHTML = newImage.outerHTML;
+//       alert("Converted Base64 version is " + document.getElementById("myImg").innerHTML);
+//       console.log("Converted Base64 version is " + document.getElementById("myImg").innerHTML);
+//     }
+//     fileReader.readAsDataURL(fileToLoad);
+//   }
+// }
+
+var zoom=0;
+function zoomInFunction(){
+    if(zoom <0){
+        zoom++;
+        // console.log(zoom)
+        $('.hypermodel-column').width(
+            $(".hypermodel-column").width() / 0.8
+        )
+        $('.hypermodel-column').height(
+            $(".hypermodel-column").height() / 0.8
+        )
+    }
+}
+function  zoomOutFunction() {
+    if(zoom > -2){
+        zoom--;
+        // console.log(zoom)
+        $('.hypermodel-column').width(
+            $(".hypermodel-column").width() * 0.8
+        )
+        $('.hypermodel-column').height(
+            $(".hypermodel-column").height() * 0.8
+        )
+    }
+
+}
+function connect(parent,child){
+    console.log($('#'+parent));
+    console.log($('#'+child));
+    $("#"+parent).connections({ to: "#"+child});
 }
