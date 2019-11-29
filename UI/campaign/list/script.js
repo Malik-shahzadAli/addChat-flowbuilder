@@ -367,6 +367,7 @@ function getCompaniesListAgainstAPerticularUser()
 // 
 function campaignEdit(myid){
     localStorage.setItem('id',myid);
+    // window.location.replace(destination+'campaign/edit/')
     window.location.replace("http://localhost:3000/campaign/edit/");
 // console.log(JSONArray);
 }

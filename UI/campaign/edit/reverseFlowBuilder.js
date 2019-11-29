@@ -11,12 +11,23 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
+            console.log(response.campaign.flowJSON)
             parseJson(response.campaign.flowJSON)
+            $('#edit-campaign-name').val(response.campaign.name)
+            $('#description').val(response.campaign.description);
+            // var startDate=response.campaign.startDate;
+            // var d = new Date(startDate);
+            // d.format("YYYY-MM-DD");
+            // console.log(d);
+            $('#start-date').val(response.campaign.startDate);
+            $('#end-date').val(response.campaign.endDate);
+
             $('#display').removeClass('hide');
             $('#spinner').addClass('hide');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $('#spinner').addClass('hide');
+            // window.location.replace(destination+"/campaign/list/");
             window.location.replace("http://localhost:3000/campaign/list/");
         }
     });
@@ -35,15 +46,17 @@ function parseJson(JsonArray2){
         for(var k=0; k<a[parent].length; k++){
             var childCounter=k+1;
             if(a[parent][k].isFallback){
+                console.log(a[parent][k].parent)
                 addFallback(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
                
             }
             else{
                 addGeneral(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
-                for(var l=0; l<a[parent][k].trainingPhrase.length;l++){
-                    addTraningPhase(a[parent][k].boxNo,(l+1),a[parent][k].trainingPhrase[l])
+                for(var l=0; l<a[parent][k].trainingPhrases.length;l++){
+                    addTraningPhase(a[parent][k].boxNo,(l+1),a[parent][k].trainingPhrases[l])
                 }
                 for(var respose=0; respose <a[parent][k].responses.length;respose++){
+                    console.log(a[parent][k].responses[respose])
                     addResponse(a[parent][k].boxNo,(respose+1),a[parent][k].responses[respose]);
                 }
                 
@@ -196,6 +209,7 @@ function addResponse(boxNo,id,response){
 
     }
     else if(response.type=='image'){
+        console.log(response);
         //appending the response body with the image card
         $('#responsesBody'+boxNo).append(`
         <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>

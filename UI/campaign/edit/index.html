@@ -270,7 +270,7 @@
                                         <li class="nav-item" id="tab_second">
                                             <a class="nav-link" href="#step2" data-toggle="tab">Platform</a>
                                         </li>
-                                        <li class="nav-item" id="tab_second">
+                                        <li class="nav-item" id="tab_third">
                                             <a class="nav-link" href="#step3" data-toggle="tab">Flow Builder</a>
                                         </li>
                                         
@@ -285,14 +285,14 @@
                                   
                                             <div class="tab-pane active" id="step1" role="tabpanel">
                                                     <div class="form-group required control-label">
-                                                        <div class="form-material floating">
-                                                            <input class="form-control" type="text" id="campaign-name" required="required"/>
+                                                        <div class="form-material">
+                                                            <input class="form-control" type="text" id="edit-campaign-name" required="required"/>
                                                             <label for="wizard-simple2-firstname" class="req">Campaign Name </label>
                                                             <p id="campaignnamewarn" style="color:red"></p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <div class="form-material floating">
+                                                        <div class="form-material">
                                                             <input class="form-control" type="text" id="description">
                                                             <label for="wizard-simple2-lastname" class="req">Description </label>
                                                         </div>
@@ -487,8 +487,16 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="block-content">
-                                                                            <img id="output" width="200" />
-                                                                        <input type="file" class="form-control" accept="image/*" name="image" id="img"  onchange="loadFile(event)" required>
+                                                                            <!-- <img id="output" width="200" />
+                                                                        <input type="file" class="form-control" accept="image/*" name="image" id="img"  onchange="loadFile(event)" required> -->
+                                                                        <form method="post" action="" enctype="multipart/form-data">
+                                                                            <div class='preview'>
+                                                                                <img  id="output" width="200">
+                                                                            </div>
+                                                                            <div >
+                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadFile(event)" required />
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer f" id='footer'>
@@ -516,8 +524,16 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="block-content" id='updateImageBlock'>
-                                                                    <img id="updateOutput" width="200" />
-                                                                    <input type="file" class="form-control" accept="image/*" src='' name="image" id="updateImage"  onchange="loadUpdatedImage(event)" required>
+                                                                    <!-- <img id="updateOutput" width="200" />
+                                                                    <input type="file" class="form-control" accept="image/*" src='' name="image" id="updateImage"  onchange="loadUpdatedImage(event)" required> -->
+                                                                    <form method="post" action="" enctype="multipart/form-data">
+                                                                        <div class='preview'>
+                                                                            <img  id="updateOutput" width="200">
+                                                                        </div>
+                                                                        <div >
+                                                                            <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadUpdatedImage(event)" required />
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer f" id='updateImageFooter'>
@@ -859,7 +875,7 @@
                                                     <button type="button" class="btn btn-alt-secondary next" data-wizard="next">
                                                         Next <i class="fa fa-angle-right ml-5"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" >
+                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" onclick="Finish()" >
                                                         <i class="fa fa-check mr-5"></i> Submit
                                                     </button>
                                                 </div>

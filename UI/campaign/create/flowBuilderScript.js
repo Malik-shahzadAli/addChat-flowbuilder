@@ -212,6 +212,7 @@ $('#addImage').click(function(e){
   //getting image source from the image modal 
   //source set in the loadfile() function
   var source=$('#footer').data('text');
+  console.log(source);
   //checking if user load image 
   if(source !='')
   {
@@ -363,14 +364,24 @@ $('#updateDelay').click(function(e){
 })
 //load image in modal
 function loadFile(e) {
-    $('#footer').data('text','');
-    //getting image source
-    var src= URL.createObjectURL(e.target.files[0]);
-    //convert into base 64
-    //display user selected image
-    $('#output').attr('src',src);
-    //setting image source in the div footer
-    $("#footer").data("text",src);
+    //getting img from form
+    var img = new FormData();
+    //getting file from the form data
+    var file = (e.target.files[0]);
+    img.append('img',file);
+    //uploading image on the server
+    $.ajax({
+        url: destination+'/campaigns/'+myId+'/uploads',
+        type: 'post',
+        headers: {"Authorization": "Bearer "+localStorage.getItem("token"),"Accept":"text"},
+        data: img,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            $('#output').attr('src',response.imageUrl);
+            $("#footer").data("text",response.imageUrl)
+        },
+    });
 };
                                                     /////////////////
                                                    // UPDATE IMAGE//
@@ -390,12 +401,24 @@ function updateImage(e){
 }
 //loading value in Update JQUery modal 
 function loadUpdatedImage(e){
-    //getting image source
-    var src= URL.createObjectURL(e.target.files[0]);
-    //showing image in jquery modal
-    $('#updateOutput').attr('src',src)
-    //setting image source in JQuery modal
-    $("#updateImageFooter").data("text",src);
+        //getting img from form
+        var img = new FormData();
+        //getting file from the form data
+        var file = (e.target.files[0]);
+        img.append('img',file);
+        //uploading image on the server
+        $.ajax({
+            url: destination+'/campaigns/'+myId+'/uploads',
+            type: 'post',
+            headers: {"Authorization": "Bearer "+localStorage.getItem("token"),"Accept":"text"},
+            data: img,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                $('#updateOutput').attr('src',response.imageUrl);
+                $("#updateImageFooter").data("text",response.imageUrl)
+            },
+        });
 }
 
 //when  user click on the jquery modal
@@ -409,7 +432,10 @@ $('#updateImageBtn').click(function(e){
     //getting updated image source from the jquery modal
     var source=$('#updateImageFooter').data('text');
     //setting new image
-    $('#'+id+'Image').attr('src',source)
+    console.log('This is the source :'+source);
+    // console.lo(`#`+id)
+    $(`#${id} img`).attr('src',source)
+    // $('#'+id+'Image').attr('src',source)
     prepareOneBoxJSON(rowNo,row)
 })
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1363,7 +1389,7 @@ function prepareOneBoxJSON(boxno,row){
     }
     console.log(parent);
    
-    // console.log(JsonArray);
+    console.log(JsonArray);
     if(json == '0'){
         createFirstCampaign();
     }
@@ -1386,7 +1412,6 @@ function deleteJson(id){
 var myId;
 function createFirstCampaign(){
     json++;
-    console.log('callling')
     let campaignName = $('#campaign-name').val();
     let description = $("#description").val();
     let startDate1 = $("#start-date").val();
@@ -1450,18 +1475,29 @@ function createCampaign1(){
     let compaignNumber = $('#number').find(":selected").val();
     
     let body = {
-        name : campaignName,
-        description : description,
-        startDate : startDate,
-        endDate : endDate,
-        status : status,
-        platform:platform,
-        twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
-
-    // console.log(JSON.stringify(JsonArray));
-
+    $.ajax({
+        url: destination+'/campaigns/'+myId+'/update',
+        type:"PATCH",
+        headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
+        data: JSON.stringify(body),
+        dataType: 'json',
+        contentType: "application/json",
+        success : function(response){
+            console.log(response);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+        
+    });
+}
+function Finish(){
+    console.log('here')
+    let body = {
+        flowJSON : JsonArray
+    }
     $.ajax({
         url: destination+'/campaigns/'+myId,
         type:"PATCH",
@@ -1471,35 +1507,16 @@ function createCampaign1(){
         contentType: "application/json",
         success : function(response){
             console.log(response);
-            // window.location.replace('../list/');
+            window.location.replace("http://localhost:3000/campaign/list/");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log(errorThrown);
         }
         
     });
+    
+
 }
-// function encodeImageFileAsURL() {
-
-//   var filesSelected = document.getElementById("inputFileToLoad").files;
-//   if (filesSelected.length > 0) {
-//     var fileToLoad = filesSelected[0];
-//     var fileReader = new FileReader();
-
-//     fileReader.onload = function(fileLoadedEvent) {
-//       var srcData = fileLoadedEvent.target.result; // <--- data: base64
-
-//       var newImage = document.createElement('img');
-//       newImage.src = srcData;
-
-//       document.getElementById("myImg").innerHTML = newImage.outerHTML;
-//       alert("Converted Base64 version is " + document.getElementById("myImg").innerHTML);
-//       console.log("Converted Base64 version is " + document.getElementById("myImg").innerHTML);
-//     }
-//     fileReader.readAsDataURL(fileToLoad);
-//   }
-// }
-
 var zoom=0;
 function zoomInFunction(){
     if(zoom <0){

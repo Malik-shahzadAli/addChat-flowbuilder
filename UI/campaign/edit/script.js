@@ -57,14 +57,14 @@
         
     
 
-        $("#tab_second").addClass('disabled'); // Disable Second Tab
+        // $("#tab_second").addClass('disabled'); // Disable Second Tab
         
 
 
         
 
-        $(".next").prop("disabled", true);
-        $(".submit-button").prop("disabled",true);
+        $(".next").prop("disabled", false);
+        // $(".submit-button").prop("disabled",true);
 
         
 
@@ -77,67 +77,67 @@
     
     // Validate Campaign Name
 
-        $("#campaign-name").focusout(function() 
-        {
-                let name = $("#campaign-name").val();
-                $("#campaignnamewarn").hide();
+        // $("#campaign-name").focusout(function() 
+        // {
+        //         let name = $("#campaign-name").val();
+        //         $("#campaignnamewarn").hide();
 
-                let body = {
-                    name : name,
-                    company : companyID
-                }
+        //         let body = {
+        //             name : name,
+        //             company : companyID
+        //         }
 
-                if(name.length > 0)
-                {
+        //         if(name.length > 0)
+        //         {
 
-                    $.ajax({
-                        url: destination+'/validate/campaign',
-                        type:"POST",
-                        headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
-                        dataType: 'json',
-                        contentType: "application/json",
-                        data: JSON.stringify(body),
-                        success : function(response)
-                        {
-                            console.log(response);
+        //             $.ajax({
+        //                 url: destination+'/validate/campaign',
+        //                 type:"POST",
+        //                 headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
+        //                 dataType: 'json',
+        //                 contentType: "application/json",
+        //                 data: JSON.stringify(body),
+        //                 success : function(response)
+        //                 {
+        //                     console.log(response);
 
-                                $("#campaignnamewarn").hide();
-                                checkCampaignName = true;
-                                if(checkCampaignName && checkStartDate && checkStartDate)
-                                {
-                                    // $(".submit-button").prop("disabled",false);
-                                    $(".next").prop("disabled", false);
-                                    $("#tab_second").removeClass('disabled');
-
-                                    
-                                }
-                                else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
-                                {
-                                    $(".submit-button").prop("disabled",false);
-                                    
+        //                         $("#campaignnamewarn").hide();
+        //                         checkCampaignName = true;
+        //                         if(checkCampaignName && checkStartDate && checkStartDate)
+        //                         {
+        //                             // $(".submit-button").prop("disabled",false);
+        //                             $(".next").prop("disabled", false);
+        //                             $("#tab_second").removeClass('disabled');
 
                                     
-                                }
-                                else
-                                {
-                                    $("#tab_second").addClass('disabled'); 
-                                    $(".next").prop("disabled", true);
-                                    $(".submit-button").prop("disabled",true);
-                                }
+        //                         }
+        //                         else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
+        //                         {
+        //                             $(".submit-button").prop("disabled",false);
+                                    
+
+                                    
+        //                         }
+        //                         else
+        //                         {
+        //                             $("#tab_second").addClass('disabled'); 
+        //                             $(".next").prop("disabled", true);
+        //                             $(".submit-button").prop("disabled",true);
+        //                         }
                             
 
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            console.log(errorThrown)
-                            $("#campaignnamewarn").text("Campaign Name Already Exist");
-                            $("#campaignnamewarn").show();
-                            // $(".next").prop("disabled", true);
-                        }
+        //                 },
+        //                 error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //                     console.log(errorThrown)
+        //                     $("#campaignnamewarn").text("Campaign Name Already Exist");
+        //                     $("#campaignnamewarn").show();
+        //                     // $(".next").prop("disabled", true);
+        //                 }
                         
-                    });
-                }    
+        //             });
+        //         }    
                 
-        });
+        // });
     
     // Validate Start Date
 
@@ -157,9 +157,9 @@
                 $("#startdatewarn").text("End date must be after start date");
                 $("#startdatewarn").show();
                 ////////////////
-                $("#tab_second").addClass('disabled'); 
-                $(".next").prop("disabled", true);
-                $(".submit-button").prop("disabled",true);
+                // $("#tab_second").addClass('disabled'); 
+                // $(".next").prop("disabled", true);
+                // $(".submit-button").prop("disabled",true);
             }
             else
             {
@@ -169,13 +169,13 @@
                                 {
                                     // $(".submit-button").prop("disabled",false);
                                     $(".next").prop("disabled", false);
-                                    $("#tab_second").removeClass('disabled');
+                                    // $("#tab_second").removeClass('disabled');
 
                                     
                                 }
                                 else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
                                 {
-                                    $(".submit-button").prop("disabled",false);
+                                    // $(".submit-button").prop("disabled",false);
                                     
 
                                     
@@ -204,9 +204,9 @@
                 $("#startdatewarn").text("End date must be after start date");
                 $("#startdatewarn").show();
                 ////////////////
-                $("#tab_second").addClass('disabled'); 
-                $(".next").prop("disabled", true);
-                $(".submit-button").prop("disabled",true);
+                // $("#tab_second").addClass('disabled'); 
+                // $(".next").prop("disabled", true);
+                // $(".submit-button").prop("disabled",true);
             }
             else
             {
@@ -216,14 +216,14 @@
                                 {
                                     // $(".submit-button").prop("disabled",false);
                                     $(".next").prop("disabled", false);
-                                    $("#tab_second").removeClass('disabled');
+                                    // $("#tab_second").removeClass('disabled');
 
                                     
                                 }
                                 else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
                                 {
-                                    $(".submit-button").prop("disabled",false);
-                                    
+                                    // $(".submit-button").prop("disabled",false);
+                                    // 
 
                                     
                                 }
@@ -258,9 +258,9 @@
             
 
             /////////////
-            $("#tab_second").addClass('disabled'); 
-            $(".next").prop("disabled", true);
-            $(".submit-button").prop("disabled",true);
+            // $("#tab_second").addClass('disabled'); 
+            // $(".next").prop("disabled", true);
+            // $(".submit-button").prop("disabled",true);
         }
         else
         {
@@ -270,13 +270,13 @@
                             {
                                 // $(".submit-button").prop("disabled",false);
                                 $(".next").prop("disabled", false);
-                                $("#tab_second").removeClass('disabled');
+                                // $("#tab_second").removeClass('disabled');
 
                                 
                             }
                             else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
                                 {
-                                    $(".submit-button").prop("disabled",false);
+                                    // $(".submit-button").prop("disabled",false);
                                     
 
                                     
@@ -306,9 +306,9 @@
             
 
             /////////////
-            $("#tab_second").addClass('disabled'); 
-            $(".next").prop("disabled", true);
-            $(".submit-button").prop("disabled",true);
+            // $("#tab_second").addClass('disabled'); 
+            // $(".next").prop("disabled", true);
+            // $(".submit-button").prop("disabled",true);
         }
         else
         {
@@ -318,13 +318,13 @@
                             {
                                 // $(".submit-button").prop("disabled",false);
                                 $(".next").prop("disabled", false);
-                                $("#tab_second").removeClass('disabled');
+                                // $("#tab_second").removeClass('disabled');
 
                                 
                             }
                             else if(checkCampaignName && checkStartDate && checkStartDate && compaignNumber)
                                 {
-                                    $(".submit-button").prop("disabled",false);
+                                    // $(".submit-button").prop("disabled",false);
                                     
 
                                     
@@ -354,7 +354,7 @@
             
         }
         else{
-            $(".submit-button").prop("disabled",false);
+            // $(".submit-button").prop("disabled",false);
             $("#selectnumberwarn").hide();
 
         }

@@ -331,17 +331,26 @@ $('#updateDelay').click(function(e){
 })
 //load image in modal
 function loadFile(e) {
-    $('#footer').data('text','');
-    //getting image source
-    var src= URL.createObjectURL(e.target.files[0]);
-    //convert
-//     src.convertToBase64(function(base64){
-//         console.log(base64);
-//    }) 
-    //display user selected image
-    $('#output').attr('src',src);
-    //setting image source in the div footer
-    $("#footer").data("text",src);
+    //checking campaign id 
+    console.log('campaign id :'+myid);
+    //getting img from form
+    var img = new FormData();
+    //getting file from the form data
+    var file = (e.target.files[0]);
+    img.append('img',file);
+    //uploading image on the server
+    $.ajax({
+        url: destination+'/campaigns/'+myid+'/uploads',
+        type: 'post',
+        headers: {"Authorization": "Bearer "+localStorage.getItem("token"),"Accept":"text"},
+        data: img,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            $('#output').attr('src',response.imageUrl);
+            $("#footer").data("text",response.imageUrl)
+        },
+    });
 };
                                                     /////////////////
                                                    // UPDATE IMAGE//
@@ -360,12 +369,24 @@ function updateImage(e){
 }
 //loading value in Update JQUery modal 
 function loadUpdatedImage(e){
-    //getting image source
-    var src= URL.createObjectURL(e.target.files[0]);
-    //showing image in jquery modal
-    $('#updateOutput').attr('src',src)
-    //setting image source in JQuery modal
-    $("#updateImageFooter").data("text",src);
+    //getting img from form
+    var img = new FormData();
+    //getting file from the form data
+    var file = (e.target.files[0]);
+    img.append('img',file);
+    //uploading image on the server
+    $.ajax({
+        url: destination+'/campaigns/'+myid+'/uploads',
+        type: 'post',
+        headers: {"Authorization": "Bearer "+localStorage.getItem("token"),"Accept":"text"},
+        data: img,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            $('#updateOutput').attr('src',response.imageUrl);
+            $("#updateImageFooter").data("text",response.imageUrl)
+        },
+    });
 }
 
 //when  user click on the jquery modal
@@ -376,7 +397,7 @@ $('#updateImageBtn').click(function(e){
     //getting updated image source from the jquery modal
     var source=$('#updateImageFooter').data('text');
     //setting new image
-    $('#'+id+'Image').attr('src',source)
+    $(`#${id} img`).attr('src',source)
     prepareOneBoxJSON(rowNo,0)
 })
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1430,10 +1451,8 @@ function createCampaign(){
     }
 
     //  console.log(JSON.stringify(JsonArray));
-    console.log(myid);
-
     $.ajax({
-        url: destination+'/campaigns/'+myid,
+        url: destination+'/campaigns/'+myid+'/update',
         type:"PATCH",
         headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
         data: JSON.stringify(body),
@@ -1448,4 +1467,27 @@ function createCampaign(){
         }
         
     });
+}
+function Finish(){
+    let body = {
+        flowJSON : JsonArray
+    }
+    $.ajax({
+        url: destination+'/campaigns/'+myid,
+        type:"PATCH",
+        headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
+        data: JSON.stringify(body),
+        dataType: 'json',
+        contentType: "application/json",
+        success : function(response){
+            console.log(response);
+            window.location.replace("http://localhost:3000/campaign/list/");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+        
+    });
+    
+
 }

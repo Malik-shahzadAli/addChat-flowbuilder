@@ -490,8 +490,14 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="block-content">
-                                                                            <img id="output" width="200" />
-                                                                        <input type="file" class="form-control" accept="image/*" name="image" id="img"  onchange="loadFile(event)" required>
+                                                                        <form method="post" action="" enctype="multipart/form-data">
+                                                                            <div class='preview'>
+                                                                                <img  id="output" width="200">
+                                                                            </div>
+                                                                            <div >
+                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadFile(event)" required />
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer f" id='footer'>
@@ -519,8 +525,16 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="block-content" id='updateImageBlock'>
-                                                                    <img id="updateOutput" width="200" />
-                                                                    <input type="file" class="form-control" accept="image/*" src='' name="image" id="updateImage"  onchange="loadUpdatedImage(event)" required>
+                                                                    <!-- <img id="updateOutput" width="200" />
+                                                                    <input type="file" class="form-control" accept="image/*" src='' name="image" id="updateImage"  onchange="loadUpdatedImage(event)" required> -->
+                                                                    <form method="post" action="" enctype="multipart/form-data">
+                                                                        <div class='preview'>
+                                                                            <img  id="updateOutput" width="200">
+                                                                        </div>
+                                                                        <div >
+                                                                            <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadUpdatedImage(event)" required />
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer f" id='updateImageFooter'>
@@ -862,7 +876,7 @@
                                                     <button type="button" id='json' onclick="loadJson()" class="btn btn-alt-secondary next" data-wizard="next">
                                                         Next <i class="fa fa-angle-right ml-5"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" >
+                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" onclick="Finish()" >
                                                         <i class="fa fa-check mr-5"></i> Submit
                                                     </button>
                                                 </div>
