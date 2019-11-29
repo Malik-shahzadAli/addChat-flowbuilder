@@ -339,6 +339,7 @@ function loadFile(e) {
     var file = (e.target.files[0]);
     img.append('img',file);
     //uploading image on the server
+    $("#footer").data("text"," ")
     $.ajax({
         url: destination+'/campaigns/'+myid+'/uploads',
         type: 'post',
@@ -374,6 +375,7 @@ function loadUpdatedImage(e){
     //getting file from the form data
     var file = (e.target.files[0]);
     img.append('img',file);
+    $("#updateImageFooter").data("text"," ")
     //uploading image on the server
     $.ajax({
         url: destination+'/campaigns/'+myid+'/uploads',

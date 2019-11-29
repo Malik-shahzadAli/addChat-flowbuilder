@@ -7,8 +7,12 @@ var theNewScript = document.createElement("script");
 theNewScript.type = "text/javascript";
 theNewScript.src = "./connection.js";
 var json=0;
+
 function loadJson(){
-    prepareOneBoxJSON('00','0')
+    let compaignNumber = $('#number').find(":selected").val();
+    if(compaignNumber !='2'){
+        prepareOneBoxJSON('00','0')
+    }
 }
 // counter
 var counter=0;
@@ -370,6 +374,7 @@ function loadFile(e) {
     var file = (e.target.files[0]);
     img.append('img',file);
     //uploading image on the server
+    $("#footer").data("text"," ");
     $.ajax({
         url: destination+'/campaigns/'+myId+'/uploads',
         type: 'post',
@@ -407,6 +412,7 @@ function loadUpdatedImage(e){
         var file = (e.target.files[0]);
         img.append('img',file);
         //uploading image on the server
+        $("#updateImageFooter").data("text"," ")
         $.ajax({
             url: destination+'/campaigns/'+myId+'/uploads',
             type: 'post',
@@ -1425,6 +1431,7 @@ function createFirstCampaign(){
     let status = $('#status').find(":selected").text();   
     let platform = $('#platform').find(":selected").text();    
     let compaignNumber = $('#number').find(":selected").val();
+    console.log(campaignName);
     
     let body = {
         name : campaignName,

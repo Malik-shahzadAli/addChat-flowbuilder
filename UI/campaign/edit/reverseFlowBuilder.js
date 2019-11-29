@@ -15,13 +15,11 @@ $(document).ready(function(){
             parseJson(response.campaign.flowJSON)
             $('#edit-campaign-name').val(response.campaign.name)
             $('#description').val(response.campaign.description);
-            // var startDate=response.campaign.startDate;
-            // var d = new Date(startDate);
-            // d.format("YYYY-MM-DD");
-            // console.log(d);
             $('#start-date').val(response.campaign.startDate);
             $('#end-date').val(response.campaign.endDate);
-
+            $('#status').val(response.campaign.status);
+            $('#platform').val(response.campaign.platform);
+            $('#number').val(response.campaign.twilioNumber)
             $('#display').removeClass('hide');
             $('#spinner').addClass('hide');
         },
