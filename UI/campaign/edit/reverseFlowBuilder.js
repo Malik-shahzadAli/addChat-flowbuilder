@@ -2,8 +2,11 @@ var theNewScript = document.createElement("script");
 theNewScript.type = "text/javascript";
 theNewScript.src = "./flowBuilderScript.js";
 $(document).ready(function(){
-   var id= localStorage.getItem('id');
-   localStorage.removeItem('id');
+//    var id= localStorage.getItem('id');
+//    localStorage.removeItem('id');
+   let searchParams = new URLSearchParams(window.location.search)
+   var id = searchParams.get('id')
+//    console.log(param)
     $.ajax({
         url: destination+'/campaigns/'+id,
         type:"GET",
@@ -15,8 +18,19 @@ $(document).ready(function(){
             parseJson(response.campaign.flowJSON)
             $('#edit-campaign-name').val(response.campaign.name)
             $('#description').val(response.campaign.description);
-            $('#start-date').val(response.campaign.startDate);
-            $('#end-date').val(response.campaign.endDate);
+          
+            // var f = new Date(startDate[2], startDate[1] - 1, startDate[0])
+             var date=response.campaign.startDate;
+            var newDate=date.substr(0,10)
+            var format=newDate.split("-")
+            console.log(format[2]);
+            $('#start-date').val(format[2]+"-"+format[1]+"-"+format[0]);
+             //console.log(date.getMonth);
+            var endDate=response.campaign.endDate;
+            var newEndDate=endDate.substr(0,10);
+            var endDateformat=newEndDate.split("-")
+            $('#end-date').val(endDateformat[2]+"-"+endDateformat[1]+"-"+endDateformat[0])
+            // $('#end-date').val(response.campaign.endDate);
             $('#status').val(response.campaign.status);
             $('#platform').val(response.campaign.platform);
             $('#number').val(response.campaign.twilioNumber)

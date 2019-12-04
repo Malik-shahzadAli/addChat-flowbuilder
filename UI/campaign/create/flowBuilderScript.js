@@ -1393,9 +1393,6 @@ function prepareOneBoxJSON(boxno,row){
     else{
         JsonArray[foundIndex]=obj;
     }
-    console.log(parent);
-   
-    console.log(JsonArray);
     if(json == '0'){
         createFirstCampaign();
     }
@@ -1405,6 +1402,7 @@ function prepareOneBoxJSON(boxno,row){
    
 }
 function deleteJson(id){
+    console.log('pass id is :'+id);
     //finding the object index
     var foundIndex = JsonArray.findIndex(x => id == x.id);
     //if index found
@@ -1412,6 +1410,7 @@ function deleteJson(id){
         //deleting the object
         JsonArray.splice(foundIndex,1);
     }
+    console.log(JsonArray);
     // console.log(JsonArray);
     createCampaign1();
 }
@@ -1444,9 +1443,6 @@ function createFirstCampaign(){
         twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
-
-    // console.log(JSON.stringify(JsonArray));
-
     $.ajax({
         url: destination+'/campaigns',
         type:"POST",
@@ -1458,6 +1454,8 @@ function createFirstCampaign(){
             console.log(response.campaign._id);
             myId=response.campaign._id;
             // window.location.replace('../list/');
+            $('#display').removeClass('hide');
+            $('#spinner').addClass('hide');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -1467,6 +1465,7 @@ function createFirstCampaign(){
 }
 
 function createCampaign1(){
+    console.log('Undefine calll ::'+myId);
     let campaignName = $('#campaign-name').val();
     let description = $("#description").val();
     let startDate1 = $("#start-date").val();

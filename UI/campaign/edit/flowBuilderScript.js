@@ -637,7 +637,9 @@ function addGenral(e){
     //jQuery modal childcounter adding
     $('#childCounter').data('text',newCounter); 
     //setting the parent div root1..etc in the parent div id 
-    $('#parentDivid').data('text',e.classList[3])
+    $('#parentDivid').data('text',e.classList[3]);
+    console.log('Passing wrong parent id :'+$('#parentDivid').data('text'));
+
 }
 $('#addGeneral').click(function(e){
     counter++;
@@ -650,6 +652,7 @@ $('#addGeneral').click(function(e){
     var generalCounter=$('#generalCounter').data('text');
     //getting the parent
     var parent=$('#parentDivid').data('text');
+    console.log('this is the wrong parent getting :'+parent);
     //getting the child counter from JQuery modal
     var childCounter=$('#childCounter').data('text');
     var oldCounter;
@@ -670,8 +673,8 @@ $('#addGeneral').click(function(e){
         var box=0;
         var nBox=0;
         if( btnClass== addNewBox){
-             box=parseInt(addNewBox)+1+''+totalBoxes;
-             nBox=parseInt(addNewBox)+1;
+            box=parseInt(addNewBox)+1+''+totalBoxes;
+            nBox=parseInt(addNewBox)+1;
             createNewGenralRow(parent,childCounter,box,id);
         }
         else{
@@ -742,6 +745,7 @@ $('#updateGeneral').click(function(e){
 //              FUNCTION CREATE NEW FALLBACK ROW                  //
 ///////////////////////////////////////////////////////////////////
 function createNewBoxRow(parent,childCounter,box,id){
+    console.log('setting wrong parent id on the box button :'+box);
     addNewBox++;
 
     var newAddNewBox=parseInt(addNewBox)-1;
@@ -806,13 +810,13 @@ function createNewBoxRow(parent,childCounter,box,id){
                         <i class="fa fa-plus"></i>
                         <div class="dropdown-menu dropdown${addNewBox}${counter}" aria-labelledby="btnGroupVerticalDrop2">
                         <div  id='fallbackCounter'></div>
-                            <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes} class="dropdown-item ${addNewBox} ${box} ${newTotalBoxes} ${a} btn" onclick='addFallback1(this)'>
+                            <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes} class="dropdown-item ${addNewBox} ${box} ${newTotalBoxes} ${id} btn" onclick='addFallback1(this)'>
                                 FallBack
                             </a>
                             <div id='falling${totalBoxes}'>
                             <div class="dropdown-divider " id='generalCounter'></div>
                             </div>
-                            <a id='genDropdown${totalBoxes}' class="dropdown-item ${addNewBox} ${box} ${a}" onclick='addGenral(this)'>
+                            <a id='genDropdown${totalBoxes}' class="dropdown-item ${addNewBox} ${box} ${id}" onclick='addGenral(this)'>
                                 General
                             </a>                                             
                         </div> 
@@ -895,11 +899,11 @@ function createNewBox(number,parent,childCounter,box,id){
                             <i class="fa fa-plus"></i>
                             <div class="dropdown-menu dropdown${addNewBox}${counter}" aria-labelledby="btnGroupVerticalDrop2">
                             <div  id='fallbackCounter'></div>
-                                <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${number} ${box} ${newTotalBoxes} ${a} btn" data-text(${counter})  onclick='addFallback1(this)'>
+                                <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${number} ${box} ${newTotalBoxes} ${id} btn" data-text(${counter})  onclick='addFallback1(this)'>
                                     FallBack
                                 </a>
                                 <div class="dropdown-divider "  id='generalCounter'></div>
-                                <a id='genDropdown${totalBoxes}' class="dropdown-item ${number} ${box} ${a}" onclick='addGenral(this)'>
+                                <a id='genDropdown${totalBoxes}' class="dropdown-item ${number} ${box} ${id}" onclick='addGenral(this)'>
                                     General
                                 </a>
                                 <div id='createdFallback'></div>                                                
@@ -917,12 +921,14 @@ function createNewBox(number,parent,childCounter,box,id){
 //                  FUNCTION CREATES NEW GENRAL ROW       //
 ////////////////////////////////////////////////////////////
 function createNewGenralRow(parent,childCounter,boxNo,id){
+    console.log('setting wrong parent id on the box button :'+boxNo);
     addNewBox++;
     var newAddNewBox=parseInt(addNewBox)-1;;
     var newTotalBoxes=totalBoxes;
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var a=parent+''+childCounter;
     console.log('this is the id :'+a);
+    console.log('this is the real id :'+id);
     // console.log('this is the parent.......'+parent)
     if(parent=='0'){
         a='root';
@@ -1016,11 +1022,11 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
                             <i class="fa fa-plus"></i>
                             <div class="dropdown-menu dropdown${addNewBox}${counter}" aria-labelledby="btnGroupVerticalDrop2">
                             <div id='fallbackCounter'></div>
-                                <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${addNewBox} ${boxNo} ${newTotalBoxes} ${a} btn" data-text(${counter})  onclick='addFallback1(this)'>
+                                <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${addNewBox} ${boxNo} ${newTotalBoxes} ${id} btn" data-text(${counter})  onclick='addFallback1(this)'>
                                     FallBack
                                 </a>
                                 <div class="dropdown-divider" id='generalCounter'></div>
-                                <a id='genDropdown${totalBoxes}' class="dropdown-item ${addNewBox} ${boxNo} ${a}" onclick='addGenral(this)'>
+                                <a id='genDropdown${totalBoxes}' class="dropdown-item ${addNewBox} ${boxNo} ${id}" onclick='addGenral(this)'>
                                     General
                                 </a>                                                 
                             </div>      
@@ -1132,11 +1138,11 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
             <div class="row btn btn-sm btn-alt-default dropdown ${boxNo}" id='dropdown' style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btn${addNewBox}' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='userInputDropdownBtn(this)'>
                     <i class="fa fa-plus"></i>
                 <div class="dropdown-menu dropdown${boxNo}" aria-labelledby="btnGroupVerticalDrop2" >
-                    <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${number} ${boxNo} ${newTotalBoxes} ${a} btn"  onclick='addFallback1(this)'>
+                    <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${number} ${boxNo} ${newTotalBoxes} ${id} btn"  onclick='addFallback1(this)'>
                         FallBack
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a id='genDropdown${totalBoxes}' class="dropdown-item ${number} ${boxNo} ${a}" onclick='addGenral(this)'>
+                    <a id='genDropdown${totalBoxes}' class="dropdown-item ${number} ${boxNo} ${id}" onclick='addGenral(this)'>
                         General
                     </a>
                                                                         
@@ -1230,7 +1236,8 @@ function RemoveFallback(e){
     var id=(e.parentNode.children[0].id);
     // var secoundId=($(`#${id}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id)
     // $(`#${secoundId}`).removeClass('disabled')
-    for(var i=0; i<removeClasses.length; i++){
+    for(var i=0; i<=removeClasses.length; i++){
+        
         deleteJson(removeClasses[i]);
         $('.'+removeClasses[i]).remove();
         //getting disable button id
@@ -1241,6 +1248,7 @@ function RemoveFallback(e){
 }
 //prepare json
 function prepareOneBoxJSON(boxno,row){
+   
     var newRow=parseInt(row)+1;
     var totalChilds=$(`#colum${newRow}`).children()
     var boxNo = []
@@ -1347,15 +1355,12 @@ function prepareOneBoxJSON(boxno,row){
       JsonArray[foundIndex]=obj;
     }
     console.log(JsonArray);
-    // if(parent == '0'){
-    //     createFirstCampaign();
-    // }
-    // else{
-        createCampaign();
-    // }
-    
 }
+jQuery(':button').click(function () {
+    createCampaign();
+})
 function deleteJson(id){
+    console.log('this is the pass id :'+ id)
     //finding the object index
     var foundIndex = JsonArray.findIndex(x => id == x.id);
     //if index found
@@ -1366,52 +1371,6 @@ function deleteJson(id){
     // console.log(JsonArray);
     createCampaign();
 }
-// function createFirstCampaign(){
-//     let campaignName = $('#campaign-name').val();
-//     let description = $("#description").val();
-//     let startDate1 = $("#start-date").val();
-//     let endDate1 = $("#end-date").val();
-
-//     let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-//     let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-
-//     // console.log(startDate +"----"+endDate);
-    
-//     let status = $('#status').find(":selected").text();   
-//     let platform = $('#platform').find(":selected").text();    
-//     let compaignNumber = $('#number').find(":selected").val();
-    
-//     let body = {
-//         name : campaignName,
-//         description : description,
-//         startDate : startDate,
-//         endDate : endDate,
-//         status : status,
-//         platform:platform,
-//         company:companyID,
-//         twilioNumber : compaignNumber,
-//         flowJSON : JsonArray
-//     }
-
-//     //  console.log(JSON.stringify(JsonArray));
-
-//     $.ajax({
-//         url: destination+'/campaigns',
-//         type:"POST",
-//         headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
-//         data: JSON.stringify(body),
-//         dataType: 'json',
-//         contentType: "application/json",
-//         success : function(response){
-//             console.log(response);
-//             // window.location.replace('../list/');
-//         },
-//         error: function(XMLHttpRequest, textStatus, errorThrown) {
-//             console.log(errorThrown);
-//         }
-        
-//     });
-// }
 function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox){
     var gen=parent+''+childCounter;
     $('#userInputBody'+gn).append(`
@@ -1442,8 +1401,6 @@ function createCampaign(){
     let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
     let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
 
-    // console.log(startDate +"----"+endDate);
-    
     let status = $('#status').find(":selected").text();   
     let platform = $('#platform').find(":selected").text();    
     let compaignNumber = $('#number').find(":selected").val();
@@ -1451,8 +1408,6 @@ function createCampaign(){
     let body = {
         flowJSON : JsonArray
     }
-
-    //  console.log(JSON.stringify(JsonArray));
     $.ajax({
         url: destination+'/campaigns/'+myid+'/update',
         type:"PATCH",
