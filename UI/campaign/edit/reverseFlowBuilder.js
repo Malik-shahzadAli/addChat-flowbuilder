@@ -14,7 +14,7 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response.campaign.flowJSON)
+            console.log(response)
             parseJson(response.campaign.flowJSON)
             $('#edit-campaign-name').val(response.campaign.name)
             $('#description').val(response.campaign.description);
@@ -33,9 +33,13 @@ $(document).ready(function(){
             // $('#end-date').val(response.campaign.endDate);
             $('#status').val(response.campaign.status);
             $('#platform').val(response.campaign.platform);
-            $('#number').val(response.campaign.twilioNumber)
+            $("#number option:selected").text(response.campaign.twilioNumber);
+            $("#number option:selected").val(response.campaign.twilioNumber);
+            // $("#ddlCustType option:selected").text();
+            // $('#number').val("+14245432422");
             $('#display').removeClass('hide');
             $('#spinner').addClass('hide');
+            // Refresh();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $('#spinner').addClass('hide');

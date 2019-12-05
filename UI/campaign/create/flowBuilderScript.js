@@ -33,16 +33,13 @@ $('#userInput').collapse('show')
 //Collapse button of User Says
 $('#colapse').click(function(){
     $('#UserSays').collapse('toggle')
-    Refresh();
 })
 $('#dynamicColapse').click(function(){
     $('#dynamicUserSays').collapse('toggle')
-    Refresh();
 })
 // collapse Responses Button
 $('#colapseResponses').click(function(){
     $('#responses').collapse('toggle')
-    Refresh();
 })
 // collapse User Input Button
 $('#colapseUserInputs').click(function(){
@@ -917,7 +914,7 @@ function createNewGenralRow(parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
-        <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}">
+        <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}" id="model-n${totalBoxes}">
             <div class="hypermodel-header" style="background:#3f9ce8; ">
                 <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
             </div>
@@ -1430,7 +1427,8 @@ function createFirstCampaign(){
     let status = $('#status').find(":selected").text();   
     let platform = $('#platform').find(":selected").text();    
     let compaignNumber = $('#number').find(":selected").val();
-    console.log(campaignName);
+    console.log(compaignNumber);
+    // console.log(campaignName);
     
     let body = {
         name : campaignName,
@@ -1451,7 +1449,7 @@ function createFirstCampaign(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response.campaign._id);
+            console.log(response);
             myId=response.campaign._id;
             // window.location.replace('../list/');
             $('#display').removeClass('hide');

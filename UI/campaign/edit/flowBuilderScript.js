@@ -17,23 +17,37 @@ $('#responses').collapse('show')
 $('#userInput').collapse('show')
 //Collapse button of User Says
 $('#colapse').click(function(){
+    // event.stopPropagation();
     $('#UserSays').collapse('toggle')
-    Refresh();
+    // Refresh();
 })
 $('#dynamicColapse').click(function(){
+    // event.stopPropagation();
     $('#dynamicUserSays').collapse('toggle')
-    Refresh();
+    // Refresh();
 })
 // collapse Responses Button
 $('#colapseResponses').click(function(){
+    // event.stopPropagation();
     $('#responses').collapse('toggle')
-    Refresh();
+    // Refresh();
 })
 // collapse User Input Button
 $('#colapseUserInputs').click(function(){
+    // event.stopPropagation();
     $('#userInput').collapse('toggle')
   
 })
+$(window).click( function(){
+    console.log('document')
+});
+// $(document).click( function(){
+//     $('#userInput').collapse('hide')
+//     $('#responses').collapse('hide')
+//     $('#dynamicUserSays').collapse('hide')
+//     $('#UserSays').collapse('hide')
+//     // $('#drop').hide();
+// });
 function addnewTraningPhaseCard(e){
     // console.log(e.classList[1]);
     counter++;
@@ -783,11 +797,11 @@ function createNewBoxRow(parent,childCounter,box,id){
                         </a>
                         <div class="dropdown-divider"></div>
                             <a class="dropdown-item ${box}" onclick='imageFunction(this)'>
-                                <i class="fa fa-file-image-o mr-5" aria-hidden="true"></i> Picture
+                                <i class="fa fa-file-image-o mr-5" ></i> Picture
                             </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item ${box}" onclick='delayFunction(this)'>
-                            <i class="fa fa-fw fa-clock-o fa-lg" aria-hidden="true"></i> Delay
+                            <i class="fa fa-fw fa-clock-o fa-lg" ></i> Delay
                         </a>                                                         
                     </div>      
                 </div>
@@ -986,7 +1000,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
                 <div id='responses${addNewBox}${counter}'class='responses${addNewBox}${counter}' style="background: #FFFFFF; margin-top: -5%;">
                     <div id="responsesBody${boxNo}" style="padding-top:1%;"></div>
                     <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%;"  >
-                        <div class="row btn btn-sm btn-alt-default dropdown ${boxNo}" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='dropdownBtn(this)'>
+                        <div class="row btn btn-sm btn-alt-default dropdown ${boxNo}" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;" id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='dropdownBtn(this)'>
                             <i class="fa fa-plus"></i>
                             <div class="dropdown-menu drop${boxNo} " aria-labelledby="btnGroupVerticalDrop2">
                             <a class='dropdown-item ${boxNo}' onclick='textFunction(this)'>
@@ -994,11 +1008,11 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
                             </a>
                             <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ${boxNo}" onclick='imageFunction(this)'>
-                                    <i class="fa fa-file-image-o mr-5" aria-hidden="true"></i> Picture
+                                    <i class="fa fa-file-image-o mr-5" ></i> Picture
                                 </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item ${boxNo}" onclick='delayFunction(this)'>
-                                <i class="fa fa-fw fa-clock-o fa-lg" aria-hidden="true"></i> Delay
+                                <i class="fa fa-fw fa-clock-o fa-lg" ></i> Delay
                             </a>                                                         
                         </div>      
                     </div>
@@ -1162,6 +1176,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 //////////////////////////////////////////////////////////
 
 function Refresh(){
+    console.log('I m Calling --------------------------------')
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1393,7 +1408,7 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
 }
 //
 function createCampaign(){
-    let campaignName = $('#campaign-name').val();
+    let campaignName = $('#edit-campaign-name').val();
     let description = $("#description").val();
     let startDate1 = $("#start-date").val();
     let endDate1 = $("#end-date").val();
@@ -1406,6 +1421,15 @@ function createCampaign(){
     let compaignNumber = $('#number').find(":selected").val();
     
     let body = {
+        // flowJSON : JsonArray
+        name : campaignName,
+        description : description,
+        startDate : startDate,
+        endDate : endDate,
+        status : status,
+        platform:platform,
+        // company:companyID,
+        twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
     $.ajax({
@@ -1426,7 +1450,27 @@ function createCampaign(){
     });
 }
 function Finish(){
+    let campaignName = $('#edit-campaign-name').val();
+    let description = $("#description").val();
+    let startDate1 = $("#start-date").val();
+    let endDate1 = $("#end-date").val();
+
+    let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
+    let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
+
+    let status = $('#status').find(":selected").text();   
+    let platform = $('#platform').find(":selected").text();    
+    let compaignNumber = $('#number').find(":selected").val();
     let body = {
+        // flowJSON : JsonArray
+        name : campaignName,
+        description : description,
+        startDate : startDate,
+        endDate : endDate,
+        status : status,
+        platform:platform,
+        // company:companyID,
+        twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
     $.ajax({
@@ -1448,3 +1492,13 @@ function Finish(){
     
 
 }
+// $(document).click(function (e) {
+//     console.log('here')
+//     e.stopPropagation();
+//     var container = $(".dropDown");
+
+//     //check if the clicked area is dropDown or not
+//     if (container.has(e.target).length === 0) {
+//         $('.subMenu').hide();
+//     }
+// })

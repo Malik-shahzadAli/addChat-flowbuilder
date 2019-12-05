@@ -52,7 +52,9 @@
         var paper = null;
         var selection = window.getSelection ? window.getSelection() : document.selection ? document.selection : null;
         var getDistanceBtDot = function (pos1, pos2) {
+            // console.log('This is the distance between two dots'+Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2)))
             return Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2));
+           
         };
 
         var hyperModelChange = function () {
