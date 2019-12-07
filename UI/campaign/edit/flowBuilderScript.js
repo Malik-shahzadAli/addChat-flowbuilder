@@ -135,6 +135,7 @@ function imageFunction(e){
     $('#img').val('')
     //toggle image modal
     jQuery('#modal-slideright').modal('toggle');
+    $('#addImage').addClass('disabled');
     //output div load selected Image
     //first of all empty old loaded image from output div
     $('#output').attr('src','')
@@ -348,6 +349,7 @@ $('#updateDelay').click(function(e){
 })
 //load image in modal
 function loadFile(e) {
+    // $('#addImage').addClass('disabled')
     //checking campaign id 
     // console.log('campaign id :'+myid);
     //getting img from form
@@ -367,6 +369,8 @@ function loadFile(e) {
         success: function(response){
             $('#output').attr('src',response.imageUrl);
             $("#footer").data("text",response.imageUrl)
+            $('#addImage').removeClass('disabled')
+            console.log($('#addImage'))
         },
     });
 };
@@ -377,6 +381,7 @@ function loadFile(e) {
 function updateImage(e){
     //toggle the update image modal
     jQuery('#modal-updateImage').modal('toggle');
+    $('#updateImageBtn').addClass('disabled');
     //removing old loaded values from jQuery modal
     $('#updateOutput').attr('src','')
     $('#updateImage').val('')
@@ -404,6 +409,7 @@ function loadUpdatedImage(e){
         success: function(response){
             $('#updateOutput').attr('src',response.imageUrl);
             $("#updateImageFooter").data("text",response.imageUrl)
+            $('#updateImageBtn').removeClass('disabled')
         },
     });
 }

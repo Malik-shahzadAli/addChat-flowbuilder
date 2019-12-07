@@ -139,6 +139,7 @@ function imageFunction(e){
     $('#img').val('')
     //toggle image modal
     jQuery('#modal-slideright').modal('toggle');
+    $('#addImage').addClass('disabled');
     //output div load selected Image
     //first of all empty old loaded image from output div
     $('#output').attr('src','')
@@ -381,7 +382,9 @@ function loadFile(e) {
         processData: false,
         success: function(response){
             $('#output').attr('src',response.imageUrl);
-            $("#footer").data("text",response.imageUrl)
+            $("#footer").data("text",response.imageUrl);
+            $('#addImage').removeClass('disabled');
+            $('#updateImageBtn').removeClass('disabled')
         },
     });
 };
@@ -392,6 +395,7 @@ function loadFile(e) {
 function updateImage(e){
     //toggle the update image modal
     jQuery('#modal-updateImage').modal('toggle');
+    $('#updateImageBtn').addClass('disabled');
     //removing old loaded values from jQuery modal
     $('#updateOutput').attr('src','')
     $('#updateImage').val('')
@@ -419,7 +423,8 @@ function loadUpdatedImage(e){
             processData: false,
             success: function(response){
                 $('#updateOutput').attr('src',response.imageUrl);
-                $("#updateImageFooter").data("text",response.imageUrl)
+                $("#updateImageFooter").data("text",response.imageUrl);
+                $('#updateImageBtn').removeClass('disabled')
             },
         });
 }
