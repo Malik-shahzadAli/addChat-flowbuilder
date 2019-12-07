@@ -4,8 +4,11 @@ var addNewBox=0;
 var addFallBack=0;
 var totalBoxes=0;
 // var Gcount=0;
+var count=0;
 var JsonArray=[];
 var myid=localStorage.getItem('id');
+let searchParams = new URLSearchParams(window.location.search)
+var id = searchParams.get('id')
 // button drop down
 $(".dropdown").dropdown();
 // collapase UserSays Body
@@ -38,9 +41,9 @@ $('#colapseUserInputs').click(function(){
     $('#userInput').collapse('toggle')
   
 })
-$(window).click( function(){
-    console.log('document')
-});
+// $(window).click( function(){
+//     console.log('document')
+// });
 // $(document).click( function(){
 //     $('#userInput').collapse('hide')
 //     $('#responses').collapse('hide')
@@ -346,7 +349,7 @@ $('#updateDelay').click(function(e){
 //load image in modal
 function loadFile(e) {
     //checking campaign id 
-    console.log('campaign id :'+myid);
+    // console.log('campaign id :'+myid);
     //getting img from form
     var img = new FormData();
     //getting file from the form data
@@ -502,75 +505,213 @@ $('#addFallback').click(function(){
     // console.log('child counter :'+childCounter);
     // console.log('This is the fall counter :'+fallbackCounter);
     if(fallBackName != ''  ){
-        addFallBack++;
-        totalBoxes++;
-        var box=0;
-        var id=parent+''+childCounter;
+        let searchParams = new URLSearchParams(window.location.search)
+        var urlId = searchParams.get('id')
+        $.ajax({
+            url: destination+'/campaigns/'+urlId,
+            type:"GET",
+            headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
+            dataType: 'json',
+            contentType: "application/json",
+            success : function(response){
+                addFallBack++;
+                //checking same id exists or not
+                const a = _.groupBy(response.campaign.flowJSON,'parent');
+                if(a[parent]){
+                    var oldChildCounter=a[parent].length;
+                    var childCounter=parseInt(oldChildCounter)+1;
+                }
+                else{
+                    childCounter=1;
+                }
+                var foundIndex = response.campaign.flowJSON.findIndex(x => parent+''+childCounter == x.id);
+                //if exists
+                if(foundIndex !=-1){
+                    console.log('Found SomeThing.....................')
+                    //call a Resursive function which return the counter and new id
+                    var arr= Recursion(childCounter,parent,response.campaign.flowJSON)
+                    console.log('Array :'+arr[0])
+                    //setting new id
+                    var newId=parent+''+arr[0];
+                    //adding how many time resursive function call
+                    totalBoxes=totalBoxes+arr[1];
+                    //again count 0
+                    count=0;
+                    CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,newId,fallbackCounter,fallBackName)
+                    // CreatingGeneralBoxAfterCheckingDuplicateId(newId,parent,btnClass,addNewBox,totalBoxes,generalName,arr[0]) ;
+                    
+                }
+                else{
+                    totalBoxes++;
+                    var id=parent+''+childCounter;
+                    CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,id,fallbackCounter,fallBackName)
+                    // CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter)
+                }
+         
+               // addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
+                
+               
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+        //getting the old counter
+        oldCounter=$(`#userInputChilds${generalCounter}`).data('text');
+        //increasing the old counter
+        newCounter=parseInt(oldCounter+1);
+        $(`#userInputChilds${generalCounter}`).data('text',newCounter);  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // addFallBack++;
+        // totalBoxes++;
+        // var box=0;
+        // var id=parent+''+childCounter;
         //checking if first fall back 
-        if( fallbackCounter != -1){
-            if(btnClass == addNewBox){
-                var newBox=parseInt(addNewBox)+1;
-            }
-            else{
-                var newBox=addNewBox;
-            }
-            appendFallback1(fallbackCounter, newBox,totalBoxes,counter,parent,childCounter)
-        }
-        else{
-            if(btnClass == addNewBox){
-                var newBox=parseInt(addNewBox)+1;
-            }
-            else{
-                var newBox=addNewBox;
-            }
-            appendFallback1(btnClass, newBox,totalBoxes,counter,parent,childCounter)
-        }
-        if( btnClass== addNewBox){
-            box=parseInt(addNewBox)+1+''+totalBoxes
-            createNewBoxRow(parent,childCounter,box,id)
-            var newbox=parseInt(addNewBox)+1;
-            //add class on general dropdown
-            $(`#genDropdown${newbox}`).addClass(parent+counter);
-        }
-        else{
-            box=addNewBox+''+totalBoxes;
-            createNewBox(parseInt(btnClass)+1,parent,childCounter,box,id);
-            $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+        // if( fallbackCounter != -1){
+        //     if(btnClass == addNewBox){
+        //         var newBox=parseInt(addNewBox)+1;
+        //     }
+        //     else{
+        //         var newBox=addNewBox;
+        //     }
+        //     appendFallback1(fallbackCounter, newBox,totalBoxes,counter,parent,childCounter)
+        // }
+        // else{
+        //     if(btnClass == addNewBox){
+        //         var newBox=parseInt(addNewBox)+1;
+        //     }
+        //     else{
+        //         var newBox=addNewBox;
+        //     }
+        //     appendFallback1(btnClass, newBox,totalBoxes,counter,parent,childCounter)
+        // }
+        // if( btnClass== addNewBox){
+        //     box=parseInt(addNewBox)+1+''+totalBoxes
+        //     createNewBoxRow(parent,childCounter,box,id)
+        //     var newbox=parseInt(addNewBox)+1;
+        //     //add class on general dropdown
+        //     $(`#genDropdown${newbox}`).addClass(parent+counter);
+        // }
+        // else{
+        //     box=addNewBox+''+totalBoxes;
+        //     createNewBox(parseInt(btnClass)+1,parent,childCounter,box,id);
+        //     $(`#genDropdown${addNewBox}`).addClass(parent+counter);
             
-        }
-        $(`#title${box}`).text(fallBackName);
-        $(`#title${box}`).data('text',fallBackName);
-        Refresh();
-        //getting delay input + selected unit
-        var name=$('#fallbackName').val();
-        //setting data text time and unit
-        $(`#fallbackDiv${counter}Span`).data('text',name)
-        //setting time and unit on the span of responses
-        $(`#fallbackDiv${counter}Span`).text(name)
-        //console.log($(`#fallbackDiv${boxCounter}Span`))
-       // console.log($(`#fallbackDiv${boxCounter}Span`).parent().parent().parent().parent().parent().children()[1])
-       if($(`#fallbackDiv${counter}Span`).length){
-        var id=($(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id);
-        //disable the fall back button
-        $('#'+id).addClass('disabled');
-       }
-       else{
-        $(`#fallDropdown${boxCounter}`).addClass('disabled')
-        //    console.log('this is the box counter :'+boxCounter);
-       }
-        // $(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0]('a').addClass('disabled')
-        //puting name on the box
-        $('.modelTitle').text(name);
-        //add class in fallDropdown
-         $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
-        // //add class on general dropdown
-        // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
-        $(`#parent${box}`).data('text',parent);
-        $(`#id${box}`).data('text',parent+childCounter);
-        prepareOneBoxJSON(box,btnClass);
+        // }
+    //     $(`#title${box}`).text(fallBackName);
+    //     $(`#title${box}`).data('text',fallBackName);
+    //     Refresh();
+    //     //getting delay input + selected unit
+    //     var name=$('#fallbackName').val();
+    //     //setting data text time and unit
+    //     $(`#fallbackDiv${counter}Span`).data('text',name)
+    //     //setting time and unit on the span of responses
+    //     $(`#fallbackDiv${counter}Span`).text(name)
+    //     //console.log($(`#fallbackDiv${boxCounter}Span`))
+    //    // console.log($(`#fallbackDiv${boxCounter}Span`).parent().parent().parent().parent().parent().children()[1])
+    //    if($(`#fallbackDiv${counter}Span`).length){
+    //     var id=($(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id);
+    //     //disable the fall back button
+    //     $('#'+id).addClass('disabled');
+    //    }
+    //    else{
+    //     $(`#fallDropdown${boxCounter}`).addClass('disabled')
+    //     //    console.log('this is the box counter :'+boxCounter);
+    //    }
+    //     // $(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0]('a').addClass('disabled')
+    //     //puting name on the box
+    //     $('.modelTitle').text(name);
+    //     //add class in fallDropdown
+    //      $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
+    //     // //add class on general dropdown
+    //     // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+    //     $(`#parent${box}`).data('text',parent);
+    //     $(`#id${box}`).data('text',parent+childCounter);
+    //     prepareOneBoxJSON(box,btnClass);
     }
     
 })
+function CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,newId,fallbackCounter,fallBackName){
+    console.log('This is the id :'+id)
+    if( fallbackCounter != -1){
+        if(btnClass == addNewBox){var newBox=parseInt(addNewBox)+1;}
+        else{var newBox=addNewBox;}
+        appendFallback1(fallbackCounter, newBox,totalBoxes,counter,parent,childCounter)
+    }
+    else{
+        if(btnClass == addNewBox){var newBox=parseInt(addNewBox)+1;}
+        else{var newBox=addNewBox;}
+        appendFallback1(btnClass, newBox,totalBoxes,counter,parent,childCounter)
+    }
+    if( btnClass== addNewBox){
+        box=parseInt(addNewBox)+1+''+totalBoxes
+        createNewBoxRow(parent,childCounter,box,newId)
+        var newbox=parseInt(addNewBox)+1;
+        //add class on general dropdown
+        $(`#genDropdown${newbox}`).addClass(parent+counter);
+    }
+    else{
+        box=addNewBox+''+totalBoxes;
+        createNewBox(parseInt(btnClass)+1,parent,childCounter,box,newId);
+        $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+        
+    }
+
+    $(`#title${box}`).text(fallBackName);
+    $(`#title${box}`).data('text',fallBackName);
+    Refresh();
+    //getting delay input + selected unit
+    var name=$('#fallbackName').val();
+    //setting data text time and unit
+    $(`#fallbackDiv${counter}Span`).data('text',name)
+    //setting time and unit on the span of responses
+    $(`#fallbackDiv${counter}Span`).text(name)
+    //console.log($(`#fallbackDiv${boxCounter}Span`))
+   // console.log($(`#fallbackDiv${boxCounter}Span`).parent().parent().parent().parent().parent().children()[1])
+   if($(`#fallbackDiv${counter}Span`).length){
+    var id=($(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id);
+    //disable the fall back button
+    $('#'+id).addClass('disabled');
+   }
+   else{
+    $(`#fallDropdown${boxCounter}`).addClass('disabled')
+    //    console.log('this is the box counter :'+boxCounter);
+   }
+    // $(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0]('a').addClass('disabled')
+    //puting name on the box
+    $('.modelTitle').text(name);
+    //add class in fallDropdown
+     $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
+    // //add class on general dropdown
+    // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+    $(`#parent${box}`).data('text',parent);
+    $(`#id${box}`).data('text',newId);
+    prepareOneBoxJSON(box,btnClass);
+
+}
 
 
                                                     ////////////////////
@@ -645,6 +786,7 @@ function addGenral(e){
     // var oldCounter= $(`#ChildCounter${e.classList[2]}`).data('text');
     // console.log('This is the old Counter :'+oldCounter);
     //increasing the counter
+    // console.log(e.parentNode.parentNode.parentNode.parentNode.children[0].children)
     var newCounter=parseInt(oldCounter+1);
     //updating counter
     $(`#ChildCounter${e.classList[2]}`).data('text',newCounter);
@@ -652,7 +794,7 @@ function addGenral(e){
     $('#childCounter').data('text',newCounter); 
     //setting the parent div root1..etc in the parent div id 
     $('#parentDivid').data('text',e.classList[3]);
-    console.log('Passing wrong parent id :'+$('#parentDivid').data('text'));
+    // console.log('Passing wrong parent id :'+$('#parentDivid').data('text'));
 
 }
 $('#addGeneral').click(function(e){
@@ -666,66 +808,127 @@ $('#addGeneral').click(function(e){
     var generalCounter=$('#generalCounter').data('text');
     //getting the parent
     var parent=$('#parentDivid').data('text');
-    console.log('this is the wrong parent getting :'+parent);
+    // console.log('this is the wrong parent getting :'+parent);
     //getting the child counter from JQuery modal
-    var childCounter=$('#childCounter').data('text');
+    // var childCounter=$('#childCounter').data('text');
     var oldCounter;
     var newCounter;
     if(generalName != ''){
+        let searchParams = new URLSearchParams(window.location.search)
+        var urlId = searchParams.get('id')
+        $.ajax({
+            url: destination+'/campaigns/'+urlId,
+            type:"GET",
+            headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
+            dataType: 'json',
+            contentType: "application/json",
+            success : function(response){
+                //checking same id exists or not
+                const a = _.groupBy(response.campaign.flowJSON,'parent');
+                if(a[parent]){
+                    var oldChildCounter=a[parent].length;
+                    var childCounter=parseInt(oldChildCounter)+1;
+                }
+                else{
+                    childCounter=1;
+                }
+                var foundIndex = response.campaign.flowJSON.findIndex(x => parent+''+childCounter == x.id);
+                //if exists
+                if(foundIndex !=-1){
+                    //call a Resursive function which return the counter and new id
+                    var arr= Recursion(childCounter,parent,response.campaign.flowJSON)
+                    //setting new id
+                    var newId=parent+''+arr[0];
+                    //adding how many time resursive function call
+                    totalBoxes=totalBoxes+arr[1];
+                    //again count 0
+                    count=0;
+                    CreatingGeneralBoxAfterCheckingDuplicateId(newId,parent,btnClass,addNewBox,totalBoxes,generalName,arr[0]) ;
+                }
+                else{
+                    totalBoxes++;
+                    var id=parent+''+childCounter;
+                    CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter)
+                }
+                if( btnClass== addNewBox){
+                    box=parseInt(addNewBox)+1+''+totalBoxes;
+                    nBox=parseInt(addNewBox)+1;
+                }
+                else{
+                    nBox=addNewBox;
+                    box=addNewBox+''+totalBoxes;
+                }
+                addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
+                
+               
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
         //getting the old counter
         oldCounter=$(`#userInputChilds${generalCounter}`).data('text');
         //increasing the old counter
         newCounter=parseInt(oldCounter+1);
-        // console.log('this is the childCounter:'+childCounter);
-        // console.log('this is the new Counter :'+newCounter);
-        // console.log('this is the body counter :'+generalCounter)
-        //setting the userInputChilds data new counter
-        $(`#userInputChilds${generalCounter}`).data('text',newCounter);
-        //increasing total boxes
-        totalBoxes++;
-        var id=parent+''+childCounter;
+        $(`#userInputChilds${generalCounter}`).data('text',newCounter);   
+    }
+    Refresh();
+    
+  
+});
+function Recursion(number,parent,JsonArray){
+    var f_index = JsonArray.findIndex(x => parent+''+number == x.id);
+    count++;
+    if(f_index == -1){
+        console.log('here')
+        var arr=[number,count]
+        return arr;
+    }
+    else{
+        // console.log('Recursion')
+        Newnumber=parseInt(number)+1;
+        var array=JsonArray.slice();
+        var newParent=parent;
+        return Recursion(Newnumber,newParent,array)
+    } 
+}
+function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter){
+    
         var box=0;
         var nBox=0;
         if( btnClass== addNewBox){
             box=parseInt(addNewBox)+1+''+totalBoxes;
             nBox=parseInt(addNewBox)+1;
             createNewGenralRow(parent,childCounter,box,id);
+            Refresh(); 
         }
         else{
             nBox=addNewBox;
             box=addNewBox+''+totalBoxes;
             createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,box,id);
         }
-        addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
-        var newAddNewBox=parseInt(addNewBox)-1;
-        $(`#title${addNewBox}${totalBoxes}`).data('text',generalName);
-        $(`#title${addNewBox}${totalBoxes}`).text(generalName);
-        //getting delay input + selected unit
+        //setting title
+        $(`#title${box}`).data('text',generalName);
+        $(`#title${box}`).text(generalName);
         var name=$('#generalName').val();
-        //setting data text time and unit
-        $(`#generalDiv${addNewBox}${totalBoxes}Span`).data('text',name)
-        //setting time and unit on the span of responses
-        $(`#generalDiv${addNewBox}${totalBoxes}Span`).text(name)
-
-        //puting name on the box
-        // $('.generalTitleName').text(name);
-        // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
+        //setting span card name
+        $(`#generalDiv${box}Span`).data('text',name)
+        $(`#generalDiv${box}Span`).text(name)
         $(`#genDropdown${totalBoxes}`).addClass(parent+counter);
         $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
-        $(`#parent${addNewBox}${totalBoxes}`).data('text',parent);
-        $(`#id${addNewBox}${totalBoxes}`).data('text',parent+childCounter);
+        //setting parent
+        $(`#parent${box}`).data('text',parent);
+        //seetting id
+        $(`#id${box}`).data('text',parent+childCounter);
+        //preparing json
         prepareOneBoxJSON(box,btnClass);
-    }
-    Refresh();
-    
-  
-})
+}
                                                     ////////////////////
                                                    // UPDATE GENERAL //
                                                   ////////////////////
 //when user click on the card
 function updateGeneralName(e) {
-     console.log(e);
+    //  console.log(e);
     //toggle the update text modal
     jQuery('#modal-updateGeneral').modal('toggle');
     //empty old text from modal
@@ -759,14 +962,14 @@ $('#updateGeneral').click(function(e){
 //              FUNCTION CREATE NEW FALLBACK ROW                  //
 ///////////////////////////////////////////////////////////////////
 function createNewBoxRow(parent,childCounter,box,id){
-    console.log('setting wrong parent id on the box button :'+box);
+    // console.log('setting wrong parent id on the box button :'+box);
     addNewBox++;
 
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var a=parent+''+childCounter;
-    console.log('this is the id :'+a);
+    // console.log('this is the id :'+a);
     $('#AppendDiv').append(`
     <div id='tgen'></div>
     <div id='responsesChilds${box}' data-text='0'></div>
@@ -850,12 +1053,12 @@ function createNewBoxRow(parent,childCounter,box,id){
 //        FUNCTION CREATES NEW FALL BACK BOX           //
 ////////////////////////////////////////////////////////
 function createNewBox(number,parent,childCounter,box,id){
-    console.log('this is the box :'+id);
-    console.log(addNewBox+''+totalBoxes);
+    // console.log('this is the box :'+id);
+    // console.log(addNewBox+''+totalBoxes);
     var a=parent+''+childCounter;
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
-    console.log('this is the id :'+a);
+    // console.log('this is the id :'+a);
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     $('#colum'+number).append(`
     <div id='tgen'></div>
@@ -935,14 +1138,13 @@ function createNewBox(number,parent,childCounter,box,id){
 //                  FUNCTION CREATES NEW GENRAL ROW       //
 ////////////////////////////////////////////////////////////
 function createNewGenralRow(parent,childCounter,boxNo,id){
-    console.log('setting wrong parent id on the box button :'+boxNo);
+    console.log('here Thing :'+parent +' c '+childCounter+' bn '+boxNo+' id '+id)
     addNewBox++;
-    var newAddNewBox=parseInt(addNewBox)-1;;
     var newTotalBoxes=totalBoxes;
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var a=parent+''+childCounter;
-    console.log('this is the id :'+a);
-    console.log('this is the real id :'+id);
+    // console.log('this is the id :'+a);
+    // console.log('this is the real id :'+id);
     // console.log('this is the parent.......'+parent)
     if(parent=='0'){
         a='root';
@@ -1060,11 +1262,12 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
     // console.log('this is the child counter :'+childCounter);
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
+    
 
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var b=$('#gCount').data('text');
     var a=parent+''+childCounter;
-    console.log('this is the id :'+a);
+    // console.log('this is the id :'+a);
     $('#colum'+number).append(`
    
     <div id='child${boxNo}' data-text='1'></div>
@@ -1176,7 +1379,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 //////////////////////////////////////////////////////////
 
 function Refresh(){
-    console.log('I m Calling --------------------------------')
+    // console.log('I m Calling --------------------------------')
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1263,7 +1466,8 @@ function RemoveFallback(e){
 }
 //prepare json
 function prepareOneBoxJSON(boxno,row){
-   
+   console.log('PrePare JSON CALLLING ....................');
+   console.log('This is the box Number :'+boxno)
     var newRow=parseInt(row)+1;
     var totalChilds=$(`#colum${newRow}`).children()
     var boxNo = []
@@ -1369,13 +1573,14 @@ function prepareOneBoxJSON(boxno,row){
         obj.row=oldRow;
       JsonArray[foundIndex]=obj;
     }
-    console.log(JsonArray);
+     console.log(JsonArray);
+     createCampaign();
 }
 jQuery(':button').click(function () {
-    createCampaign();
+    // createCampaign();
 })
 function deleteJson(id){
-    console.log('this is the pass id :'+ id)
+    // console.log('this is the pass id :'+ id)
     //finding the object index
     var foundIndex = JsonArray.findIndex(x => id == x.id);
     //if index found
@@ -1387,6 +1592,7 @@ function deleteJson(id){
     createCampaign();
 }
 function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox){
+    console.log('Add Genral card:')
     var gen=parent+''+childCounter;
     $('#userInputBody'+gn).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
@@ -1440,11 +1646,11 @@ function createCampaign(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response);
+            // console.log(response);
             // window.location.replace('../list/');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log(errorThrown);
+            // console.log(errorThrown);
         }
         
     });
@@ -1481,24 +1687,15 @@ function Finish(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response);
+            // console.log(response);
             window.location.replace("http://localhost:3000/campaign/list/");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log(errorThrown);
+            // console.log(errorThrown);
         }
         
     });
     
 
 }
-// $(document).click(function (e) {
-//     console.log('here')
-//     e.stopPropagation();
-//     var container = $(".dropDown");
 
-//     //check if the clicked area is dropDown or not
-//     if (container.has(e.target).length === 0) {
-//         $('.subMenu').hide();
-//     }
-// })

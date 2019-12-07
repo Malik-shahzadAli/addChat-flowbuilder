@@ -14,7 +14,7 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response)
+            // console.log(response)
             parseJson(response.campaign.flowJSON)
             $('#edit-campaign-name').val(response.campaign.name)
             $('#description').val(response.campaign.description);
@@ -23,7 +23,7 @@ $(document).ready(function(){
              var date=response.campaign.startDate;
             var newDate=date.substr(0,10)
             var format=newDate.split("-")
-            console.log(format[2]);
+            // console.log(format[2]);
             $('#start-date').val(format[2]+"-"+format[1]+"-"+format[0]);
              //console.log(date.getMonth);
             var endDate=response.campaign.endDate;
@@ -51,6 +51,7 @@ $(document).ready(function(){
 var obj={}
 function parseJson(JsonArray2){
     const a = _.groupBy(JsonArray2,'parent');
+    console.log(a);
     var parentArray=[];
     for(var i=0; i<JsonArray2.length; i++){
         if(parentArray.indexOf(JsonArray2[i].parent) === -1) {
@@ -61,10 +62,21 @@ function parseJson(JsonArray2){
         var parent=parentArray[j];
         for(var k=0; k<a[parent].length; k++){
             var childCounter=k+1;
+            // console.log('C-count'+childCounter);
+            // console.log(a[parent].length)
+            // console.log(a[parent][a[parent].length-1].id)
+            // var id=a[parent][a[parent].length-1].id;
+            // var lastone = id.toString().split('').pop();
+            // console.log('child count is :'+lastone);
+            // var nId=a[parent][k].parent+''+childCounter;
+            // var foundIndex = JsonArray2.findIndex(x => nId == x.id);
+            // console.log(foundIndex);
             if(a[parent][k].isFallback){
-                console.log(a[parent][k].parent)
+                // console.log(a[parent][k].parent)
                 addFallback(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
-               
+                for(var respose=0; respose <a[parent][k].responses.length;respose++){
+                    addResponse(a[parent][k].boxNo,(respose+1),a[parent][k].responses[respose]);
+                }
             }
             else{
                 addGeneral(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
@@ -72,7 +84,7 @@ function parseJson(JsonArray2){
                     addTraningPhase(a[parent][k].boxNo,(l+1),a[parent][k].trainingPhrases[l])
                 }
                 for(var respose=0; respose <a[parent][k].responses.length;respose++){
-                    console.log(a[parent][k].responses[respose])
+                    // console.log(a[parent][k].responses[respose])
                     addResponse(a[parent][k].boxNo,(respose+1),a[parent][k].responses[respose]);
                 }
                 
@@ -81,11 +93,11 @@ function parseJson(JsonArray2){
     }
     for(var userInput=0; userInput <JsonArray2.length; userInput++){
         if(!JsonArray2[userInput].isFallback){
-            console.log('set ID:'+JsonArray2[userInput].id)
+            // console.log('set ID:'+JsonArray2[userInput].id)
             appendGeneral(JsonArray2[userInput].row,JsonArray2[userInput].name,JsonArray2[userInput].parent,JsonArray2[userInput].id,JsonArray2[userInput].boxNo,(userInput+1),JsonArray2)
         }
         else{
-            console.log('set ID:'+JsonArray2[userInput].id)
+            // console.log('set ID:'+JsonArray2[userInput].id)
             appendFallback(JsonArray2[userInput].row,JsonArray2[userInput].name,JsonArray2[userInput].parent,JsonArray2[userInput].id,JsonArray2[userInput].boxNo,(userInput+1),JsonArray2);
         }
       
@@ -96,7 +108,7 @@ function parseJson(JsonArray2){
     }
 }
 function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
-    console.log('THIS IS THE ADD GENERAL ID :'+id)
+    // console.log('THIS IS THE ADD GENERAL ID :'+id)
     counter++;
     if(parent != '0'){
         totalBoxes++;
@@ -105,18 +117,21 @@ function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
     newCounter=0;
     if( btnClass== addNewBox){
         createNewGenralRow(parent,childCounter,boxNo,id);
+        console.log('box No in if condition :'+boxNo);
+        Refresh();
     }
     else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
     $(`#userInputChilds${generalCounter}`).data('text',childCounter);;
     $(`#ChildCounter${boxNo}`).data('text',childCounter);
     $(`#id${boxNo}`).data('text',id);
     $(`#parent${boxNo}`).data('text',parent);
+    console.log('box number in title '+boxNo);
     $(`#title${boxNo}`).data('text',generalName);
     $(`#title${boxNo}`).text(generalName);
     Refresh();
 }
 function addFallback(btnClass,fallBackName,parent,childCounter,boxNo,id){
-    console.log('THIS IS THE ADD GENERAL ID :'+id)
+    // console.log('THIS IS THE ADD GENERAL ID :'+id)
     totalBoxes++;
     if( btnClass== addNewBox){createNewBoxRow(parent,childCounter,boxNo,id)}
     else{createNewBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
@@ -225,7 +240,7 @@ function addResponse(boxNo,id,response){
 
     }
     else if(response.type=='image'){
-        console.log(response);
+        // console.log(response);
         //appending the response body with the image card
         $('#responsesBody'+boxNo).append(`
         <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>
@@ -246,7 +261,7 @@ function addResponse(boxNo,id,response){
 
 }
 function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
-    console.log(gen);
+    // console.log(gen);
     counter++;
     var boxNo;
     for(var i=0; i<JsonArray2.length; i++){

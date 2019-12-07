@@ -77,6 +77,7 @@
                 tolerance: 'pointer',
                 dropOnEmpty: true,
                 axis: "y",
+                axis: "x",
                 scroll: true,
                 beforeStop: function(event, ui) {
                     var $this = $(this);
@@ -101,6 +102,7 @@
                     _this.hypermodel('repaint');
                 }
             });
+            // console.log($this.sortable())
         };
 
         switch (method) {
@@ -386,6 +388,7 @@
                             containment: 'parent',
                             tolerance: 'intersect',
                             axis: "y",
+                            axis:"x",
                             scroll: true,
                             dropOnEmpty:true,
                             start: function (e, ui) {

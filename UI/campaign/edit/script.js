@@ -372,7 +372,7 @@
             headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
             success : function(data)
             {
-                console.log("Available Numbers : ",data);
+                // console.log("Available Numbers : ",data);
 
                 if(data.activeNumbers.length > 0){
 
@@ -433,10 +433,10 @@
             headers: {"Authorization": "Bearer "+localStorage.getItem("token")},
             success : function(data)
             {
-                console.log("Companies: ",data);
+                // console.log("Companies: ",data);
 
                 companyID = data.companies[0]._id;
-                console.log("Company ID : ",companyID);
+                // console.log("Company ID : ",companyID);
                 getListOfAvailableNumbers(); // Get List of available numbers
 
             },

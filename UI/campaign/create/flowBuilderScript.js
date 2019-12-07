@@ -7,7 +7,7 @@ var theNewScript = document.createElement("script");
 theNewScript.type = "text/javascript";
 theNewScript.src = "./connection.js";
 var json=0;
-
+localStorage.setItem('DeleteChilds',0);
 function loadJson(){
     let compaignNumber = $('#number').find(":selected").val();
     if(compaignNumber !='2'){
@@ -1272,7 +1272,11 @@ function RemoveFallback(e){
     //removing elements
     var id=(e.parentNode.children[0].id);
     var secoundId=($(`#${id}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id)
-    $(`#${secoundId}`).removeClass('disabled')
+    $(`#${secoundId}`).removeClass('disabled');
+    var oldDeleteCount=localStorage.getItem('DeleteChilds');
+    var newDeleteCount=parseInt(oldDeleteCount)+removeClasses.length;
+    localStorage.setItem('DeleteChilds',newDeleteCount);
+    // console.log('new count :'+localStorage.getItem('DeleteChilds'));
     for(var i=0; i<removeClasses.length; i++){
         deleteJson(removeClasses[i]);
         $('.'+removeClasses[i]).remove();
@@ -1461,7 +1465,6 @@ function createFirstCampaign(){
         
     });
 }
-
 function createCampaign1(){
     console.log('Undefine calll ::'+myId);
     let campaignName = $('#campaign-name').val();
@@ -1552,3 +1555,9 @@ function connect(parent,child){
     console.log($('#'+child));
     $("#"+parent).connections({ to: "#"+child});
 }
+// function drawarrow(child, parent){
+//     console.log('call')
+//     $('#step3').append(`
+//     <connection from='#generalDiv12' to='#title11' color="red" ></connection>
+//     `)
+// }
