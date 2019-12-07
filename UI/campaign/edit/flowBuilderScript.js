@@ -527,7 +527,6 @@ $('#addFallback').click(function(){
                 var foundIndex = response.campaign.flowJSON.findIndex(x => parent+''+childCounter == x.id);
                 //if exists
                 if(foundIndex !=-1){
-                    console.log('Found SomeThing.....................')
                     //call a Resursive function which return the counter and new id
                     var arr= Recursion(childCounter,parent,response.campaign.flowJSON)
                     console.log('Array :'+arr[0])
@@ -537,7 +536,7 @@ $('#addFallback').click(function(){
                     totalBoxes=totalBoxes+arr[1];
                     //again count 0
                     count=0;
-                    CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,newId,fallbackCounter,fallBackName)
+                    CreatingFallBackAfterCheckingDuplicateId(parent,arr[0],btnClass,newId,fallbackCounter,fallBackName)
                     // CreatingGeneralBoxAfterCheckingDuplicateId(newId,parent,btnClass,addNewBox,totalBoxes,generalName,arr[0]) ;
                     
                 }
@@ -655,7 +654,6 @@ $('#addFallback').click(function(){
     
 })
 function CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,newId,fallbackCounter,fallBackName){
-    console.log('This is the id :'+id)
     if( fallbackCounter != -1){
         if(btnClass == addNewBox){var newBox=parseInt(addNewBox)+1;}
         else{var newBox=addNewBox;}
@@ -823,6 +821,16 @@ $('#addGeneral').click(function(e){
             dataType: 'json',
             contentType: "application/json",
             success : function(response){
+
+                if( btnClass== addNewBox){
+                    box=parseInt(addNewBox)+1+''+totalBoxes;
+                    nBox=parseInt(addNewBox)+1;
+                }
+                else{
+                    nBox=addNewBox;
+                    box=addNewBox+''+totalBoxes;
+                }
+
                 //checking same id exists or not
                 const a = _.groupBy(response.campaign.flowJSON,'parent');
                 if(a[parent]){
@@ -844,21 +852,17 @@ $('#addGeneral').click(function(e){
                     //again count 0
                     count=0;
                     CreatingGeneralBoxAfterCheckingDuplicateId(newId,parent,btnClass,addNewBox,totalBoxes,generalName,arr[0]) ;
+                    addGeneralCard(generalCounter,totalBoxes,parent,arr[0],generalName,counter,nBox)
+                    
                 }
                 else{
                     totalBoxes++;
                     var id=parent+''+childCounter;
                     CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter)
+                    addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
                 }
-                if( btnClass== addNewBox){
-                    box=parseInt(addNewBox)+1+''+totalBoxes;
-                    nBox=parseInt(addNewBox)+1;
-                }
-                else{
-                    nBox=addNewBox;
-                    box=addNewBox+''+totalBoxes;
-                }
-                addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
+            
+                
                 
                
             },
@@ -1424,6 +1428,7 @@ function fallBackToggle(e){
 function appendFallback1(fallCounter, addnewBox,totalboxes,count,parent,childCounter){
     // console.log('calling.............')
     var c=parent+''+childCounter;
+    console.log('pass C :'+c);
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${c}'>
@@ -1592,8 +1597,10 @@ function deleteJson(id){
     createCampaign();
 }
 function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox){
-    console.log('Add Genral card:')
+    
+    // console.log('Add Genral card:')
     var gen=parent+''+childCounter;
+    console.log('passing gen counter'+gen);
     $('#userInputBody'+gn).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${gen}'>
