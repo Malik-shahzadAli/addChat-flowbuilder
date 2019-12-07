@@ -520,6 +520,9 @@ $('#addFallback').click(function(){
     //checking user enter fall back name or not
     var parent=$('#fallbackParentDivid').data('text');
     var childCounter=$('#childCounter').data('text');
+    if(childCounter >9){
+        childCounter='a'+childCounter;
+    }
     //getting box counter
     var boxCounter=$('#blockContent').data('text')
     // console.log('This is the fall counter :'+fallbackCounter);
@@ -657,6 +660,10 @@ $('#addGeneral').click(function(e){
     var parent=$('#parentDivid').data('text');
     //getting the child counter from JQuery modal
     var childCounter=$('#childCounter').data('text');
+    if(childCounter >9){
+        childCounter='a'+childCounter;
+    }
+    console.log('child counter :'+childCounter);
     var oldCounter;
     var newCounter;
     if(generalName != ''){

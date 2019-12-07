@@ -528,10 +528,16 @@ $('#addFallback').click(function(){
                 //if exists
                 if(foundIndex !=-1){
                     //call a Resursive function which return the counter and new id
+                    if(childCounter >9){
+                        childCounter='a'+childCounter;
+                    }
                     var arr= Recursion(childCounter,parent,response.campaign.flowJSON)
-                    console.log('Array :'+arr[0])
+                    // if(arr[0] >9){
+                    //     arr[0]='a'+arr[0];
+                    // }
                     //setting new id
                     var newId=parent+''+arr[0];
+                console.log('passinf new id '+newId)
                     //adding how many time resursive function call
                     totalBoxes=totalBoxes+arr[1];
                     //again count 0
@@ -542,6 +548,9 @@ $('#addFallback').click(function(){
                 }
                 else{
                     totalBoxes++;
+                    if(childCounter >9){
+                        childCounter='a'+childCounter;
+                    }
                     var id=parent+''+childCounter;
                     CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,id,fallbackCounter,fallBackName)
                     // CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter)
@@ -560,96 +569,6 @@ $('#addFallback').click(function(){
         //increasing the old counter
         newCounter=parseInt(oldCounter+1);
         $(`#userInputChilds${generalCounter}`).data('text',newCounter);  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // addFallBack++;
-        // totalBoxes++;
-        // var box=0;
-        // var id=parent+''+childCounter;
-        //checking if first fall back 
-        // if( fallbackCounter != -1){
-        //     if(btnClass == addNewBox){
-        //         var newBox=parseInt(addNewBox)+1;
-        //     }
-        //     else{
-        //         var newBox=addNewBox;
-        //     }
-        //     appendFallback1(fallbackCounter, newBox,totalBoxes,counter,parent,childCounter)
-        // }
-        // else{
-        //     if(btnClass == addNewBox){
-        //         var newBox=parseInt(addNewBox)+1;
-        //     }
-        //     else{
-        //         var newBox=addNewBox;
-        //     }
-        //     appendFallback1(btnClass, newBox,totalBoxes,counter,parent,childCounter)
-        // }
-        // if( btnClass== addNewBox){
-        //     box=parseInt(addNewBox)+1+''+totalBoxes
-        //     createNewBoxRow(parent,childCounter,box,id)
-        //     var newbox=parseInt(addNewBox)+1;
-        //     //add class on general dropdown
-        //     $(`#genDropdown${newbox}`).addClass(parent+counter);
-        // }
-        // else{
-        //     box=addNewBox+''+totalBoxes;
-        //     createNewBox(parseInt(btnClass)+1,parent,childCounter,box,id);
-        //     $(`#genDropdown${addNewBox}`).addClass(parent+counter);
-            
-        // }
-    //     $(`#title${box}`).text(fallBackName);
-    //     $(`#title${box}`).data('text',fallBackName);
-    //     Refresh();
-    //     //getting delay input + selected unit
-    //     var name=$('#fallbackName').val();
-    //     //setting data text time and unit
-    //     $(`#fallbackDiv${counter}Span`).data('text',name)
-    //     //setting time and unit on the span of responses
-    //     $(`#fallbackDiv${counter}Span`).text(name)
-    //     //console.log($(`#fallbackDiv${boxCounter}Span`))
-    //    // console.log($(`#fallbackDiv${boxCounter}Span`).parent().parent().parent().parent().parent().children()[1])
-    //    if($(`#fallbackDiv${counter}Span`).length){
-    //     var id=($(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id);
-    //     //disable the fall back button
-    //     $('#'+id).addClass('disabled');
-    //    }
-    //    else{
-    //     $(`#fallDropdown${boxCounter}`).addClass('disabled')
-    //     //    console.log('this is the box counter :'+boxCounter);
-    //    }
-    //     // $(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0]('a').addClass('disabled')
-    //     //puting name on the box
-    //     $('.modelTitle').text(name);
-    //     //add class in fallDropdown
-    //      $(`#fallDropdown${totalBoxes}`).addClass(parent+counter);
-    //     // //add class on general dropdown
-    //     // $(`#genDropdown${addNewBox}`).addClass(parent+counter);
-    //     $(`#parent${box}`).data('text',parent);
-    //     $(`#id${box}`).data('text',parent+childCounter);
-    //     prepareOneBoxJSON(box,btnClass);
     }
     
 })
@@ -844,6 +763,9 @@ $('#addGeneral').click(function(e){
                 //if exists
                 if(foundIndex !=-1){
                     //call a Resursive function which return the counter and new id
+                    if(childCounter >9){
+                        childCounter='a'+childCounter;
+                    }
                     var arr= Recursion(childCounter,parent,response.campaign.flowJSON)
                     //setting new id
                     var newId=parent+''+arr[0];
@@ -857,6 +779,9 @@ $('#addGeneral').click(function(e){
                 }
                 else{
                     totalBoxes++;
+                    if(childCounter >9){
+                        childCounter='a'+childCounter;
+                    }
                     var id=parent+''+childCounter;
                     CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter)
                     addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
@@ -884,12 +809,13 @@ function Recursion(number,parent,JsonArray){
     var f_index = JsonArray.findIndex(x => parent+''+number == x.id);
     count++;
     if(f_index == -1){
-        console.log('here')
+        console.log('Return Number :'+number)
         var arr=[number,count]
         return arr;
     }
     else{
-        // console.log('Recursion')
+        console.log('Pass Number :'+number)
+        console.log('Recursion')
         Newnumber=parseInt(number)+1;
         var array=JsonArray.slice();
         var newParent=parent;
@@ -897,7 +823,9 @@ function Recursion(number,parent,JsonArray){
     } 
 }
 function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter){
-    
+    // if(childCounter >9){
+    //     childCounter='a'+childCounter;
+    // }
         var box=0;
         var nBox=0;
         if( btnClass== addNewBox){
