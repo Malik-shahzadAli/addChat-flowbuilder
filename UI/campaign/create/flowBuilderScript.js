@@ -133,6 +133,7 @@ function textFunction(e){
     $('#modal-text').data('text',e.classList[1])
     $('#modalContent').data('text',e.classList[2]);
     $(".dropdown").dropdown('toggle');
+    $('#length').text('SMS (0/0)');
 }
 function imageFunction(e){
     //if user select the image from dropdown
@@ -189,9 +190,10 @@ $('#addText').click(function(){
     `
     )
     //adding text on the responses card
-    $(`#ResponseDiv${rowNo}${newCounter}Span`).data('text',$('#addTextArea').val())
+    $(`#ResponseDiv${rowNo}${newCounter}Span`).data('text',$('#addTextArea').val());
     //user input text length
     var textLength=$(`#ResponseDiv${rowNo}${newCounter}Span`).data('text');
+    console.log('Total characters :'+textLength);
     //checking if user input more than 25 characters
     if(textLength.length > 25){
         //adding 22 characters on the card and 3 dots
@@ -298,6 +300,8 @@ function ResponseModal(e) {
     
     $('#modal-update').data('text',e.classList[0])
     $('#modalContent').data('text',e.classList[1]);
+    var length=parseInt($('#updateTextArea').val().length)+1;
+    $('#updateLength').text(`SMS (${length} /${Math.ceil(length/160)})`)
 }
 //when user click on the update Text button from jquery modal
 $('#updateText').click(function(e){
@@ -766,7 +770,7 @@ function createNewBoxRow(parent,childCounter){
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column " id='colum${addNewBox}'>
     <div id='model-n${totalBoxes}' class="hypermodel-grid ${a}" >
-    <div class="hypermodel-header" style="background:#3f9ce8; ">
+    <div class="hypermodel-header" style="background:#60a3bc; ">
         <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
     </div>
     <!-- Responses Part -->
@@ -848,7 +852,7 @@ function createNewBox(number,parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-grid ${a}" id="model-n${totalBoxes}" >
-        <div class="hypermodel-header" style="background:#3f9ce8; ">
+        <div class="hypermodel-header" style="background:#60a3bc; ">
             <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
         </div>
         <!-- Responses Part -->
@@ -1567,9 +1571,16 @@ function connect(parent,child){
     console.log($('#'+child));
     $("#"+parent).connections({ to: "#"+child});
 }
-// function drawarrow(child, parent){
-//     console.log('call')
-//     $('#step3').append(`
-//     <connection from='#generalDiv12' to='#title11' color="red" ></connection>
-//     `)
-// }
+function wordCounter(){
+    var length=$('#addTextArea').val().length;
+    var newLength=parseInt(length)+1;
+    var total=160;
+    $('#length').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
+}
+
+function updateWordCounter(){
+    var length=$('#updateTextArea').val().length;
+    var newLength=parseInt(length)+1;
+    var total=160;
+    $('#updateLength').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
+}

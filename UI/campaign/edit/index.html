@@ -565,13 +565,14 @@
                                                                 <div class="block-content">
                                                                     <form>
                                                                         <div class="md-form amber-textarea active-amber-textarea" id="res">
-                                                                            <label for="form19">Text</label>
-                                                                            <textarea id="addTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                            <label for="form19">Text <span id='length' style="font-size: 8pt;font-style: italic;">SMS (0/0)</span></label>
+                                                                            <textarea id="addTextArea" class="md-textarea form-control" rows="3" onkeydown="wordCounter()" required></textarea>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer" >
+                                                                
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addText'>
                                                                     <i class="fa fa-check"></i> Perfect
@@ -598,8 +599,8 @@
                                                                 <div class="block-content">
                                                                     <form>
                                                                         <div class="md-form amber-textarea active-amber-textarea" id="updateRes">
-                                                                            <label for="form19">Text</label>
-                                                                            <textarea id="updateTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                            <label for="form19">Text <span id='updateLength' style="font-size: 8pt;font-style: italic;">SMS(0/0) </span> </label>
+                                                                            <textarea id="updateTextArea" class="md-textarea form-control" rows="3"  onkeydown="updateWordCounter()" required></textarea>
                                                                         </div>
                                                                     </form>
                                                                 </div>

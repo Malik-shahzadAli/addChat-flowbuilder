@@ -575,8 +575,8 @@
                                                                 <div class="block-content">
                                                                     <form>
                                                                         <div class="md-form amber-textarea active-amber-textarea" id="res">
-                                                                            <label for="form19">Text</label>
-                                                                            <textarea id="addTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                            <label for="form19">Text <span id='length' style="font-size: 8pt;font-style: italic;">SMS (0/0)</span></label>
+                                                                            <textarea id="addTextArea" class="md-textarea form-control" rows="3"  onkeydown="wordCounter()" required></textarea>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -608,8 +608,8 @@
                                                                 <div class="block-content">
                                                                     <form>
                                                                         <div class="md-form amber-textarea active-amber-textarea" id="updateRes">
-                                                                            <label for="form19">Text</label>
-                                                                            <textarea id="updateTextArea" class="md-textarea form-control" rows="3" required></textarea>
+                                                                            <label for="form19">Text <span id='updateLength' style="font-size: 8pt;font-style: italic;">SMS (0/0) </span></label>
+                                                                            <textarea id="updateTextArea" class="md-textarea form-control" rows="3" onkeydown="updateWordCounter()" required></textarea>
                                                                         </div>
                                                                     </form>
                                                                 </div>
