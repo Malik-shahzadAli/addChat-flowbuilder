@@ -1,6 +1,9 @@
 var theNewScript = document.createElement("script");
 theNewScript.type = "text/javascript";
 theNewScript.src = "./flowBuilderScript.js";
+var jsPlumb=document.createElement('script');
+jsPlumb.type="text/javascript";
+jsPlumb.src="./jsplumb.min.js" 
 $(document).ready(function(){
 //    var id= localStorage.getItem('id');
 //    localStorage.removeItem('id');
@@ -39,7 +42,7 @@ $(document).ready(function(){
             // $('#number').val("+14245432422");
             $('#display').removeClass('hide');
             $('#spinner').addClass('hide');
-            // Refresh();
+            Refresh();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $('#spinner').addClass('hide');
@@ -48,6 +51,12 @@ $(document).ready(function(){
         }
     });
 })
+
+// $(document).load(function () {
+//     // code here
+//    });
+
+   
 var obj={}
 function parseJson(JsonArray2){
     const a = _.groupBy(JsonArray2,'parent');
@@ -276,7 +285,7 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
                 <div style="float:left; width:80%;" id="generalDiv${row}${childCounter}" class='${row}${childCounter}' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${row}${childCounter}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${counter} btnbtn ${gen} ${row} genral" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${counter} btnbtn ${gen} ${row} genral" id='Remove${gen}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -284,6 +293,9 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
       
         `
         )
+        var parentId=`Remove${gen}`;
+         var child=`a${gen}`;
+         createLine(parentId,child);
         $(`#generalDiv${row}${childCounter}Span`).data('text',name)
         //setting time and unit on the span of responses
         $(`#generalDiv${row}${childCounter}Span`).text(name)
@@ -366,3 +378,31 @@ function  zoomOutFunction() {
 //     return fu;
 // })();
 // window.addEventListener('scroll',f);
+
+
+
+
+// jsPlumb.ready(function(){
+//     createLine();
+// });
+//    function createLine( parent,child){
+//     var container = $("#AppendDiv");
+//     jsPlumb.setContainer(container);
+//     var e1 = jsPlumb.addEndpoint(child, {
+//         connectionType:"basic",
+//         width:5,
+//         isSource:true,
+//         anchor: "LeftMiddle",
+//         endpoint:[ "Dot", { radius:2}],
+//         connector: ["Bezier", { curviness: 90 }]
+//       }); 
+      
+//       var e2 = jsPlumb.addEndpoint(parent, {
+//         isTarget:true,
+//         anchor:"Right",
+//         endpoint:[ "Dot", { radius:2 }],
+//         connector: ["Bezier", { curviness: 90 }]
+//       });
+
+//    jsPlumb.connect({ source:e1, target:e2 });
+//    }

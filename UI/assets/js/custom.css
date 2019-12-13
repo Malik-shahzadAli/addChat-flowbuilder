@@ -1,44 +1,3 @@
-/* /* 
-#try{
-    margin-top:-6%;
-    box-shadow:none;
-    -o-box-shadow:none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-sizing: none;
-    -o-box-sizing: none;
-    -moz-box-sizing: none;
-    -webkit-box-sizing: none;
-    border:none;
-    background-color:none;
-    
-} */
-/*
-#plust{
-    background-color: #fcfcfc;
-    padding: 0 1em;
-    margin-bottom: 8px;
-    color: #333333;
-    font-size: 100%;
-    text-decoration: none;
-    border: 1px solid #cccccc;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
-    -o-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
-    -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
-    -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
-    box-sizing: border-box;
-    -o-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-.form-control{
-    border-radius: 0%;
-}
-.hypermodel-header{
-    background:rgba(0, 0, 0, .125) ;
-} */
 #button{
     background-color: #fcfcfc;
     padding: 0 1em;
@@ -47,8 +6,6 @@
     font-size: 100%;
     text-decoration: none;
     border: 1px solid #cccccc;
-    /* position: relative; */
-    /* overflow: hidden; */
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
     -o-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
     -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
@@ -58,3 +15,6 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
+/* element.style{
+    width:10900;
+} */

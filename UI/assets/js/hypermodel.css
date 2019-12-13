@@ -124,7 +124,7 @@
     text-decoration: none;
     border: 1px solid #cccccc;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
     -o-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
     -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .125);
@@ -267,7 +267,7 @@
     margin: 0;
     padding: 0;
     line-height: 1.8em;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .hypermodel-wrapper .hypermodel-area .hypermodel-column .hypermodel-header h3 span,

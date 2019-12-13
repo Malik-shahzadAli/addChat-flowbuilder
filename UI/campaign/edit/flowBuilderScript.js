@@ -824,13 +824,13 @@ function Recursion(number,parent,JsonArray){
     var f_index = JsonArray.findIndex(x => parent+''+number == x.id);
     count++;
     if(f_index == -1){
-        console.log('Return Number :'+number)
+        // console.log('Return Number :'+number)
         var arr=[number,count]
         return arr;
     }
     else{
-        console.log('Pass Number :'+number)
-        console.log('Recursion')
+        // console.log('Pass Number :'+number)
+        // console.log('Recursion')
         Newnumber=parseInt(number)+1;
         var array=JsonArray.slice();
         var newParent=parent;
@@ -838,21 +838,24 @@ function Recursion(number,parent,JsonArray){
     } 
 }
 function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox,totalBoxes,generalName,childCounter){
-    // if(childCounter >9){
-    //     childCounter='a'+childCounter;
-    // }
         var box=0;
         var nBox=0;
         if( btnClass== addNewBox){
             box=parseInt(addNewBox)+1+''+totalBoxes;
             nBox=parseInt(addNewBox)+1;
             createNewGenralRow(parent,childCounter,box,id);
+            var pare=`Remove${id}`;
+            var chil=`a${id}`
+            createLine(pare,chil)
             Refresh(); 
         }
         else{
             nBox=addNewBox;
             box=addNewBox+''+totalBoxes;
             createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,box,id);
+            var pare=`Remove${id}`;
+            var chil=`a${id}`
+            createLine(pare,chil)
         }
         //setting title
         $(`#title${box}`).data('text',generalName);
@@ -869,6 +872,7 @@ function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox
         $(`#id${box}`).data('text',parent+childCounter);
         //preparing json
         prepareOneBoxJSON(box,btnClass);
+        Refresh();
 }
                                                     ////////////////////
                                                    // UPDATE GENERAL //
@@ -1015,7 +1019,7 @@ function createNewBox(number,parent,childCounter,box,id){
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
     <div id='model-n${id}' class="hypermodel-grid ${id}"  >
-        <div class="hypermodel-header" style="background:#60a3bc; ">
+        <div class="hypermodel-header" style="background:#60a3bc; " id='a${id}'>
             <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
         </div>
         <!-- Responses Part -->
@@ -1085,7 +1089,7 @@ function createNewBox(number,parent,childCounter,box,id){
 //                  FUNCTION CREATES NEW GENRAL ROW       //
 ////////////////////////////////////////////////////////////
 function createNewGenralRow(parent,childCounter,boxNo,id){
-    console.log('here Thing :'+parent +' c '+childCounter+' bn '+boxNo+' id '+id)
+    // console.log('here Thing :'+parent +' c '+childCounter+' bn '+boxNo+' id '+id)
     addNewBox++;
     var newTotalBoxes=totalBoxes;
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
@@ -1096,6 +1100,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     if(parent=='0'){
         a='root';
     }
+    console.log('this is the id :'+id);
     $('#AppendDiv').append(`
     <div id='child${boxNo}' data-text='1'></div>
     <div id='isFallback${boxNo}' data-text='false'></div>
@@ -1104,7 +1109,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     <div id='${id}' data-text='${boxNo}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
         <div id='model-n${id}' class="hypermodel-grid ${id}">
-            <div class="hypermodel-header" style="background:#3f9ce8; ">
+            <div class="hypermodel-header" style="background:#3f9ce8; " id='a${id}'>
                 <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
             </div>
         <div class="hypermodel-body" id='mainModel${addNewBox}'>
@@ -1129,7 +1134,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
                         <div class="hypermodel-item">
                             <div class="row ${boxNo}" style="padding-bottom: 5%;" id='plus' onclick='addnewTraningPhaseCard(this)' >
                                 <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
-                                    <i class="fa fa-plus"></i>
+                                    <span class="fa fa-plus"></span>
                                 </button>
                             </div> 
                         </div>
@@ -1182,7 +1187,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
                     <div id="userInputBody${boxNo}" style="padding-top:1%;"></div>
                     <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%; ">
                         <div class="row btn btn-sm btn-alt-default dropdown ${addNewBox}${counter}" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='dropdown' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='userInputDropdownBtn(this)'>
-                            <i class="fa fa-plus"></i>
+                            <span class="fa fa-plus"></span>
                             <div class="dropdown-menu dropdown${addNewBox}${counter}" aria-labelledby="btnGroupVerticalDrop2">
                             <div id='fallbackCounter'></div>
                                 <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${addNewBox} ${boxNo} ${newTotalBoxes} ${id} btn" data-text(${counter})  onclick='addFallback1(this)'>
@@ -1201,6 +1206,8 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     </div>
 
     `)
+    //parent,childCounter
+
 }
 /////////////////////////////////////////////////////////////
 //                     CREATE NEW GENRAL BOX              //
@@ -1209,21 +1216,20 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
     // console.log('this is the child counter :'+childCounter);
     var newAddNewBox=parseInt(addNewBox)-1;
     var newTotalBoxes=totalBoxes;
-    
+    // console.log('this is the id :'+id);
 
     // console.log('trying :'+newAddNewBox+''+newTotalBoxes);
     var b=$('#gCount').data('text');
     var a=parent+''+childCounter;
     // console.log('this is the id :'+a);
     $('#colum'+number).append(`
-   
     <div id='child${boxNo}' data-text='1'></div>
     <div id='isFallback${boxNo}' data-text='false'></div>
     <div id='id${boxNo}' data-text=${a}></div>
     <div id='parent${boxNo}' data-text=${b}></div>
     <div id='${id}' data-text='${boxNo}'></div>
     <div id='model-n${id}' class="hypermodel-grid ${id}" >
-    <div class="hypermodel-header" style="background:#3f9ce8; ">
+    <div class="hypermodel-header" style="background:#3f9ce8; " id='a${id}'>
         <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
     </div>
 <div class="hypermodel-body" id='mainModel${addNewBox}'>
@@ -1248,7 +1254,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
                 <div class="hypermodel-item" >
                     <div class="row ${boxNo}" style="padding-bottom: 5%;" id='plus' onclick='addnewTraningPhaseCard(this)' >
                         <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
-                            <i class="fa fa-plus"></i>
+                            <span class="fa fa-plus"></span>
                         </button>
                     </div> 
                 </div>
@@ -1300,7 +1306,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
         <div id="userInputBody${boxNo}" style="padding-top:1%;"></div>
         <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%; ">
             <div class="row btn btn-sm btn-alt-default dropdown ${boxNo}" id='dropdown' style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btn${addNewBox}' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='userInputDropdownBtn(this)'>
-                    <i class="fa fa-plus"></i>
+                    <span class="fa fa-plus"></span>
                 <div class="dropdown-menu dropdown${boxNo}" aria-labelledby="btnGroupVerticalDrop2" >
                     <a id='fallDropdown${totalBoxes}' data-text=${totalBoxes}  class="dropdown-item ${number} ${boxNo} ${newTotalBoxes} ${id} btn"  onclick='addFallback1(this)'>
                         FallBack
@@ -1318,8 +1324,11 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 </div>
 
       `)
-    //   $(`#tgen${gencounter}`).data('text',($(`#gCount${gencounter}`).data('text')+addNewBox));
-    //   prepareJsonForUserSays();
+    //   if($(`#Remove${addNewBox}${totalBoxes}`).length){
+        var pare=`Remove${id}`;
+         var chil=`a${id}`
+          createLine(pare,chil)
+    //   }
 }
 ////////////////////////////////////////////////////////////
 //         FUNCTION REFRESH DOM                          //
@@ -1341,6 +1350,7 @@ function Refresh(){
         strokeDashWeight: 8, // Each of dash dottes's length (px).
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
+    jsPlumb.repaintEverything();
 
 }
 
@@ -1414,8 +1424,6 @@ function RemoveFallback(e){
 }
 //prepare json
 function prepareOneBoxJSON(boxno,row){
-   console.log('PrePare JSON CALLLING ....................');
-   console.log('This is the box Number :'+boxno)
     var newRow=parseInt(row)+1;
     var totalChilds=$(`#colum${newRow}`).children()
     var boxNo = []
@@ -1550,7 +1558,7 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${nBox}${totalBoxes}' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} ${nBox} ${gen} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} ${nBox} ${gen} fallback" id='Remove${gen}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1660,4 +1668,34 @@ function updateWordCounter(){
     var newLength=parseInt(length)+1;
     var total=160;
     $('#updateLength').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
+}
+function createLine(parent,child){
+    console.log(parent);
+    console.log(child);
+    // if($(`#${parent}`).length && $(`#${child}`).length){
+         var container = $("#AppendDiv");
+         jsPlumb.setContainer(container);
+         var e1 = jsPlumb.addEndpoint(child, {
+             connectionType:"basic",
+             width:5,
+             isSource:true,
+             anchor: "LeftMiddle",
+             endpoint:[ "Dot", { radius:2}],
+             connector: ["Bezier", { curviness: 90 }]
+             }); 
+             
+             var e2 = jsPlumb.addEndpoint(parent, {
+             isTarget:true,
+             anchor:"Right",
+             endpoint:[ "Dot", { radius:2 }],
+             connector: ["Bezier", { curviness: 90 }]
+             });
+
+         jsPlumb.connect({ source:e1, target:e2 });
+         jsPlumb.setDraggable([e1,e2]);
+    // }
+    // else{
+   //     console.log('ID not found')
+    //}
+
 }

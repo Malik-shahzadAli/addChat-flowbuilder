@@ -366,7 +366,7 @@
                                                         <div id='display' class="hide">
                                                 <!-- <div id="wrapper"> -->
                                                     <!-- <div class="article"> -->
-                                                        <div class="hypermodel-container" style="overflow: auto;" >
+                                                        <div class="hypermodel-container" style="overflow: auto; width:100%;" >
                                                             <div class="hypermodel-area" id='AppendDiv'>
                                                                 <div style="position:absolute,fixed;">
                                                                     <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomInFunction()">
@@ -407,8 +407,8 @@
                                                                                             <div class="col-md-12">
                                                                                                 <div class="hypermodel-item">
                                                                                                     <div class="row 00 0" style="padding-bottom: 5%;" id='plusButton' onclick='addnewTraningPhaseCard(this)' >
-                                                                                                        <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
-                                                                                                                <i class="fa fa-plus"></i>
+                                                                                                        <button type="button" class="btn btn-xs btn-alt-default" id='uprePlusButton' style="margin-left:40%;color: #3f9ce8;">
+                                                                                                            <span  class="fa fa-plus"></span>
                                                                                                     </button>
                                                                                                     </div> 
                                                                                                 </div>
@@ -460,7 +460,7 @@
                                                                                     <div id='userInput' style="background: #FFFFFF; margin-top: -5%;" id='createdFallback0' data-text='-1'>
                                                                                         <div id="userInputBody0" style="padding-top:1%;"></div>
                                                                                         <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%; ">
-                                                                                            <div class="row btn btn-sm btn-alt-default dropdown" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='dropdown' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                            <div class="row btn btn-sm btn-alt-default dropdown firstButton" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='dropdown' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                                     <i class="fa fa-plus"></i>
                                                                                                 <div class="dropdown-menu " aria-labelledby="btnGroupVerticalDrop2" id="fallbackCounter" data-text='-1'>
                                                                                                     <a class="dropdown-item 0 00 0 btn root" id='fall0' data-text='0' onclick='addFirstFallback(this)'>
@@ -966,6 +966,7 @@
        <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
        <script src="../../campaign/create/flowBuilderScript.js"></script>
        <!-- <script src="../../campaign/create/reverseFlowBuilder.js"></script> -->
+       <script src="../../campaign/create/jsplumb.min.js"></script>
        <script src="../../assets/js/HyperModal.js"></script>
        <!-- <script src="lineScript.js"></script> -->
        <script src="connection.js"></script>

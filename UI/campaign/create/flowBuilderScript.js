@@ -1,13 +1,7 @@
-// $(document).ready(function() {
-//     if(companyID ){
-//         prepareOneBoxJSON('00','0')
-//     }
-// });
-var theNewScript = document.createElement("script");
-theNewScript.type = "text/javascript";
-theNewScript.src = "./connection.js";
+var jsPlumb = document.createElement("script");
+jsPlumb.type = "text/javascript";
+jsPlumb.src = "./jsplumb.min.js";
 var json=0;
-localStorage.setItem('DeleteChilds',0);
 function loadJson(){
     let compaignNumber = $('#number').find(":selected").val();
     if(compaignNumber !='2'){
@@ -33,13 +27,16 @@ $('#userInput').collapse('show')
 //Collapse button of User Says
 $('#colapse').click(function(){
     $('#UserSays').collapse('toggle')
+    Refresh();
 })
 $('#dynamicColapse').click(function(){
-    $('#dynamicUserSays').collapse('toggle')
+    $('#dynamicUserSays').collapse('toggle');
+    Refresh();
 })
 // collapse Responses Button
 $('#colapseResponses').click(function(){
-    $('#responses').collapse('toggle')
+    $('#responses').collapse('toggle');
+    Refresh();
 })
 // collapse User Input Button
 $('#colapseUserInputs').click(function(){
@@ -47,7 +44,6 @@ $('#colapseUserInputs').click(function(){
   
 })
 function addnewTraningPhaseCard(e){
-    // console.log(e.classList[1]);
     counter++;
     // e.classList[1] Tells the boxNo like 00, 11,12,13...
     var boxOldCounter=$(`#child${e.classList[1]}`).data('text');
@@ -67,14 +63,13 @@ function addnewTraningPhaseCard(e){
     </div>
     `
     );
-   // console.log(e.classList[2]);
    
 prepareOneBoxJSON(e.classList[1],row);
+Refresh();
+// jsPlumb.repaintEverything();
 }
 // traning phase on click
 function onClick(e) {
-    console.log(e);
-    // console.log('this is the e.id'+e.id);
     // toggle Model
     jQuery('#modal-trainingPhase').modal('toggle');
     //empty old text
@@ -92,9 +87,7 @@ function onClick(e) {
 $('#addTraning').click(function(){
     var boxNo=$('#modal-trainingPhase').data('text');
     var row=$('#modalContent').data('text');
-    // console.log(row);
     //getting value from modal
-    // console.log('This is the id :'+id)
     var id=$('#text').data('text');
     //setting  div data-text
     $('#'+id).data('text',$('.trainingPhase').val())
@@ -114,12 +107,16 @@ $('#addTraning').click(function(){
         $('#'+id).text('Add text here')
     }
     prepareOneBoxJSON(boxNo,row);
+    Refresh();
+    // jsPlumb.repaintEverything();
 })
 // Remove Code
 function Remove(e) {
     var row=e.classList[4];
     $('#'+"div"+e.classList[2]).remove();
     prepareOneBoxJSON(e.classList[3],row);
+    Refresh();
+    // jsPlumb.repaintEverything();
 }
 // //////////////////////////////////////////////////////////////////////////////////
 //                                 Responses                                      //
@@ -193,7 +190,6 @@ $('#addText').click(function(){
     $(`#ResponseDiv${rowNo}${newCounter}Span`).data('text',$('#addTextArea').val());
     //user input text length
     var textLength=$(`#ResponseDiv${rowNo}${newCounter}Span`).data('text');
-    console.log('Total characters :'+textLength);
     //checking if user input more than 25 characters
     if(textLength.length > 25){
         //adding 22 characters on the card and 3 dots
@@ -203,7 +199,9 @@ $('#addText').click(function(){
         $(`#ResponseDiv${rowNo}${newCounter}Span`).text($('#addTextArea').val())
     }
 }
-prepareOneBoxJSON(rowNo,row)
+prepareOneBoxJSON(rowNo,row);
+Refresh();
+// jsPlumb.repaintEverything();
 })
 //when user click on the add image button 
 //from jquery modal
@@ -216,7 +214,6 @@ $('#addImage').click(function(e){
   //getting image source from the image modal 
   //source set in the loadfile() function
   var source=$('#footer').data('text');
-  console.log(source);
   //checking if user load image 
   if(source !='')
   {
@@ -239,7 +236,9 @@ $('#addImage').click(function(e){
     )
     $(`#imagediv${rowNo}${newCounter}Span`).data('text',source)
   }
-  prepareOneBoxJSON(rowNo,row)
+  prepareOneBoxJSON(rowNo,row);
+  Refresh();
+//   jsPlumb.repaintEverything();
 })
 //when user click on add delay jquery modal button
 //add time Delay on the span
@@ -279,7 +278,9 @@ var newCounter;
     //setting time and unit on the span of responses
     $(`#delayDiv${rowNo}${newCounter}Span`).text(delay)
   }
-  prepareOneBoxJSON(rowNo,row)
+  prepareOneBoxJSON(rowNo,row);
+  Refresh();
+//   jsPlumb.repaintEverything();
 })  
 
                                                     ///////////////////
@@ -322,7 +323,8 @@ $('#updateText').click(function(e){
     }else{
     $('#'+spanId).text('Add text here');
     }
-    prepareOneBoxJSON(rowNo,row)
+    prepareOneBoxJSON(rowNo,row);
+    // jsPlumb.repaintEverything();
 })
                                                     /////////////////
                                                    // UPDATE DELAY//
@@ -366,7 +368,8 @@ $('#updateDelay').click(function(e){
     var updateText=$('#'+spanId).data('text');
     //setting the value on the span card
     $('#'+spanId).text(updateText)
-    prepareOneBoxJSON(rowNo,row)
+    prepareOneBoxJSON(rowNo,row);
+    // jsPlumb.repaintEverything();
 })
 //load image in modal
 function loadFile(e) {
@@ -444,20 +447,16 @@ $('#updateImageBtn').click(function(e){
     //getting updated image source from the jquery modal
     var source=$('#updateImageFooter').data('text');
     //setting new image
-    console.log('This is the source :'+source);
-    // console.lo(`#`+id)
     $(`#${id} img`).attr('src',source)
     // $('#'+id+'Image').attr('src',source)
-    prepareOneBoxJSON(rowNo,row)
+    prepareOneBoxJSON(rowNo,row);
+    // jsPlumb.repaintEverything();
 })
 /////////////////////////////////////////////////////////////////////////////////////
 //                         USER INPUTS                                            //           
 ///////////////////////////////////////////////////////////////////////////////////
 // When user select Fall Back option from dropdown button
 function addFirstFallback(e){
-    // console.log(e);
-    var id=e.id;
-    //console.log($(`#${e.id}`).data('text'));
     var boxCounter=$(`#${e.id}`).data('text');
     jQuery('#modal-fallBack').modal('toggle');
     $('#fallbackName').val('');
@@ -479,13 +478,9 @@ function addFirstFallback(e){
 
 }
 function addFallback(e){
-    // console.log(e);
-    // console.log($(`#${e.id}`).data('text'));
     var id=e.id;
     var boxCounter=$(`#${e.id}`).data('text');
-   // var addCounter=parseInt(boxCounter+1);
     $('#blockContent').data('text',boxCounter)
-    // console.log($(`#${e.id}`).data('text'));
     jQuery('#modal-fallBack').modal('toggle');
     $('#fallbackName').val('');
     $('#modal-fallBack').data('text',e.classList[1]);
@@ -534,7 +529,6 @@ $('#addFallback').click(function(){
     }
     //getting box counter
     var boxCounter=$('#blockContent').data('text')
-    // console.log('This is the fall counter :'+fallbackCounter);
     if(fallBackName != ''  ){
         addFallBack++;
         totalBoxes++;
@@ -552,8 +546,6 @@ $('#addFallback').click(function(){
         $(`#fallbackDiv${counter}Span`).data('text',name)
         //setting time and unit on the span of responses
         $(`#fallbackDiv${counter}Span`).text(name)
-        //console.log($(`#fallbackDiv${boxCounter}Span`))
-       // console.log($(`#fallbackDiv${boxCounter}Span`).parent().parent().parent().parent().parent().children()[1])
        if($(`#fallbackDiv${counter}Span`).length){
         var id=($(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0].id);
         //disable the fall back button
@@ -561,7 +553,6 @@ $('#addFallback').click(function(){
        }
        else{
         $(`#fallDropdown${boxCounter}`).addClass('disabled')
-        //    console.log('this is the box counter :'+boxCounter);
        }
         // $(`#fallbackDiv${counter}Span`).parent().parent().parent().parent().parent().children()[1].children.dropdown.children[1].children[0]('a').addClass('disabled')
         //puting name on the box
@@ -574,6 +565,7 @@ $('#addFallback').click(function(){
         $(`#id${addNewBox}${totalBoxes}`).data('text',parent+childCounter)
     }
     prepareOneBoxJSON(addNewBox+""+totalBoxes,row);
+    // jsPlumb.repaintEverything();
 })
 
 
@@ -608,6 +600,7 @@ $('#updateFallback').click(function(e){
     $(`#title${boxTitleid}`).data('text',$('#updateFallbackName').val());
     $(`#title${boxTitleid}`).text($('#updateFallbackName').val());
     prepareOneBoxJSON(boxTitleid);
+    // jsPlumb.repaintEverything();
 })
 
 /////////////////////////////////
@@ -635,7 +628,6 @@ function addFirstGenral(e){
     $(`#ChildCounter${e.classList[2]}`).data('text',newCounter);
 }
 function addGenral(e){
-    // console.log(e.classList[1]);
     //toggle the JQuery modal
     jQuery('#modal-general').modal('toggle');
     //empty the general name
@@ -672,7 +664,6 @@ $('#addGeneral').click(function(e){
     if(childCounter >9){
         childCounter='a'+childCounter;
     }
-    console.log('child counter :'+childCounter);
     var oldCounter;
     var newCounter;
     if(generalName != ''){
@@ -680,17 +671,18 @@ $('#addGeneral').click(function(e){
         oldCounter=$(`#userInputChilds${generalCounter}`).data('text');
         //increasing the old counter
         newCounter=parseInt(oldCounter+1);
-        // console.log('this is the childCounter:'+childCounter);
-        // console.log('this is the new Counter :'+newCounter);
         //setting the userInputChilds data new counter
         $(`#userInputChilds${generalCounter}`).data('text',newCounter);
         //increasing total boxes
+        var p;
+        var child;
         totalBoxes++;
+ 
         if(generalCounter != -1){
             appendGeneral(generalCounter, addNewBox,totalBoxes,counter,newCounter,btnClass,childCounter,parent)
         }
         else if(generalCounter == -1 && totalBoxes != 1){
-            appendGeneral(btnClass, addNewBox,totalBoxes,counter,newCounter,childCounter,parent)
+          appendGeneral(btnClass, addNewBox,totalBoxes,counter,newCounter,childCounter,parent)
         }
         else{
             appendGeneral(btnClass, addNewBox+1,totalBoxes,counter,newCounter,childCounter,parent)
@@ -698,7 +690,9 @@ $('#addGeneral').click(function(e){
         if( btnClass== addNewBox){
             createNewGenralRow(parent,childCounter);
         }
-        else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter);}
+        else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter);
+        }
+
         $(`#title${addNewBox}${totalBoxes}`).data('text',generalName);
         $(`#title${addNewBox}${totalBoxes}`).text(generalName);
         //getting delay input + selected unit
@@ -717,8 +711,8 @@ $('#addGeneral').click(function(e){
         $(`#id${addNewBox}${totalBoxes}`).data('text',parent+childCounter)
     }
     Refresh();
-    $('.hypermodel-container').hypermodel('repaint');
     prepareOneBoxJSON(addNewBox+""+totalBoxes,row);
+    // jsPlumb.repaintEverything();
   
 })
                                                     ////////////////////
@@ -752,6 +746,7 @@ $('#updateGeneral').click(function(e){
     $(`#title${boxTitleid}`).data('text',$('#updateGeneralName').val());
     $(`#title${boxTitleid}`).text($('#updateGeneralName').val());
     prepareOneBoxJSON(boxTitleid);
+    // jsPlumb.repaintEverything();
 
 })
 
@@ -769,7 +764,7 @@ function createNewBoxRow(parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column " id='colum${addNewBox}'>
-    <div id='model-n${totalBoxes}' class="hypermodel-grid ${a}" >
+    <div  class="hypermodel-grid ${a}" >
     <div class="hypermodel-header" style="background:#60a3bc; ">
         <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
     </div>
@@ -837,6 +832,9 @@ function createNewBoxRow(parent,childCounter){
     </div>
   `)
   $('#tgen').data('text',($('#fallCount').data('text')+addNewBox))
+  console.log('box row :'+addNewBox+''+totalBoxes);
+//   console.log()
+
 
 }
 //////////////////////////////////////////////////////////
@@ -851,7 +849,7 @@ function createNewBox(number,parent,childCounter){
     <div id='id${addNewBox}${totalBoxes}'></div>
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
-    <div class="hypermodel-grid ${a}" id="model-n${totalBoxes}" >
+    <div class="hypermodel-grid ${a}"  >
         <div class="hypermodel-header" style="background:#60a3bc; ">
             <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
         </div>
@@ -915,7 +913,9 @@ function createNewBox(number,parent,childCounter){
         </div>
     </div>
     `)
-    $('#tgen').data('text',($('#fallCount').data('text')+addNewBox))
+    console.log('box:'+addNewBox+''+totalBoxes);
+    $('#tgen').data('text',($('#fallCount').data('text')+addNewBox));
+   
 }
 ////////////////////////////////////////////////////////////
 //                  FUNCTION CREATES NEW GENRAL ROW       //
@@ -930,7 +930,7 @@ function createNewGenralRow(parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
-        <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}" id="model-n${totalBoxes}">
+        <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}" >
             <div class="hypermodel-header" style="background:#3f9ce8; ">
                 <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
             </div>
@@ -956,7 +956,7 @@ function createNewGenralRow(parent,childCounter){
                         <div class="hypermodel-item">
                             <div class="row ${addNewBox}${totalBoxes} ${addNewBox}" style="padding-bottom: 5%;" id='plus' onclick='addnewTraningPhaseCard(this)' >
                                 <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
-                                    <i class="fa fa-plus"></i>
+                                    <span class="fa fa-plus"></span>
                                 </button>
                             </div> 
                         </div>
@@ -1027,27 +1027,18 @@ function createNewGenralRow(parent,childCounter){
     </div>
 
     `)
-    var pare=`generalDiv${addNewBox}${totalBoxes}`;
+    var pare=`Remove${addNewBox}${totalBoxes}`;
     var chil=`title${addNewBox}${totalBoxes}`
-    // connect(pare,chil)
-    // drawConnectors();
-    // $(window).resize(function () {
-    //     Belay.off();
-    //     drawConnectors();
-    // });
-
-    // Belay.init({
-    //     strokeWidth: 1
-    // });
-    // Belay.set('strokeColor', '#999');
-    // drawConnectors();
-
+    // console.log('pare'+pare);
+    // console.log('chil'+chil)
+    // p=`Remove${}${}`
+     createLine(pare,chil)
 }
 /////////////////////////////////////////////////////////////
 //                     CREATE NEW GENRAL BOX              //
 ///////////////////////////////////////////////////////////
 function createNewGenralBox(number,parent,childCounter){
-    // console.log('this is the number :'+number);
+    console.log(number);
     var b=$('#gCount').data('text');
     var a=parent+''+childCounter;
     $('#colum'+number).append(`
@@ -1056,7 +1047,7 @@ function createNewGenralBox(number,parent,childCounter){
     <div id='id${addNewBox}${totalBoxes}' data-text=${a}></div>
     <div id='parent${addNewBox}${totalBoxes}' data-text=${b}></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
-    <div class="hypermodel-grid ${a}" id="model-n${totalBoxes}">
+    <div class="hypermodel-grid ${a}" >
     <div class="hypermodel-header" style="background:#3f9ce8; ">
         <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
     </div>
@@ -1082,7 +1073,7 @@ function createNewGenralBox(number,parent,childCounter){
                 <div class="hypermodel-item" >
                     <div class="row ${addNewBox}${totalBoxes} ${number}" style="padding-bottom: 5%;" id='plus' onclick='addnewTraningPhaseCard(this)' >
                         <button type="button" class="btn btn-xs btn-alt-default"  style="margin-left:40%;color: #3f9ce8;">
-                            <i class="fa fa-plus"></i>
+                            <span class="fa fa-plus"></span>
                         </button>
                     </div> 
                 </div>
@@ -1152,14 +1143,29 @@ function createNewGenralBox(number,parent,childCounter){
 </div>
 
       `)
-    //   $(`#tgen${gencounter}`).data('text',($(`#gCount${gencounter}`).data('text')+addNewBox));
-    //   prepareJsonForUserSays();
+      if($(`#Remove${addNewBox}${totalBoxes}`).length){
+        var pare=`Remove${addNewBox}${totalBoxes}`;
+        var chil=`title${addNewBox}${totalBoxes}`
+         createLine(pare,chil)
+      }
+      else{
+        var pare=`Remove${addNewBox+1}${totalBoxes}`;
+        var chil=`title${addNewBox}${totalBoxes}`
+         createLine(pare,chil)
+      }
+
+
+    
 }
 ////////////////////////////////////////////////////////////
 //         FUNCTION REFRESH DOM                          //
 //////////////////////////////////////////////////////////
 
 function Refresh(){
+    // jsPlumb.repaintEverything();
+    // console.log('I M calling ')
+    // $('.firstButton').click()
+    // $( ".firstButton" ).trigger( "click" );
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1174,29 +1180,36 @@ function Refresh(){
         strokeDashWeight: 8, // Each of dash dottes's length (px).
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
-
+    // jsPlumb.reset();
+    jsPlumb.repaintEverything();
 }
 
 function dropdownBtn(e){
     $('.drop'+e.classList[5]).collapse('toggle')
+    Refresh();
+    // jsPlumb.repaintEverything();
 }
 function userInputDropdownBtn(e){
     $('.dropdown'+e.classList[5]).collapse('toggle')
     Refresh();
+    // jsPlumb.repaintEverything();
 }
 function userSaysCollapse(e){
     $('#collapse'+e.classList[3]).collapse('toggle')
     Refresh();
+    // jsPlumb.repaintEverything();
 
 }
 function responsesCollapse(e){
     $('.responses'+e.classList[3]).collapse('toggle')
     Refresh();
+    // jsPlumb.repaintEverything();
 
 }
 function colapseUserInputs(e){
     $('#userInput'+e.classList[3]).collapse('toggle')
     Refresh();
+    // jsPlumb.repaintEverything();
 }
 function fallBackToggle(e){
     $('#fallUserInputDropdown'+e.classList[4]).collapse('toggle');
@@ -1221,7 +1234,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
             <div style="float:left; width:80%;" id="generalDiv${addnewBox}${totalboxes}" class='${addnewBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='generalDiv${addnewBox}${totalboxes}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} btnbtn ${gen} ${addNewBox} genral" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} btnbtn ${gen} ${addNewBox} genral" id='Remove${addnewBox}${totalboxes}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1231,6 +1244,11 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
      <div id='gCount${btnclass}${newCounter}'></div>
     `
     )
+    var p=`Remove${addNewBox}${totalBoxes}`;
+    var child=`title${addNewBox}${totalBoxes}`;
+
+    Refresh();
+       
    }
    else{
        var newBox=parseInt(addnewBox+1)
@@ -1240,7 +1258,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
                 <div style="float:left; width:80%;" id="generalDiv${newBox}${totalboxes}" class='${newBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${newBox}${totalboxes}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${count} btnbtn ${gen} ${newBox} genral" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${count} btnbtn ${gen} ${newBox} genral" id="Remove${newBox}${totalboxes}" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -1250,6 +1268,9 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
         <div id='gCount${btnclass}${newCounter}'></div>
         `
         )
+        var p=`Remove${newBox}${totalBoxes}`;
+        var child=`title${addNewBox}${totalBoxes}`;
+
    }
    $(`parentSpanId${addNewBox}${newCounter}`).data('text',gen);
    $(`#gCount${genCounter}`).data('text',gen);
@@ -1257,7 +1278,6 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
 
 }
 function appendFallback(fallCounter, addnewBox,totalboxes,count,parent,childCounter){
-    // console.log(fallbackCounter);
     var c=parent+''+childCounter;
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
@@ -1274,6 +1294,7 @@ function appendFallback(fallCounter, addnewBox,totalboxes,count,parent,childCoun
     `
     )
     $('#fallCount').data('text',c);
+    // jsPlumb.repaintEverything();
 }
 function RemoveFallback(e){
     //getting all hypermodal appended classes
@@ -1292,7 +1313,6 @@ function RemoveFallback(e){
     var oldDeleteCount=localStorage.getItem('DeleteChilds');
     var newDeleteCount=parseInt(oldDeleteCount)+removeClasses.length;
     localStorage.setItem('DeleteChilds',newDeleteCount);
-    // console.log('new count :'+localStorage.getItem('DeleteChilds'));
     for(var i=0; i<removeClasses.length; i++){
         deleteJson(removeClasses[i]);
         $('.'+removeClasses[i]).remove();
@@ -1300,15 +1320,10 @@ function RemoveFallback(e){
     }
     $('#'+"div"+e.classList[2]).remove();
     Refresh();
-    
+    // jsPlumb.repaintEverything();
 }
 //prepare json
 function prepareOneBoxJSON(boxno,row){
-    console.log('This is the row passs'+ row)
-    // console.log('Add new box :'+addNewBox);
-    // console.log('this is the row :'+row)
-    var newRow=parseInt(row)+1;
-    // console.log('This is the new row :'+newRow)
     //sending row no
     var totalChilds=$(`#colum${row}`).children()
     var boxNo = []
@@ -1317,7 +1332,6 @@ function prepareOneBoxJSON(boxno,row){
             boxNo.push(i.classList)
         }
     }
-    //console.log('This is the box No:'+boxno);
     var counts=0;
     var responses=0;
     var id='';
@@ -1419,7 +1433,6 @@ function prepareOneBoxJSON(boxno,row){
    
 }
 function deleteJson(id){
-    console.log('pass id is :'+id);
     //finding the object index
     var foundIndex = JsonArray.findIndex(x => id == x.id);
     //if index found
@@ -1427,8 +1440,6 @@ function deleteJson(id){
         //deleting the object
         JsonArray.splice(foundIndex,1);
     }
-    console.log(JsonArray);
-    // console.log(JsonArray);
     createCampaign1();
 }
 var myId;
@@ -1441,15 +1452,9 @@ function createFirstCampaign(){
 
     let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
     let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-
-    console.log(startDate +"----"+endDate);
-    
     let status = $('#status').find(":selected").text();   
     let platform = $('#platform').find(":selected").text();    
     let compaignNumber = $('#number').find(":selected").val();
-    console.log(compaignNumber);
-    // console.log(campaignName);
-    
     let body = {
         name : campaignName,
         description : description,
@@ -1469,7 +1474,6 @@ function createFirstCampaign(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            console.log(response);
             myId=response.campaign._id;
             // window.location.replace('../list/');
             $('#display').removeClass('hide');
@@ -1482,7 +1486,6 @@ function createFirstCampaign(){
     });
 }
 function createCampaign1(){
-    console.log('Undefine calll ::'+myId);
     let campaignName = $('#campaign-name').val();
     let description = $("#description").val();
     let startDate1 = $("#start-date").val();
@@ -1491,7 +1494,6 @@ function createCampaign1(){
     let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
     let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
 
-    console.log(startDate +"----"+endDate);
     
     let status = $('#status').find(":selected").text();   
     let platform = $('#platform').find(":selected").text();    
@@ -1517,7 +1519,6 @@ function createCampaign1(){
     });
 }
 function Finish(){
-    console.log('here')
     let body = {
         flowJSON : JsonArray
     }
@@ -1544,7 +1545,6 @@ var zoom=0;
 function zoomInFunction(){
     if(zoom <0){
         zoom++;
-        // console.log(zoom)
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() / 0.8
         )
@@ -1556,7 +1556,6 @@ function zoomInFunction(){
 function  zoomOutFunction() {
     if(zoom > -2){
         zoom--;
-        // console.log(zoom)
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() * 0.8
         )
@@ -1565,11 +1564,6 @@ function  zoomOutFunction() {
         )
     }
 
-}
-function connect(parent,child){
-    console.log($('#'+parent));
-    console.log($('#'+child));
-    $("#"+parent).connections({ to: "#"+child});
 }
 function wordCounter(){
     var length=$('#addTextArea').val().length;
@@ -1583,4 +1577,32 @@ function updateWordCounter(){
     var newLength=parseInt(length)+1;
     var total=160;
     $('#updateLength').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
+}
+   function createLine(parent,child){
+       if($(`#${parent}`).length && $(`#${child}`).length){
+            var container = $("#AppendDiv");
+            jsPlumb.setContainer(container);
+            var e1 = jsPlumb.addEndpoint(child, {
+                connectionType:"basic",
+                width:5,
+                isSource:true,
+                anchor: "LeftMiddle",
+                endpoint:[ "Dot", { radius:2}],
+                connector: ["Bezier", { curviness: 90 }]
+                }); 
+                
+                var e2 = jsPlumb.addEndpoint(parent, {
+                isTarget:true,
+                anchor:"Right",
+                endpoint:[ "Dot", { radius:2 }],
+                connector: ["Bezier", { curviness: 90 }]
+                });
+
+            jsPlumb.connect({ source:e1, target:e2 });
+            jsPlumb.setDraggable([e1,e2]);
+       }
+       else{
+           console.log('ID not found')
+       }
+  
 }

@@ -1,4 +1,5 @@
 (function ($) {
+    // console.log('HYPER MODALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
     var matches = [];
     var index = 0;
     $.fn.hypermodel = function (opt, arg) {
@@ -28,7 +29,7 @@
             strokeHighlightWidth: 6,
             strokeDashWidth: 6,
             strokeDashWeight: 8,
-            strokeDashMargin: 6
+            strokeDashMargin: 6,
         };
         $.extend(_opt, opt);
 
@@ -52,7 +53,6 @@
         var paper = null;
         var selection = window.getSelection ? window.getSelection() : document.selection ? document.selection : null;
         var getDistanceBtDot = function (pos1, pos2) {
-            // console.log('This is the distance between two dots'+Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2)))
             return Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2));
            
         };
@@ -77,7 +77,6 @@
                 tolerance: 'pointer',
                 dropOnEmpty: true,
                 axis: "y",
-                axis: "x",
                 scroll: true,
                 beforeStop: function(event, ui) {
                     var $this = $(this);
@@ -110,6 +109,7 @@
                 matches = [];
                 return this.each(function () {
                     $r.css('position', 'relative').bind('click', function(event) {
+                        // console.log('This is the selection :'+selection);
                         if(selection) {
                             if(selection.empty) {
                                 selection.empty();
@@ -143,16 +143,20 @@
                                 t: parseInt($r.css('padding-top').replace(/[^\d]+/, '') || 0),
                                 l: parseInt($r.css('padding-left').replace(/[^\d]+/, '') || 0)
                             };
+                            
                             var docWidth = 0, docHeight = 0;
                             try {
                                 /* jshint ignore:start */
-                                docWidth = ($r.parent())[0].scrollWidth - paddingGap.l * 2, docHeight = ($r.parent())[0].scrollHeight - paddingGap.t * 2;
+                                docWidth = (($r.parent())[0].scrollWidth - paddingGap.l * 2, docHeight = ($r.parent())[0].scrollHeight - paddingGap.t * 2);
+    
                                 /* jshint ignore:end */
                             } catch (e) {
                                 return false;
                             }
-
                             if (event.type == 'init') {
+                                // console.log('calling.........................')
+                                // var newWidth=docWidth*20;
+                                // var newHeight=docHeight;
                                 $('.hyper-model-canvas').remove();
                                 paper = Raphael(0, 0, docWidth, docHeight);
                                 paper.canvas.setAttribute("class", "hyper-model-canvas");
@@ -189,7 +193,6 @@
                                     var sid = '';
                                     var tids = $this.data('target').toString().split(',');
                                     var pos1 = { x: 0, y: 0 }, pos2 = { x: 0, y: 0 };
-
                                     if (typeof $this.attr('id') !== 'undefined' && $this.attr('id') !== null) {
                                         sid = $this.attr('id').replace(/.*model-[nc](\d+).*/, '$1');
                                         if (typeof sid !== 'undefined' && sid !== '') {
@@ -223,12 +226,12 @@
                                             b: $target.offset().top + $target.outerHeight() + prop.offset.d - positionGap.t - paddingGap.t,
                                             l: $target.offset().left + prop.offset.d - positionGap.l - paddingGap.l
                                         };
-
+                                        // console.log(tObj)
                                         pos1.x = eObj.r;
                                         pos1.y = eObj.t;
                                         pos2.x = tObj.l;
                                         pos2.y = tObj.t;
-
+                                        // console.log(pos1.x,pos1.y,pos2.x,pos2.y);
                                         var pathData = '';
                                         var distance = getDistanceBtDot(pos1, pos2);
 
@@ -418,6 +421,7 @@
                         var $target = $(this);
                         var id = $target.attr('id').replace(/.*model-[nc](\d+).*/, '$1');
                         var t = $this.data('target');
+                        // console.log(id+' t '+t)
                         if (typeof t !== 'undefined' && t !== null && t !== '') {
                             t = t.split(',');
                         } else {
