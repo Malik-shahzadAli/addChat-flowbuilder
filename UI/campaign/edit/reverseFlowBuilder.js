@@ -50,17 +50,10 @@ $(document).ready(function(){
             window.location.replace("http://localhost:3000/campaign/list/");
         }
     });
-})
-
-// $(document).load(function () {
-//     // code here
-//    });
-
-   
+})   
 var obj={}
 function parseJson(JsonArray2){
     const a = _.groupBy(JsonArray2,'parent');
-    console.log(a);
     var parentArray=[];
     for(var i=0; i<JsonArray2.length; i++){
         if(parentArray.indexOf(JsonArray2[i].parent) === -1) {
@@ -71,15 +64,6 @@ function parseJson(JsonArray2){
         var parent=parentArray[j];
         for(var k=0; k<a[parent].length; k++){
             var childCounter=k+1;
-            // console.log('C-count'+childCounter);
-            // console.log(a[parent].length)
-            // console.log(a[parent][a[parent].length-1].id)
-            // var id=a[parent][a[parent].length-1].id;
-            // var lastone = id.toString().split('').pop();
-            // console.log('child count is :'+lastone);
-            // var nId=a[parent][k].parent+''+childCounter;
-            // var foundIndex = JsonArray2.findIndex(x => nId == x.id);
-            // console.log(foundIndex);
             if(a[parent][k].isFallback){
                 // console.log(a[parent][k].parent)
                 addFallback(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
@@ -126,7 +110,6 @@ function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
     newCounter=0;
     if( btnClass== addNewBox){
         createNewGenralRow(parent,childCounter,boxNo,id);
-        console.log('box No in if condition :'+boxNo);
         Refresh();
     }
     else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
@@ -134,7 +117,6 @@ function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
     $(`#ChildCounter${boxNo}`).data('text',childCounter);
     $(`#id${boxNo}`).data('text',id);
     $(`#parent${boxNo}`).data('text',parent);
-    console.log('box number in title '+boxNo);
     $(`#title${boxNo}`).data('text',generalName);
     $(`#title${boxNo}`).text(generalName);
     Refresh();
@@ -318,7 +300,7 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
                 <div style="float:left; width:80%;" id="fallbackDiv${counter}" class='${addNewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                     <span id='fallbackDiv${counter}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${counter} ${addNewBox} ${c} fallback" id='try${counter}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${counter} ${addNewBox} ${c} fallback" id='Remove${c}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -329,12 +311,14 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
         $('#fallCount').data('text',c);
     }
     $(`#fallbackDiv${counter}Span`).data('text',name)
-    //setting time and unit on the span of responses
     $(`#fallbackDiv${counter}Span`).text(name)
+    var parentId=`Remove${c}`;
+    var child=`a${c}`;
+    createLine(parentId,child);
     Refresh();
    
 }
-Refresh();
+// Refresh();
 var zoom=0;
 function zoomInFunction(){
     if(zoom <0){

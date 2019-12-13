@@ -71,7 +71,9 @@ function addnewTraningPhaseCard(e){
     </div>
     `
     );
+    Refresh();
 prepareOneBoxJSON(e.classList[1],0);
+
 }
 // traning phase on click
 function onClick(e) {
@@ -110,11 +112,13 @@ $('#addTraning').click(function(){
         $('#'+id).text('Add text here')
     }
     prepareOneBoxJSON(boxNo,0);
+    Refresh();
 })
 // Remove Code
 function Remove(e) {
     $('#'+"div"+e.classList[2]).remove();
     prepareOneBoxJSON(e.classList[3],0);
+    Refresh();
 }
 // //////////////////////////////////////////////////////////////////////////////////
 //                                 Responses                                      //
@@ -201,6 +205,7 @@ $('#addText').click(function(){
         $(`#ResponseDiv${rowNo}${newCounter}Span`).text($('#addTextArea').val())
     }
 }
+Refresh();
 prepareOneBoxJSON(rowNo,0)
 })
 //when user click on the add image button 
@@ -235,6 +240,7 @@ $('#addImage').click(function(e){
     )
     $(`#imagediv${rowNo}${newCounter}Span`).data('text',source)
   }
+  Refresh();
   prepareOneBoxJSON(rowNo,0)
 })
 //when user click on add delay jquery modal button
@@ -274,6 +280,7 @@ var newCounter;
     //setting time and unit on the span of responses
     $(`#delayDiv${rowNo}${newCounter}Span`).text(delay)
   }
+  Refresh();
   prepareOneBoxJSON(rowNo,0)
 })  
 
@@ -314,6 +321,7 @@ $('#updateText').click(function(e){
     }else{
     $('#'+spanId).text('Add text here');
     }
+    Refresh();
     prepareOneBoxJSON(rowNo,0)
 })
                                                     /////////////////
@@ -552,7 +560,6 @@ $('#addFallback').click(function(){
                     // }
                     //setting new id
                     var newId=parent+''+arr[0];
-                console.log('passinf new id '+newId)
                     //adding how many time resursive function call
                     totalBoxes=totalBoxes+arr[1];
                     //again count 0
@@ -600,14 +607,17 @@ function CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,n
     }
     if( btnClass== addNewBox){
         box=parseInt(addNewBox)+1+''+totalBoxes
-        createNewBoxRow(parent,childCounter,box,newId)
+        createNewBoxRow(parent,childCounter,box,newId);
+        Refresh();
         var newbox=parseInt(addNewBox)+1;
         //add class on general dropdown
         $(`#genDropdown${newbox}`).addClass(parent+counter);
+       
     }
     else{
         box=addNewBox+''+totalBoxes;
         createNewBox(parseInt(btnClass)+1,parent,childCounter,box,newId);
+        Refresh();
         $(`#genDropdown${addNewBox}`).addClass(parent+counter);
         
     }
@@ -790,6 +800,7 @@ $('#addGeneral').click(function(e){
                     count=0;
                     CreatingGeneralBoxAfterCheckingDuplicateId(newId,parent,btnClass,addNewBox,totalBoxes,generalName,arr[0]) ;
                     addGeneralCard(generalCounter,totalBoxes,parent,arr[0],generalName,counter,nBox)
+  
                     
                 }
                 else{
@@ -802,7 +813,6 @@ $('#addGeneral').click(function(e){
                     addGeneralCard(generalCounter,totalBoxes,parent,childCounter,generalName,counter,nBox)
                 }
             
-                
                 
                
             },
@@ -844,18 +854,13 @@ function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox
             box=parseInt(addNewBox)+1+''+totalBoxes;
             nBox=parseInt(addNewBox)+1;
             createNewGenralRow(parent,childCounter,box,id);
-            var pare=`Remove${id}`;
-            var chil=`a${id}`
-            createLine(pare,chil)
             Refresh(); 
         }
         else{
             nBox=addNewBox;
             box=addNewBox+''+totalBoxes;
             createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,box,id);
-            var pare=`Remove${id}`;
-            var chil=`a${id}`
-            createLine(pare,chil)
+            Refresh();
         }
         //setting title
         $(`#title${box}`).data('text',generalName);
@@ -870,9 +875,10 @@ function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox
         $(`#parent${box}`).data('text',parent);
         //seetting id
         $(`#id${box}`).data('text',parent+childCounter);
+        Refresh();
         //preparing json
         prepareOneBoxJSON(box,btnClass);
-        Refresh();
+        
 }
                                                     ////////////////////
                                                    // UPDATE GENERAL //
@@ -929,8 +935,8 @@ function createNewBoxRow(parent,childCounter,box,id){
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
     <div class="hypermodel-column " id='colum${addNewBox}'>
-    <div id='model-n${id}' class="hypermodel-grid ${id}" >
-    <div class="hypermodel-header" style="background:#60a3bc; ">
+    <div  class="hypermodel-grid ${id}" >
+    <div class="hypermodel-header" style="background:#60a3bc; " id='a${a}'>
         <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
     </div>
     <!-- Responses Part -->
@@ -997,6 +1003,9 @@ function createNewBoxRow(parent,childCounter,box,id){
 </div>
     </div>
   `)
+  var pare=`Remove${id}`;
+  var chil=`a${id}`
+   createLine(pare,chil)
   $('#tgen').data('text',($('#fallCount').data('text')+addNewBox))
 
 }
@@ -1018,7 +1027,7 @@ function createNewBox(number,parent,childCounter,box,id){
     <div id='id${box}'></div>
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
-    <div id='model-n${id}' class="hypermodel-grid ${id}"  >
+    <div  class="hypermodel-grid ${id}"  >
         <div class="hypermodel-header" style="background:#60a3bc; " id='a${id}'>
             <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
         </div>
@@ -1083,6 +1092,9 @@ function createNewBox(number,parent,childCounter,box,id){
         </div>
     </div>
     `)
+    var pare=`Remove${id}`;
+    var chil=`a${id}`
+    createLine(pare,chil)
     $('#tgen').data('text',($('#fallCount').data('text')+addNewBox))
 }
 ////////////////////////////////////////////////////////////
@@ -1108,7 +1120,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     <div id='parent${boxNo}'></div>
     <div id='${id}' data-text='${boxNo}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
-        <div id='model-n${id}' class="hypermodel-grid ${id}">
+        <div  class="hypermodel-grid ${id}">
             <div class="hypermodel-header" style="background:#3f9ce8; " id='a${id}'>
                 <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
             </div>
@@ -1206,7 +1218,14 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     </div>
 
     `)
+      Refresh();
+      Refresh();
     //parent,childCounter
+    var pare=`Remove${id}`;
+    var chil=`a${id}`
+     createLine(pare,chil)
+  
+    
 
 }
 /////////////////////////////////////////////////////////////
@@ -1228,7 +1247,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
     <div id='id${boxNo}' data-text=${a}></div>
     <div id='parent${boxNo}' data-text=${b}></div>
     <div id='${id}' data-text='${boxNo}'></div>
-    <div id='model-n${id}' class="hypermodel-grid ${id}" >
+    <div  class="hypermodel-grid ${id}" >
     <div class="hypermodel-header" style="background:#3f9ce8; " id='a${id}'>
         <h3 style="margin-left:-5%;color:white;" id='title${boxNo}'>Property</h3>
     </div>
@@ -1335,7 +1354,6 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 //////////////////////////////////////////////////////////
 
 function Refresh(){
-    // console.log('I m Calling --------------------------------')
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1350,6 +1368,7 @@ function Refresh(){
         strokeDashWeight: 8, // Each of dash dottes's length (px).
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
+    console.log('calling')
     jsPlumb.repaintEverything();
 
 }
@@ -1381,14 +1400,13 @@ function fallBackToggle(e){
 function appendFallback1(fallCounter, addnewBox,totalboxes,count,parent,childCounter){
     // console.log('calling.............')
     var c=parent+''+childCounter;
-    console.log('pass C :'+c);
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${c}'>
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addnewBox}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} ${addnewBox} ${c} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} ${addnewBox} ${c} fallback" id='Remove${c}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1415,8 +1433,8 @@ function RemoveFallback(e){
     for(var i=0; i<=removeClasses.length; i++){
         
         deleteJson(removeClasses[i]);
+        jsPlumb.remove(`Remove${removeClasses[i]}`);
         $('.'+removeClasses[i]).remove();
-        //getting disable button id
     }
     $('#'+"div"+e.classList[2]).remove();
     Refresh();
@@ -1569,6 +1587,11 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
     `)
     $(`#fallbackDiv${count}Span`).text(generalName)
     $(`#fallbackDiv${count}Span`).data('text',generalName)
+    
+    var pare=`Remove${gen}`;
+    var chil=`a${gen}`
+    createLine(pare,chil)
+    
 }
 //
 function createCampaign(){
@@ -1672,7 +1695,7 @@ function updateWordCounter(){
 function createLine(parent,child){
     console.log(parent);
     console.log(child);
-    // if($(`#${parent}`).length && $(`#${child}`).length){
+    if($(`#${parent}`).length && $(`#${child}`).length){
          var container = $("#AppendDiv");
          jsPlumb.setContainer(container);
          var e1 = jsPlumb.addEndpoint(child, {
@@ -1693,9 +1716,9 @@ function createLine(parent,child){
 
          jsPlumb.connect({ source:e1, target:e2 });
          jsPlumb.setDraggable([e1,e2]);
-    // }
-    // else{
-   //     console.log('ID not found')
-    //}
+    }
+    else{
+       console.log('ID not found')
+    }
 
 }

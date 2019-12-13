@@ -765,7 +765,7 @@ function createNewBoxRow(parent,childCounter){
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column " id='colum${addNewBox}'>
     <div  class="hypermodel-grid ${a}" >
-    <div class="hypermodel-header" style="background:#60a3bc; ">
+    <div class="hypermodel-header" style="background:#60a3bc;" id='a${a}'>
         <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
     </div>
     <!-- Responses Part -->
@@ -831,9 +831,10 @@ function createNewBoxRow(parent,childCounter){
 </div>
     </div>
   `)
+  var pare=`Remove${a}`;
+  var chil=`a${a}`
+   createLine(pare,chil)
   $('#tgen').data('text',($('#fallCount').data('text')+addNewBox))
-  console.log('box row :'+addNewBox+''+totalBoxes);
-//   console.log()
 
 
 }
@@ -850,7 +851,7 @@ function createNewBox(number,parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}'></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-grid ${a}"  >
-        <div class="hypermodel-header" style="background:#60a3bc; ">
+        <div class="hypermodel-header" style="background:#60a3bc;" id='a${a}'>
             <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
         </div>
         <!-- Responses Part -->
@@ -913,7 +914,9 @@ function createNewBox(number,parent,childCounter){
         </div>
     </div>
     `)
-    console.log('box:'+addNewBox+''+totalBoxes);
+    var pare=`Remove${a}`;
+    var chil=`a${a}`
+     createLine(pare,chil)
     $('#tgen').data('text',($('#fallCount').data('text')+addNewBox));
    
 }
@@ -931,7 +934,7 @@ function createNewGenralRow(parent,childCounter){
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-column" id='colum${addNewBox}' >
         <div  class="hypermodel-grid ${a} child generalDiv${addNewBox}${totalBoxes}" >
-            <div class="hypermodel-header" style="background:#3f9ce8; ">
+            <div class="hypermodel-header" style="background:#3f9ce8;" id='a${a}'>
                 <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
             </div>
         <div class="hypermodel-body" id='mainModel${addNewBox}'>
@@ -1027,11 +1030,8 @@ function createNewGenralRow(parent,childCounter){
     </div>
 
     `)
-    var pare=`Remove${addNewBox}${totalBoxes}`;
-    var chil=`title${addNewBox}${totalBoxes}`
-    // console.log('pare'+pare);
-    // console.log('chil'+chil)
-    // p=`Remove${}${}`
+    var pare=`Remove${a}`;
+    var chil=`a${a}`
      createLine(pare,chil)
 }
 /////////////////////////////////////////////////////////////
@@ -1048,7 +1048,7 @@ function createNewGenralBox(number,parent,childCounter){
     <div id='parent${addNewBox}${totalBoxes}' data-text=${b}></div>
     <div id='${a}' data-text='${addNewBox}${totalBoxes}'></div>
     <div class="hypermodel-grid ${a}" >
-    <div class="hypermodel-header" style="background:#3f9ce8; ">
+    <div class="hypermodel-header" style="background:#3f9ce8;" id='a${a}'>
         <h3 style="margin-left:-5%;color:white;" id='title${addNewBox}${totalBoxes}'>Property</h3>
     </div>
 <div class="hypermodel-body" id='mainModel${addNewBox}'>
@@ -1143,16 +1143,19 @@ function createNewGenralBox(number,parent,childCounter){
 </div>
 
       `)
-      if($(`#Remove${addNewBox}${totalBoxes}`).length){
-        var pare=`Remove${addNewBox}${totalBoxes}`;
-        var chil=`title${addNewBox}${totalBoxes}`
-         createLine(pare,chil)
-      }
-      else{
-        var pare=`Remove${addNewBox+1}${totalBoxes}`;
-        var chil=`title${addNewBox}${totalBoxes}`
-         createLine(pare,chil)
-      }
+      var pare=`Remove${a}`;
+      var chil=`a${a}`;
+      createLine(pare,chil)
+    //   if($(`#Remove${addNewBox}${totalBoxes}`).length){
+    //     var pare=`Remove${addNewBox}${totalBoxes}`;
+    //     var chil=`title${addNewBox}${totalBoxes}`
+    //      createLine(pare,chil)
+    //   }
+    //   else{
+    //     var pare=`Remove${addNewBox+1}${totalBoxes}`;
+    //     var chil=`title${addNewBox}${totalBoxes}`
+    //      createLine(pare,chil)
+    //   }
 
 
     
@@ -1234,7 +1237,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
             <div style="float:left; width:80%;" id="generalDiv${addnewBox}${totalboxes}" class='${addnewBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                 <span id='generalDiv${addnewBox}${totalboxes}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} btnbtn ${gen} ${addNewBox} genral" id='Remove${addnewBox}${totalboxes}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} btnbtn ${gen} ${addNewBox} genral" id='Remove${gen}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1244,8 +1247,8 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
      <div id='gCount${btnclass}${newCounter}'></div>
     `
     )
-    var p=`Remove${addNewBox}${totalBoxes}`;
-    var child=`title${addNewBox}${totalBoxes}`;
+    // var p=`Remove${addNewBox}${totalBoxes}`;
+    // var child=`title${addNewBox}${totalBoxes}`;
 
     Refresh();
        
@@ -1258,7 +1261,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
                 <div style="float:left; width:80%;" id="generalDiv${newBox}${totalboxes}" class='${newBox}${totalboxes} parent' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${newBox}${totalboxes}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${count} btnbtn ${gen} ${newBox} genral" id="Remove${newBox}${totalboxes}" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${count} btnbtn ${gen} ${newBox} genral" id="Remove${gen}" style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -1285,7 +1288,7 @@ function appendFallback(fallCounter, addnewBox,totalboxes,count,parent,childCoun
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${addnewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                 <span id='fallbackDiv${count}Span' style="font-size: 90%; " > </span>
             </div>
-            <div class="buttonClass btn ${count} ${addnewBox} ${c} fallback" id='try${count}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+            <div class="buttonClass btn ${count} ${addnewBox} ${c} fallback" id='Remove${c}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
                 <i class="fa fa-times fa-xs" aria-hidden="true"></i>
             </div>
         </div>
@@ -1315,6 +1318,7 @@ function RemoveFallback(e){
     localStorage.setItem('DeleteChilds',newDeleteCount);
     for(var i=0; i<removeClasses.length; i++){
         deleteJson(removeClasses[i]);
+        jsPlumb.remove(`Remove${removeClasses[i]}`);
         $('.'+removeClasses[i]).remove();
         //getting disable button id
     }
