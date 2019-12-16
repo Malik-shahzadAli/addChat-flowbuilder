@@ -1368,7 +1368,6 @@ function Refresh(){
         strokeDashWeight: 8, // Each of dash dottes's length (px).
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
-    console.log('calling')
     jsPlumb.repaintEverything();
 
 }
@@ -1434,6 +1433,7 @@ function RemoveFallback(e){
         
         deleteJson(removeClasses[i]);
         jsPlumb.remove(`Remove${removeClasses[i]}`);
+        jsPlumb.remove(`a${removeClasses[i]}`);
         $('.'+removeClasses[i]).remove();
     }
     $('#'+"div"+e.classList[2]).remove();
@@ -1608,14 +1608,12 @@ function createCampaign(){
     let compaignNumber = $('#number').find(":selected").val();
     
     let body = {
-        // flowJSON : JsonArray
         name : campaignName,
         description : description,
         startDate : startDate,
         endDate : endDate,
         status : status,
         platform:platform,
-        // company:companyID,
         twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
@@ -1627,11 +1625,8 @@ function createCampaign(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            // console.log(response);
-            // window.location.replace('../list/');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            // console.log(errorThrown);
         }
         
     });
@@ -1649,14 +1644,12 @@ function Finish(){
     let platform = $('#platform').find(":selected").text();    
     let compaignNumber = $('#number').find(":selected").val();
     let body = {
-        // flowJSON : JsonArray
         name : campaignName,
         description : description,
         startDate : startDate,
         endDate : endDate,
         status : status,
         platform:platform,
-        // company:companyID,
         twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
@@ -1668,11 +1661,9 @@ function Finish(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            // console.log(response);
             window.location.replace("http://localhost:3000/campaign/list/");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            // console.log(errorThrown);
         }
         
     });
@@ -1693,8 +1684,6 @@ function updateWordCounter(){
     $('#updateLength').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
 }
 function createLine(parent,child){
-    console.log(parent);
-    console.log(child);
     if($(`#${parent}`).length && $(`#${child}`).length){
          var container = $("#AppendDiv");
          jsPlumb.setContainer(container);

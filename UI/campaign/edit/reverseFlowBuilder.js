@@ -4,6 +4,9 @@ theNewScript.src = "./flowBuilderScript.js";
 var jsPlumb=document.createElement('script');
 jsPlumb.type="text/javascript";
 jsPlumb.src="./jsplumb.min.js" 
+$('#tab_third').click(function(){
+    Refresh();
+})
 $(document).ready(function(){
 //    var id= localStorage.getItem('id');
 //    localStorage.removeItem('id');
@@ -390,3 +393,8 @@ function  zoomOutFunction() {
 
 //    jsPlumb.connect({ source:e1, target:e2 });
 //    }
+
+setInterval(function () {
+    console.log('it works');
+    Refresh();
+},500);
