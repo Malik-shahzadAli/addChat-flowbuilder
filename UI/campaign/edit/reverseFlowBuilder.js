@@ -317,8 +317,10 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
     $(`#fallbackDiv${counter}Span`).text(name)
     var parentId=`Remove${c}`;
     var child=`a${c}`;
-    createLine(parentId,child);
     Refresh();
+    createLine(parentId,child);
+   
+    
    
 }
 // Refresh();
@@ -338,7 +340,6 @@ function zoomInFunction(){
 function  zoomOutFunction() {
     if(zoom > -2){
         zoom--;
-        // console.log(zoom)
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() * 0.8
         )
@@ -348,53 +349,8 @@ function  zoomOutFunction() {
     }
 
 }
-// var f = (function(){
-//     var oldPos = window.scrollY;
-//     function fu(e) {
-//         var newPos = window.scrollY;
-//         if (newPos>oldPos) {
-//             zoomOutFunction();
-//         } else if(newPos<oldPos) {
-//             zoomInFunction();
-//         } else {
-            
-//             console.log('same');
-//         }
-//         oldPos = newPos;
-//     }
-//     return fu;
-// })();
-// window.addEventListener('scroll',f);
-
-
-
-
-// jsPlumb.ready(function(){
-//     createLine();
-// });
-//    function createLine( parent,child){
-//     var container = $("#AppendDiv");
-//     jsPlumb.setContainer(container);
-//     var e1 = jsPlumb.addEndpoint(child, {
-//         connectionType:"basic",
-//         width:5,
-//         isSource:true,
-//         anchor: "LeftMiddle",
-//         endpoint:[ "Dot", { radius:2}],
-//         connector: ["Bezier", { curviness: 90 }]
-//       }); 
-      
-//       var e2 = jsPlumb.addEndpoint(parent, {
-//         isTarget:true,
-//         anchor:"Right",
-//         endpoint:[ "Dot", { radius:2 }],
-//         connector: ["Bezier", { curviness: 90 }]
-//       });
-
-//    jsPlumb.connect({ source:e1, target:e2 });
-//    }
-
-setInterval(function () {
-    console.log('it works');
-    Refresh();
-},500);
+$('#flowbuilder').click(function(){
+    jsPlumb.ready(function(){
+        setTimeout(jsPlumb.repaintEverything);
+    })
+});

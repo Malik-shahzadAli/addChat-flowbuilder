@@ -263,15 +263,15 @@
                                 <!-- Simple Wizard 2 -->
                                 <div class="js-wizard-simple block">
                                     <!-- Step Tabs -->
-                                    <ul class="nav nav-tabs nav-tabs-alt nav-fill" role="tablist">
+                                    <ul class="nav nav-tabs nav-tabs-alt nav-fill" role="tablist" id='tablist'>
                                         <li class="nav-item" id="tab_first">
                                             <a class="nav-link active" href="#step1" data-toggle="tab">Campaign</a>
                                         </li>
                                         <li class="nav-item" id="tab_second">
-                                            <a class="nav-link" href="#step2" data-toggle="tab">Platform</a>
+                                            <a class="nav-link" href="#step2" data-toggle="tab" >Platform</a>
                                         </li>
                                         <li class="nav-item" id="tab_third">
-                                            <a class="nav-link" href="#step3" data-toggle="tab">Flow Builder</a>
+                                            <a class="nav-link" href="#step3" data-toggle="tab" id='flowbuilder'>Flow Builder</a>
                                         </li>
                                         
                                     </ul>
@@ -359,8 +359,8 @@
                                             <!-- Step 3 -->  
                                             <!-- HYPER MODAL CODE  -->
                                             <div class="tab-pane" id="step3" role="tabpanel">
-                                                <div class="hypermodel-container" style="overflow: auto;  display: block; " id='Container' >
-                                                    <div class="hypermodel-area" id='AppendDiv'  width="5000">
+                                                <div class="hypermodel-container" style="overflow: auto;  display: block; " id='Container'  >
+                                                    <div class="hypermodel-area" id='AppendDiv' style="height: 80vh;">
                                                     </div>
                                                 </div>
                                                     <!-- </div> -->
@@ -826,6 +826,8 @@
         <script src="../../assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../../assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script> -->
 
+            
+
         <script src="../../assets/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
         <script src="../../assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
         <script src="../../assets/js/plugins/jquery-validation/additional-methods.js"></script>
@@ -844,15 +846,17 @@
         <!-- My script -->
         <!-- <script src="./JQuery/customScript.js"></script> -->
         <!-- HyperModal -->
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
-       <script type="text/javascript" src="../../assets/js/hypermodel.js"></script>
-       <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
-       <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
-       <script src="../../campaign/edit/flowBuilderScript.js"></script>
-       <script src="../../campaign/edit/reverseFlowBuilder.js"></script>
-       <script src="../../campaign/edit/jsplumb.min.js"></script>
-       <script src="../../assets/js/HyperModal.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+        <script type="text/javascript" src="../../assets/js/hypermodel.js"></script>
+        <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
+        <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
+        
+        <script src="../../campaign/edit/flowBuilderScript.js"></script>
+        <script src="../../campaign/edit/reverseFlowBuilder.js"></script>
+        <script src="../../campaign/edit/jsplumb.min.js"></script>
+        <script src="../../assets/js/HyperModal.js"></script>
+        
        <!-- <script type="text/javascript" src="./JQuery/HyperModal.js"></script> -->
     <!-- <script type="text/javascript" src="../assets/" -->
     </body>

@@ -853,6 +853,7 @@ function CreatingGeneralBoxAfterCheckingDuplicateId(id,parent,btnClass,addNewBox
         if( btnClass== addNewBox){
             box=parseInt(addNewBox)+1+''+totalBoxes;
             nBox=parseInt(addNewBox)+1;
+            // Refresh();
             createNewGenralRow(parent,childCounter,box,id);
             Refresh(); 
         }
@@ -1218,8 +1219,7 @@ function createNewGenralRow(parent,childCounter,boxNo,id){
     </div>
 
     `)
-      Refresh();
-      Refresh();
+    // Refresh();
     //parent,childCounter
     var pare=`Remove${id}`;
     var chil=`a${id}`
@@ -1354,6 +1354,7 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 //////////////////////////////////////////////////////////
 
 function Refresh(){
+    console.log('Calling')
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1369,7 +1370,6 @@ function Refresh(){
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
     jsPlumb.repaintEverything();
-
 }
 
 function dropdownBtn(e){
@@ -1397,7 +1397,6 @@ function fallBackToggle(e){
     $('#fallUserInputDropdown'+e.classList[4]).collapse('toggle');
 }
 function appendFallback1(fallCounter, addnewBox,totalboxes,count,parent,childCounter){
-    // console.log('calling.............')
     var c=parent+''+childCounter;
     $('#userInputBody'+fallCounter).append(`
     <div class="col-md-12 ${addnewBox}"  style="margin-top:3%;" id='div${count}' >
@@ -1569,7 +1568,7 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
     
     // console.log('Add Genral card:')
     var gen=parent+''+childCounter;
-    console.log('passing gen counter'+gen);
+    // console.log('passing gen counter'+gen);
     $('#userInputBody'+gn).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${gen}'>
@@ -1590,7 +1589,9 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
     
     var pare=`Remove${gen}`;
     var chil=`a${gen}`
+    Refresh();
     createLine(pare,chil)
+    
     
 }
 //
@@ -1709,5 +1710,5 @@ function createLine(parent,child){
     else{
        console.log('ID not found')
     }
-
+Refresh();
 }
