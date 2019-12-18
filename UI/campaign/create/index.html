@@ -366,7 +366,7 @@
                                                         <div id='display' class="hide">
                                                 <!-- <div id="wrapper"> -->
                                                     <!-- <div class="article"> -->
-                                                        <div class="hypermodel-container" style="overflow: auto; width:100%;" >
+                                                        <div class="hypermodel-container" style="overflow: auto; height:80vh; width:100%;" >
                                                             <div class="hypermodel-area" id='AppendDiv'>
                                                                 <div style="position:absolute,fixed;">
                                                                     <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomInFunction()">
@@ -381,9 +381,9 @@
                                                                 <div id='id00' data-text='root'></div>
                                                                 <div id='parent00' data-text="0"></div>
                                                                 <div class="hypermodel-column" id='root' data-text="00" >
-                                                                    <div class="hypermodel-grid" >
+                                                                    <div class="hypermodel-grid" id='firstBox' >
                                                                         <div class="hypermodel-header" style="background:#3f9ce8; ">
-                                                                            <h3 style="margin-left:-5%;color:white;" id="title00" data-text="Start">Start</h3>
+                                                                            <h3 style="margin-left:-5%;color:white;" id="title00" data-text="Trigger">Trigger</h3>
                                                                         </div>
                                                                         <div class="hypermodel-body" id='mainModel'>
                                                                             <!-- User Says -->
@@ -491,7 +491,7 @@
                                                             <div class="modal-content">
                                                                 <div class="block block-themed block-transparent mb-0">
                                                                     <div class="block-header bg-primary-dark">
-                                                                        <h3 class="block-title">Image Modal</h3>
+                                                                        <h3 class="block-title">Upload Image</h3>
                                                                         <div class="block-options">
                                                                             <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                                 <i class="si si-close"></i>
@@ -512,7 +512,7 @@
                                                                 <div class="modal-footer f" id='footer'>
                                                                     <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                     <button type="button" class="btn btn-alt-success disabled" data-dismiss="modal" id='addImage' >
-                                                                        <i class="fa fa-check"></i> Perfect
+                                                                        <i class="fa fa-check"></i> Upload
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -549,7 +549,7 @@
                                                             <div class="modal-footer f" id='updateImageFooter'>
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success disabled" data-dismiss="modal" id='updateImageBtn'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Update
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -565,7 +565,7 @@
                                                         <div class="modal-content" id='modalContent'>
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">Text Modal</h3>
+                                                                    <h3 class="block-title">Add Response</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -584,7 +584,7 @@
                                                             <div class="modal-footer" >
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addText'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Add 
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -598,7 +598,7 @@
                                                         <div class="modal-content" id='modalContent'>
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">Update Modal</h3>
+                                                                    <h3 class="block-title">Update Response</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -617,7 +617,7 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateText'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Update
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -632,7 +632,7 @@
                                                         <div class="modal-content" id='modalContent'>
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">Delay Modal</h3>
+                                                                    <h3 class="block-title">Add Response</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -656,7 +656,7 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addDelay'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Add
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -671,7 +671,7 @@
                                                     <div class="modal-content" id='modalContent'>
                                                         <div class="block block-themed block-transparent mb-0">
                                                             <div class="block-header bg-primary-dark">
-                                                                <h3 class="block-title">Update Delay</h3>
+                                                                <h3 class="block-title">Update Response</h3>
                                                                 <div class="block-options">
                                                                     <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                         <i class="si si-close"></i>
@@ -695,7 +695,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                             <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateDelay'>
-                                                                <i class="fa fa-check"></i> Perfect
+                                                                <i class="fa fa-check"></i> Update
                                                             </button>
                                                         </div>
                                                     </div>
@@ -708,7 +708,7 @@
                                                         <div class="modal-content" id='modalContent'>
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">Text Model</h3>
+                                                                    <h3 class="block-title">Update Text</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -727,7 +727,7 @@
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addTraning'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Update
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -743,7 +743,7 @@
                                                             <div id='childCounter'></div>
                                                         <div class="block block-themed block-transparent mb-0">
                                                             <div class="block-header bg-primary-dark">
-                                                                <h3 class="block-title">Text Modal</h3>
+                                                                <h3 class="block-title">Add Fallback</h3>
                                                                 <div class="block-options">
                                                                     <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                         <i class="si si-close"></i>
@@ -762,7 +762,7 @@
                                                         <div class="modal-footer" >
                                                             <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                             <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addFallback'>
-                                                                <i class="fa fa-check"></i> Perfect
+                                                                <i class="fa fa-check"></i> Add
                                                             </button>
                                                         </div>
                                                     </div>
@@ -776,7 +776,7 @@
                                                     <div class="modal-content">
                                                         <div class="block block-themed block-transparent mb-0">
                                                             <div class="block-header bg-primary-dark">
-                                                                <h3 class="block-title">Update FallBack Name</h3>
+                                                                <h3 class="block-title">Update FallBack</h3>
                                                                 <div class="block-options">
                                                                     <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                         <i class="si si-close"></i>
@@ -795,7 +795,7 @@
                                                         <div class="modal-footer" >
                                                             <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                             <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateFallback'>
-                                                                <i class="fa fa-check"></i> Perfect
+                                                                <i class="fa fa-check"></i> Update
                                                             </button>
                                                         </div>
                                                     </div>
@@ -810,7 +810,7 @@
                                                             <div id='childCounter'></div>
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">General Modal</h3>
+                                                                    <h3 class="block-title">Add Genral</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -829,7 +829,7 @@
                                                             <div class="modal-footer" >
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='addGeneral'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Add
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -841,7 +841,7 @@
                                                         <div class="modal-content">
                                                             <div class="block block-themed block-transparent mb-0">
                                                                 <div class="block-header bg-primary-dark">
-                                                                    <h3 class="block-title">Update General Name</h3>
+                                                                    <h3 class="block-title">Update General</h3>
                                                                     <div class="block-options">
                                                                         <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                                                             <i class="si si-close"></i>
@@ -860,7 +860,7 @@
                                                             <div class="modal-footer" >
                                                                 <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-alt-success" data-dismiss="modal" id='updateGeneral'>
-                                                                    <i class="fa fa-check"></i> Perfect
+                                                                    <i class="fa fa-check"></i> Update
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -963,15 +963,9 @@
        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
        <script type="text/javascript" src="../../assets/js/hypermodel.js"></script>
        <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
-       <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
+       
        <script src="../../campaign/create/flowBuilderScript.js"></script>
-       <!-- <script src="../../campaign/create/reverseFlowBuilder.js"></script> -->
        <script src="../../campaign/create/jsplumb.min.js"></script>
        <script src="../../assets/js/HyperModal.js"></script>
-       <!-- <script src="lineScript.js"></script> -->
-       <script src="connection.js"></script>
-       <script src="drawarrow.js"></script>
-       <!-- <script type="text/javascript" src="./JQuery/HyperModal.js"></script> -->
-    <!-- <script type="text/javascript" src="../assets/" -->
     </body>
 </html>

@@ -2,18 +2,21 @@ var jsPlumb = document.createElement("script");
 jsPlumb.type = "text/javascript";
 jsPlumb.src = "./jsplumb.min.js";
 var json=0;
+var frontEndUrl;
 function loadJson(){
     let compaignNumber = $('#number').find(":selected").val();
+    //if user selected any campaign Number
     if(compaignNumber !='2'){
         prepareOneBoxJSON('00','0')
     }
+    $.getJSON('../../config.json',function(data){
+        frontEndUrl=data.frontEndUrl;
+    })
 }
-// counter
 var counter=0;
 var addNewBox=0;
 var addFallBack=0;
 var totalBoxes=0;
-// var Gcount=0;
 var JsonArray=[];
 // button drop down
 $(".dropdown").dropdown();
@@ -43,9 +46,9 @@ $('#colapseUserInputs').click(function(){
     $('#userInput').collapse('toggle')
   
 })
+//adding new traning phase
 function addnewTraningPhaseCard(e){
     counter++;
-    // e.classList[1] Tells the boxNo like 00, 11,12,13...
     var boxOldCounter=$(`#child${e.classList[1]}`).data('text');
     var boxNewCounter=parseInt(boxOldCounter+1);
     var  row=e.classList[2];
@@ -66,9 +69,9 @@ function addnewTraningPhaseCard(e){
    
 prepareOneBoxJSON(e.classList[1],row);
 Refresh();
-// jsPlumb.repaintEverything();
 }
-// traning phase on click
+
+// when user click on tranning phase traning phase on click
 function onClick(e) {
     // toggle Model
     jQuery('#modal-trainingPhase').modal('toggle');
@@ -1038,7 +1041,6 @@ function createNewGenralRow(parent,childCounter){
 //                     CREATE NEW GENRAL BOX              //
 ///////////////////////////////////////////////////////////
 function createNewGenralBox(number,parent,childCounter){
-    console.log(number);
     var b=$('#gCount').data('text');
     var a=parent+''+childCounter;
     $('#colum'+number).append(`
@@ -1146,29 +1148,12 @@ function createNewGenralBox(number,parent,childCounter){
       var pare=`Remove${a}`;
       var chil=`a${a}`;
       createLine(pare,chil)
-    //   if($(`#Remove${addNewBox}${totalBoxes}`).length){
-    //     var pare=`Remove${addNewBox}${totalBoxes}`;
-    //     var chil=`title${addNewBox}${totalBoxes}`
-    //      createLine(pare,chil)
-    //   }
-    //   else{
-    //     var pare=`Remove${addNewBox+1}${totalBoxes}`;
-    //     var chil=`title${addNewBox}${totalBoxes}`
-    //      createLine(pare,chil)
-    //   }
-
-
-    
 }
 ////////////////////////////////////////////////////////////
 //         FUNCTION REFRESH DOM                          //
 //////////////////////////////////////////////////////////
 
 function Refresh(){
-    // jsPlumb.repaintEverything();
-    // console.log('I M calling ')
-    // $('.firstButton').click()
-    // $( ".firstButton" ).trigger( "click" );
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1183,36 +1168,30 @@ function Refresh(){
         strokeDashWeight: 8, // Each of dash dottes's length (px).
         strokeDashMargin: 6  // Gap about each of dash line's dottes (px).
     });
-    // jsPlumb.reset();
     jsPlumb.repaintEverything();
 }
 
 function dropdownBtn(e){
     $('.drop'+e.classList[5]).collapse('toggle')
     Refresh();
-    // jsPlumb.repaintEverything();
 }
 function userInputDropdownBtn(e){
     $('.dropdown'+e.classList[5]).collapse('toggle')
     Refresh();
-    // jsPlumb.repaintEverything();
 }
 function userSaysCollapse(e){
     $('#collapse'+e.classList[3]).collapse('toggle')
     Refresh();
-    // jsPlumb.repaintEverything();
 
 }
 function responsesCollapse(e){
     $('.responses'+e.classList[3]).collapse('toggle')
     Refresh();
-    // jsPlumb.repaintEverything();
 
 }
 function colapseUserInputs(e){
     $('#userInput'+e.classList[3]).collapse('toggle')
     Refresh();
-    // jsPlumb.repaintEverything();
 }
 function fallBackToggle(e){
     $('#fallUserInputDropdown'+e.classList[4]).collapse('toggle');
@@ -1247,11 +1226,7 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
      <div id='gCount${btnclass}${newCounter}'></div>
     `
     )
-    // var p=`Remove${addNewBox}${totalBoxes}`;
-    // var child=`title${addNewBox}${totalBoxes}`;
-
-    Refresh();
-       
+    Refresh();  
    }
    else{
        var newBox=parseInt(addnewBox+1)
@@ -1271,9 +1246,6 @@ function appendGeneral(genCounter, addnewBox,totalboxes,count,newCounter,btnclas
         <div id='gCount${btnclass}${newCounter}'></div>
         `
         )
-        var p=`Remove${newBox}${totalBoxes}`;
-        var child=`title${addNewBox}${totalBoxes}`;
-
    }
    $(`parentSpanId${addNewBox}${newCounter}`).data('text',gen);
    $(`#gCount${genCounter}`).data('text',gen);
@@ -1297,7 +1269,6 @@ function appendFallback(fallCounter, addnewBox,totalboxes,count,parent,childCoun
     `
     )
     $('#fallCount').data('text',c);
-    // jsPlumb.repaintEverything();
 }
 function RemoveFallback(e){
     //getting all hypermodal appended classes
@@ -1490,19 +1461,6 @@ function createFirstCampaign(){
     });
 }
 function createCampaign1(){
-    let campaignName = $('#campaign-name').val();
-    let description = $("#description").val();
-    let startDate1 = $("#start-date").val();
-    let endDate1 = $("#end-date").val();
-
-    let startDate = moment(moment(startDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-    let endDate = moment(moment(endDate1, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-
-    
-    let status = $('#status').find(":selected").text();   
-    let platform = $('#platform').find(":selected").text();    
-    let compaignNumber = $('#number').find(":selected").val();
-    
     let body = {
         flowJSON : JsonArray
     }
@@ -1526,6 +1484,7 @@ function Finish(){
     let body = {
         flowJSON : JsonArray
     }
+    console.log('front End Url :'+frontEndUrl);
     $.ajax({
         url: destination+'/campaigns/'+myId,
         type:"PATCH",
@@ -1535,7 +1494,7 @@ function Finish(){
         contentType: "application/json",
         success : function(response){
             console.log(response);
-            window.location.replace("http://localhost:3000/campaign/list/");
+            window.location.replace(frontEndUrl+"/campaign/list/");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -1552,9 +1511,7 @@ function zoomInFunction(){
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() / 0.8
         )
-        $('.hypermodel-column').height(
-            $(".hypermodel-column").height() / 0.8
-        )
+        Refresh();
     }
 }
 function  zoomOutFunction() {
@@ -1563,9 +1520,7 @@ function  zoomOutFunction() {
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() * 0.8
         )
-        $('.hypermodel-column').height(
-            $(".hypermodel-column").height() * 0.8
-        )
+        Refresh();
     }
 
 }

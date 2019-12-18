@@ -41,22 +41,11 @@ $('#colapseUserInputs').click(function(){
     $('#userInput').collapse('toggle')
   
 })
-// $(window).click( function(){
-//     console.log('document')
-// });
-// $(document).click( function(){
-//     $('#userInput').collapse('hide')
-//     $('#responses').collapse('hide')
-//     $('#dynamicUserSays').collapse('hide')
-//     $('#UserSays').collapse('hide')
-//     // $('#drop').hide();
-// });
 function addnewTraningPhaseCard(e){
-    // console.log(e.classList[1]);
     counter++;
-    // e.classList[1] Tells the boxNo like 00, 11,12,13...
     var boxOldCounter=$(`#child${e.classList[1]}`).data('text');
     var boxNewCounter=parseInt(boxOldCounter+1);
+    //e.classList[1] give us the box No
     $(`#child${e.classList[1]}`).data('text',boxNewCounter);
     $(`#UserSaysBody${e.classList[1]}`).append(`
     <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>
@@ -114,10 +103,17 @@ $('#addTraning').click(function(){
     prepareOneBoxJSON(boxNo,0);
     Refresh();
 })
+var frontEndUrl;
+$.getJSON('../../config.json',function(data){
+    frontEndUrl=data.frontEndUrl;
+})
 // Remove Code
 function Remove(e) {
+    //removing the div${counter}
     $('#'+"div"+e.classList[2]).remove();
+    //preparing json again
     prepareOneBoxJSON(e.classList[3],0);
+    //refresh the dom again
     Refresh();
 }
 // //////////////////////////////////////////////////////////////////////////////////
@@ -594,6 +590,7 @@ $('#addFallback').click(function(){
     }
     
 })
+//checking duplicate id
 function CreatingFallBackAfterCheckingDuplicateId(parent,childCounter,btnClass,newId,fallbackCounter,fallBackName){
     if( fallbackCounter != -1){
         if(btnClass == addNewBox){var newBox=parseInt(addNewBox)+1;}
@@ -935,7 +932,7 @@ function createNewBoxRow(parent,childCounter,box,id){
     <div id='id${box}'></div>
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
-    <div class="hypermodel-column " id='colum${addNewBox}'>
+    <div class="hypermodel-column " id='colum${addNewBox}'  style=' margin: 10px auto;'>
     <div  class="hypermodel-grid ${id}" >
     <div class="hypermodel-header" style="background:#60a3bc; " id='a${a}'>
         <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
@@ -950,7 +947,7 @@ function createNewBoxRow(parent,childCounter,box,id){
             <div id='responses${addNewBox}${counter}'class='responses${addNewBox}${counter}' style="background: #FFFFFF; margin-top: -5%;">
                 <div id="responsesBody${box}" style="padding-top:1%;"></div>
                 <div class="btn-group dropup col-md-12 " role="group" id='button' style="margin-top: 3%; margin-left:6%; width: 87%;"  >
-                    <div class="row btn btn-sm btn-alt-default dropdown ${box}" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='dropdownBtn(this)'>
+                    <div class="row btn btn-sm btn-alt-default dropdown ${box}" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8; " id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick='dropdownBtn(this)'>
                         <i class="fa fa-plus"></i>
                         <div class="dropdown-menu drop${box} " aria-labelledby="btnGroupVerticalDrop2">
                         <a class='dropdown-item ${box}' onclick='textFunction(this)'>
@@ -1028,7 +1025,7 @@ function createNewBox(number,parent,childCounter,box,id){
     <div id='id${box}'></div>
     <div id='parent${box}'></div>
     <div id='${id}' data-text='${box}'></div>
-    <div  class="hypermodel-grid ${id}"  >
+    <div  class="hypermodel-grid ${id}" >
         <div class="hypermodel-header" style="background:#60a3bc; " id='a${id}'>
             <h3 style="margin-left:-5%;color:white;" id='title${box}'>Property</h3>
         </div>
@@ -1354,7 +1351,6 @@ function createNewGenralBox(number,parent,childCounter,boxNo,id){
 //////////////////////////////////////////////////////////
 
 function Refresh(){
-    console.log('Calling')
     $('.hypermodel-container').hypermodel({
         time: {
             animate: 300,    // The line animation time when either window resize event be fired or user playing with drag&drop.
@@ -1549,9 +1545,6 @@ function prepareOneBoxJSON(boxno,row){
      console.log(JsonArray);
      createCampaign();
 }
-jQuery(':button').click(function () {
-    // createCampaign();
-})
 function deleteJson(id){
     // console.log('this is the pass id :'+ id)
     //finding the object index
@@ -1564,12 +1557,12 @@ function deleteJson(id){
     // console.log(JsonArray);
     createCampaign();
 }
-function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox){
+function addGeneralCard(boxNo,totalboxes,parent,childCounter,generalName,count,nBox){
     
     // console.log('Add Genral card:')
     var gen=parent+''+childCounter;
     // console.log('passing gen counter'+gen);
-    $('#userInputBody'+gn).append(`
+    $('#userInputBody'+boxNo).append(`
         <div class="col-md-12 ${addNewBox}"  style="margin-top:3%;" id='div${count}' >
         <div class="hypermodel-item ui-sortable-handle" data-target='${gen}'>
             <div style="float:left; width:80%;" id="fallbackDiv${count}" class='${nBox}${totalBoxes}' onclick="updateGeneralName(this)" data-text="Sample text">
@@ -1581,8 +1574,8 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
         </div>
      </div>
      <div id='fallCount'></div>
-     <div id='parentSpanId${gn}'></div>
-     <div id='gCount${gn}'></div>
+     <div id='parentSpanId${boxNo}'></div>
+     <div id='gCount${boxNo}'></div>
     `)
     $(`#fallbackDiv${count}Span`).text(generalName)
     $(`#fallbackDiv${count}Span`).data('text',generalName)
@@ -1590,9 +1583,7 @@ function addGeneralCard(gn,totalboxes,parent,childCounter,generalName,count,nBox
     var pare=`Remove${gen}`;
     var chil=`a${gen}`
     Refresh();
-    createLine(pare,chil)
-    
-    
+    createLine(pare,chil)    
 }
 //
 function createCampaign(){
@@ -1654,6 +1645,7 @@ function Finish(){
         twilioNumber : compaignNumber,
         flowJSON : JsonArray
     }
+    console.log('Front End Url :'+frontEndUrl)
     $.ajax({
         url: destination+'/campaigns/'+myid,
         type:"PATCH",
@@ -1662,14 +1654,12 @@ function Finish(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            window.location.replace("http://localhost:3000/campaign/list/");
+            window.location.replace(frontEndUrl+"/campaign/list/");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
         
     });
-    
-
 }
 function wordCounter(){
     var length=$('#addTextArea').val().length;
@@ -1684,10 +1674,18 @@ function updateWordCounter(){
     var total=160;
     $('#updateLength').text(`SMS (${newLength} / ${Math.ceil(newLength/total)})`);
 }
+/*
+creating a JsPlumb line
+passing the parent id and the child id
+*/
 function createLine(parent,child){
+    //checking if parent and child id exists on the DOM
     if($(`#${parent}`).length && $(`#${child}`).length){
+        //container on which lines creates
          var container = $("#AppendDiv");
+         //setting JSplumb container
          jsPlumb.setContainer(container);
+         //creating line from child 
          var e1 = jsPlumb.addEndpoint(child, {
              connectionType:"basic",
              width:5,
@@ -1696,14 +1694,14 @@ function createLine(parent,child){
              endpoint:[ "Dot", { radius:2}],
              connector: ["Bezier", { curviness: 90 }]
              }); 
-             
+             //parent type
              var e2 = jsPlumb.addEndpoint(parent, {
              isTarget:true,
              anchor:"Right",
              endpoint:[ "Dot", { radius:2 }],
              connector: ["Bezier", { curviness: 90 }]
              });
-
+             //connecting both parent and child
          jsPlumb.connect({ source:e1, target:e2 });
          jsPlumb.setDraggable([e1,e2]);
     }

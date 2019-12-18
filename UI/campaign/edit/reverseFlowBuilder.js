@@ -4,15 +4,17 @@ theNewScript.src = "./flowBuilderScript.js";
 var jsPlumb=document.createElement('script');
 jsPlumb.type="text/javascript";
 jsPlumb.src="./jsplumb.min.js" 
+var frontEndUrl;
+$.getJSON('../../config.json',function(data){
+    frontEndUrl=data.frontEndUrl;
+})
 $('#tab_third').click(function(){
     Refresh();
 })
 $(document).ready(function(){
-//    var id= localStorage.getItem('id');
-//    localStorage.removeItem('id');
    let searchParams = new URLSearchParams(window.location.search)
-   var id = searchParams.get('id')
-//    console.log(param)
+   var id = searchParams.get('id');
+   console.log('front end url :'+frontEndUrl)
     $.ajax({
         url: destination+'/campaigns/'+id,
         type:"GET",
@@ -49,62 +51,76 @@ $(document).ready(function(){
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $('#spinner').addClass('hide');
-            // window.location.replace(destination+"/campaign/list/");
-            window.location.replace("http://localhost:3000/campaign/list/");
+            window.location.replace(frontEndUrl+"/campaign/list/");
         }
     });
 })   
 var obj={}
 function parseJson(JsonArray2){
-    const a = _.groupBy(JsonArray2,'parent');
+    const groupByParent = _.groupBy(JsonArray2,'parent');
     var parentArray=[];
     for(var i=0; i<JsonArray2.length; i++){
+        //if parent exists
         if(parentArray.indexOf(JsonArray2[i].parent) === -1) {
+            //pushing parent into the parent array
             parentArray.push(JsonArray2[i].parent);
         }
     }
+    //a for loop till parent array length
     for(var j=0; j<parentArray.length; j++){
+        //parent
         var parent=parentArray[j];
-        for(var k=0; k<a[parent].length; k++){
+        //checking total child of one parent
+        for(var k=0; k<groupByParent[parent].length; k++){
+            //increaasing child counter
             var childCounter=k+1;
-            if(a[parent][k].isFallback){
-                // console.log(a[parent][k].parent)
-                addFallback(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
-                for(var respose=0; respose <a[parent][k].responses.length;respose++){
-                    addResponse(a[parent][k].boxNo,(respose+1),a[parent][k].responses[respose]);
+            //checking if this current box is fall type
+            if(groupByParent[parent][k].isFallback){
+                // if fall back adding new fall back on the user Inputs span card
+                addFallback(groupByParent[parent][k].row,groupByParent[parent][k].name,groupByParent[parent][k].parent,childCounter,groupByParent[parent][k].boxNo,groupByParent[parent][k].id)
+                //checking total responses of the current box
+                for(var respose=0; respose <groupByParent[parent][k].responses.length;respose++){
+                    //adding all responses on the Responses
+                    addResponse(groupByParent[parent][k].boxNo,(respose+1),groupByParent[parent][k].responses[respose]);
                 }
             }
             else{
-                addGeneral(a[parent][k].row,a[parent][k].name,a[parent][k].parent,childCounter,a[parent][k].boxNo,a[parent][k].id)
-                for(var l=0; l<a[parent][k].trainingPhrases.length;l++){
-                    addTraningPhase(a[parent][k].boxNo,(l+1),a[parent][k].trainingPhrases[l])
+                //adding genral card on the user says
+                addGeneral(groupByParent[parent][k].row,groupByParent[parent][k].name,groupByParent[parent][k].parent,childCounter,groupByParent[parent][k].boxNo,groupByParent[parent][k].id)
+                //getting all trannig phases of the current box 
+                for(var l=0; l<groupByParent[parent][k].trainingPhrases.length;l++){
+                    //adding one by one all traning phases on the box of user says
+                    addTraningPhase(groupByParent[parent][k].boxNo,(l+1),groupByParent[parent][k].trainingPhrases[l])
                 }
-                for(var respose=0; respose <a[parent][k].responses.length;respose++){
-                    // console.log(a[parent][k].responses[respose])
-                    addResponse(a[parent][k].boxNo,(respose+1),a[parent][k].responses[respose]);
+                //getting all the responses of the current box
+                for(var respose=0; respose <groupByParent[parent][k].responses.length;respose++){
+                    // adding one by one all responses on the box
+                    addResponse(groupByParent[parent][k].boxNo,(respose+1),groupByParent[parent][k].responses[respose]);
                 }
                 
             }
         }
     }
+    //getting user inputs 
     for(var userInput=0; userInput <JsonArray2.length; userInput++){
+        //checking if box is genral type 
         if(!JsonArray2[userInput].isFallback){
-            // console.log('set ID:'+JsonArray2[userInput].id)
+            // adding genral card
             appendGeneral(JsonArray2[userInput].row,JsonArray2[userInput].name,JsonArray2[userInput].parent,JsonArray2[userInput].id,JsonArray2[userInput].boxNo,(userInput+1),JsonArray2)
         }
         else{
-            // console.log('set ID:'+JsonArray2[userInput].id)
+            // adding fall back card on the user inputs types
             appendFallback(JsonArray2[userInput].row,JsonArray2[userInput].name,JsonArray2[userInput].parent,JsonArray2[userInput].id,JsonArray2[userInput].boxNo,(userInput+1),JsonArray2);
         }
       
     }
     Refresh();
     for(var json=0;json < JsonArray2.length; json++){
+        //creating json of the current box
         prepareOneBoxJSON(JsonArray2[json].boxNo,JsonArray2[json].row)
     }
 }
 function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
-    // console.log('THIS IS THE ADD GENERAL ID :'+id)
     counter++;
     if(parent != '0'){
         totalBoxes++;
@@ -125,7 +141,6 @@ function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
     Refresh();
 }
 function addFallback(btnClass,fallBackName,parent,childCounter,boxNo,id){
-    // console.log('THIS IS THE ADD GENERAL ID :'+id)
     totalBoxes++;
     if( btnClass== addNewBox){createNewBoxRow(parent,childCounter,boxNo,id)}
     else{createNewBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
@@ -279,8 +294,8 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
         `
         )
         var parentId=`Remove${gen}`;
-         var child=`a${gen}`;
-         createLine(parentId,child);
+        var child=`a${gen}`;
+        createLine(parentId,child);
         $(`#generalDiv${row}${childCounter}Span`).data('text',name)
         //setting time and unit on the span of responses
         $(`#generalDiv${row}${childCounter}Span`).text(name)
@@ -323,18 +338,14 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
     
    
 }
-// Refresh();
 var zoom=0;
 function zoomInFunction(){
     if(zoom <0){
         zoom++;
-        // console.log(zoom)
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() / 0.8
         )
-        $('.hypermodel-column').height(
-            $(".hypermodel-column").height() / 0.8
-        )
+        Refresh();
     }
 }
 function  zoomOutFunction() {
@@ -343,9 +354,7 @@ function  zoomOutFunction() {
         $('.hypermodel-column').width(
             $(".hypermodel-column").width() * 0.8
         )
-        $('.hypermodel-column').height(
-            $(".hypermodel-column").height() * 0.8
-        )
+        Refresh();
     }
 
 }

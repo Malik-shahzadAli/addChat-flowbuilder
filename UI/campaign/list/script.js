@@ -1,6 +1,5 @@
 var destination = "";
 loadJson(); // Load JSON
-
 var companyID = ""; // Global scope companyID
 var JsonObject={};
 
@@ -271,7 +270,7 @@ function loadJson ()
     $.getJSON('../../config.json',function(data){
         // console.log('success',data.baseurl);
         destination = data.baseurl;
-
+        frontEndUrl=data.frontEndUrl;
         getCompaniesListAgainstAPerticularUser();
 
 
@@ -367,7 +366,5 @@ function getCompaniesListAgainstAPerticularUser()
 // 
 function campaignEdit(myid){
     localStorage.setItem('id',myid);
-    // window.location.replace(destination+'campaign/edit/')
-    window.location.replace("http://localhost:3000/campaign/edit/?id="+myid);
-// console.log(JSONArray);
+    window.location.replace(frontEndUrl+"/campaign/edit/?id="+myid);
 }

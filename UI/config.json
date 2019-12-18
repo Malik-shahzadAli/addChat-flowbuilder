@@ -1,3 +1,4 @@
 {
-    "baseurl" : "https://api.adchatmedia.com"
+    "baseurl" : "https://api.adchatmedia.com",
+    "frontEndUrl":"https://app.adchatmedia.com"
 }
