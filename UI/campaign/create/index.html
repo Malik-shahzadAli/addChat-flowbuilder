@@ -369,10 +369,10 @@
                                                         <div class="hypermodel-container" style="overflow: auto; height:80vh; width:100%;" >
                                                             <div class="hypermodel-area" id='AppendDiv'>
                                                                 <div style="position:absolute,fixed;">
-                                                                    <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomInFunction()">
+                                                                    <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomIn()">
                                                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomOutFunction()">
+                                                                    <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomOut()">
                                                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                                                     </button>
                                                                 </div>
@@ -395,10 +395,10 @@
                                                                                 </div>
                                                                                     <div id='UserSays' style="background:white;margin-top: -5%;margin-bottom: -5%;">
                                                                                         <div id='UserSaysBody00'>
-                                                                                            <div class="col-md-12 " id="TraningPhasediv0"  style="padding-top: 3%;">
+                                                                                            <div class="col-md-12 " id="TraningPhrasediv0"  style="padding-top: 3%;">
                                                                                                 <div class="hypermodel-item" >
-                                                                                                    <div class="TraningPhaseSpan 00 0" id='TraningPhasediv001' style="float:left; width:80%;" onclick="onClick(this)" >
-                                                                                                        <span style="font-size: 90%;" id='TraningPhasediv001Span' data-text='Add text here'>Add text here</span>
+                                                                                                    <div class="TraningPhraseSpan 00 0" id='TraningPhrasediv001' style="float:left; width:80%;" onclick="editTraningPhrase(this)" >
+                                                                                                        <span style="font-size: 90%;" id='TraningPhrasediv001Span' data-text='Add text here'>Add text here</span>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>   
@@ -406,7 +406,7 @@
                                                                                         <div id="model-n1000" style="margin-top: 3%; margin-bottom: 3%; padding-bottom: 3%;">
                                                                                             <div class="col-md-12">
                                                                                                 <div class="hypermodel-item">
-                                                                                                    <div class="row 00 0" style="padding-bottom: 5%;" id='plusButton' onclick='addnewTraningPhaseCard(this)' >
+                                                                                                    <div class="row 00 0" style="padding-bottom: 5%;" id='plusButton' onclick='addTraningPhraseCard(this)' >
                                                                                                         <button type="button" class="btn btn-xs btn-alt-default" id='uprePlusButton' style="margin-left:40%;color: #3f9ce8;">
                                                                                                             <span  class="fa fa-plus"></span>
                                                                                                     </button>
@@ -431,15 +431,15 @@
                                                                                             <div class="row btn btn-sm btn-alt-default dropdown" style="padding-bottom: 3%; padding-top: 4%; color: #3f9ce8;; " id='btnGroupVerticalDrop4' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                                     <i class="fa fa-plus"></i>
                                                                                                 <div class="dropdown-menu " aria-labelledby="btnGroupVerticalDrop2">
-                                                                                                    <a class="dropdown-item 00 0" onclick="textFunction(this)" >
+                                                                                                    <a class="dropdown-item 00 0" onclick="addTextResponse(this)" >
                                                                                                         <i class="fa fa-fw fa-envelope-o mr-5"></i>Text
                                                                                                     </a>
                                                                                                     <div class="dropdown-divider"></div>
-                                                                                                    <a class="dropdown-item 00 0" onclick="imageFunction(this)">
+                                                                                                    <a class="dropdown-item 00 0" onclick="addImageResponse(this)">
                                                                                                         <i class="fa fa-file-image-o mr-5" aria-hidden="true"></i> Picture
                                                                                                     </a>
                                                                                                     <div class="dropdown-divider"></div>
-                                                                                                    <a class="dropdown-item 00 0" onclick="delayFunction(this)">
+                                                                                                    <a class="dropdown-item 00 0" onclick="addDelayResponse(this)">
                                                                                                         <i class="fa fa-fw fa-clock-o fa-lg" aria-hidden="true"></i> Delay
                                                                                                     </a>                                                         
                                                                                                 </div>      
@@ -504,7 +504,7 @@
                                                                                 <img  id="output" width="200">
                                                                             </div>
                                                                             <div >
-                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadFile(event)" required />
+                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadImageOnTheModal(event)" required />
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -702,8 +702,8 @@
                                                 </div>
                                             </div>
                                             <!-- END Slide Right Modal -->
-                                            <!-- Training Phase Model -->
-                                               <div class="modal fade"  id="modal-trainingPhase" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
+                                            <!-- Training Phrase Model -->
+                                               <div class="modal fade"  id="modal-trainingPhrase" tabindex="-1" role="dialog" aria-labelledby="modal-slideright" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-slideright" role="document">
                                                         <div class="modal-content" id='modalContent'>
                                                             <div class="block block-themed block-transparent mb-0">
@@ -719,7 +719,7 @@
                                                                     <form>
                                                                         <div class="md-form amber-textarea active-amber-textarea" id='text'>
                                                                             <label for="form19">Text</label>
-                                                                            <textarea id="addTraningPhase" class="md-textarea form-control trainingPhase" rows="3" required></textarea>
+                                                                            <textarea id="addTraningPhrase" class="md-textarea form-control trainingPhrase" rows="3" required></textarea>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -882,7 +882,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-6 text-right">
-                                                    <button type="button" id='json' onclick="loadJson()" class="btn btn-alt-secondary next" data-wizard="next">
+                                                    <button type="button" id='json' onclick="loadFirstBoxJson()" class="btn btn-alt-secondary next" data-wizard="next">
                                                         Next <i class="fa fa-angle-right ml-5"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" onclick="Finish()" >
@@ -964,8 +964,10 @@
        <script type="text/javascript" src="../../assets/js/hypermodel.js"></script>
        <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
        
+       <script src="./createBoxes.js"></script>
        <script src="../../campaign/create/flowBuilderScript.js"></script>
        <script src="../../campaign/create/jsplumb.min.js"></script>
        <script src="../../assets/js/HyperModal.js"></script>
+       
     </body>
 </html>

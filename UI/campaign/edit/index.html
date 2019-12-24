@@ -360,10 +360,10 @@
                                                 <div class="hypermodel-container" style="overflow: auto;  display: block; " id='Container'  >
                                                     <div class="hypermodel-area" id='AppendDiv' style="height: 80vh;">
                                                         <div style="position:absolute,fixed;">
-                                                            <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomInFunction()">
+                                                            <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomIn()">
                                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                             </button>
-                                                            <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomOutFunction()">
+                                                            <button type="button" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" onclick="zoomOut()">
                                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                                             </button>
                                                         </div>
@@ -394,7 +394,7 @@
                                                                                 <img  id="output" width="200">
                                                                             </div>
                                                                             <div >
-                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadFile(event)" required />
+                                                                                <input type="file"  class="form-control" accept=".jpeg,.png,.gif" id="img" name="file" onchange="loadImageOnTheModal(event)" required />
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -776,7 +776,7 @@
                                                     <button type="button" class="btn btn-alt-secondary next" data-wizard="next">
                                                         Next <i class="fa fa-angle-right ml-5"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" onclick="Finish()" >
+                                                    <button type="button" class="btn btn-alt-primary d-none submit-button" data-wizard="finish" onclick="finishEditing()" >
                                                         <i class="fa fa-check mr-5"></i> Submit
                                                     </button>
                                                 </div>
@@ -858,6 +858,7 @@
         <script type="text/javascript" src="https://twemoji.maxcdn.com/2/twemoji.min.js?2.5"></script>
         <!-- <script src="https://www.jsdelivr.com/package/npm/lodash"></script>  -->
         
+        <script src="./createBoxes.js"></script>
         <script src="../../campaign/edit/flowBuilderScript.js"></script>
         <script src="../../campaign/edit/reverseFlowBuilder.js"></script>
         <script src="../../campaign/edit/jsplumb.min.js"></script>

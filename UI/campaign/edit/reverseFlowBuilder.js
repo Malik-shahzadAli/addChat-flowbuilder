@@ -1,20 +1,43 @@
+// Including the flow builder script 
 var theNewScript = document.createElement("script");
 theNewScript.type = "text/javascript";
 theNewScript.src = "./flowBuilderScript.js";
-var jsPlumb=document.createElement('script');
-jsPlumb.type="text/javascript";
-jsPlumb.src="./jsplumb.min.js" 
-var frontEndUrl;
+
+//Including the JSPlum min file
+var jsPlumb = document.createElement('script');
+jsPlumb.type = "text/javascript";
+jsPlumb.src = "./jsplumb.min.js" 
+
+//getting app URL
+var appUrl;
+var obj = {}
+//checking how many time user click on the Zoom In Button
+var zoom = 0;
+
+//Getting App URL from the config file
 $.getJSON('../../config.json',function(data){
-    frontEndUrl=data.frontEndUrl;
+    appUrl = data.frontEndUrl;
 })
-$('#tab_third').click(function(){
-    Refresh();
+//getting the zoom in zoom out value from const file
+$.getJSON('../create/const.json',function(data){
+    zoomWidthIncreaseDescrease=data.zoomWidthIncreaseDescrease
+        
 })
+
+//////////////////////////////////////////////////////////////
+// ON Page Ready Send a Ajax call and set values on the DOM //
+/////////////////////////////////////////////////////////////
+
 $(document).ready(function(){
+    //getting the id from the url
    let searchParams = new URLSearchParams(window.location.search)
    var id = searchParams.get('id');
-   console.log('front end url :'+frontEndUrl)
+
+   //getting data from the database 
+   //sending ajax call
+   //setting values in the boxes
+   //creating dom elements
+
     $.ajax({
         url: destination+'/campaigns/'+id,
         type:"GET",
@@ -22,44 +45,56 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: "application/json",
         success : function(response){
-            // console.log(response)
+            //sending the json to pareJSon Function
             parseJson(response.campaign.flowJSON)
-            $('#edit-campaign-name').val(response.campaign.name)
+
+            //getting the Start date from response and formating Date
+            let date = response.campaign.startDate;
+            let newDate = date.substr(0,10)
+            let format = newDate.split("-")
+
+            //getting the End date from response and formating Date
+            let endDate = response.campaign.endDate;
+            let newEndDate = endDate.substr(0,10);
+            let endDateformat = newEndDate.split("-")
+
+            //setting the campaign name and description values on the dom
+            $('#edit-campaign-name').val(response.campaign.name);
             $('#description').val(response.campaign.description);
-          
-            // var f = new Date(startDate[2], startDate[1] - 1, startDate[0])
-             var date=response.campaign.startDate;
-            var newDate=date.substr(0,10)
-            var format=newDate.split("-")
-            // console.log(format[2]);
+           
+            //setting the start date and end date values on the DOM
             $('#start-date').val(format[2]+"-"+format[1]+"-"+format[0]);
-             //console.log(date.getMonth);
-            var endDate=response.campaign.endDate;
-            var newEndDate=endDate.substr(0,10);
-            var endDateformat=newEndDate.split("-")
-            $('#end-date').val(endDateformat[2]+"-"+endDateformat[1]+"-"+endDateformat[0])
-            // $('#end-date').val(response.campaign.endDate);
+            $('#end-date').val(endDateformat[2]+"-"+endDateformat[1]+"-"+endDateformat[0]);
+
+            //setting the Dropdown values on the dom
             $('#status').val(response.campaign.status);
             $('#platform').val(response.campaign.platform);
             $("#number option:selected").text(response.campaign.twilioNumber);
             $("#number option:selected").val(response.campaign.twilioNumber);
-            // $("#ddlCustType option:selected").text();
-            // $('#number').val("+14245432422");
+
+            //displaying the Flow builder UI and Removing the Spinner
             $('#display').removeClass('hide');
             $('#spinner').addClass('hide');
-            Refresh();
+
+            //Refesh the DOM
+            refreshDom();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            //If error occures Hide Spinner and relocate to campaign List
             $('#spinner').addClass('hide');
-            window.location.replace(frontEndUrl+"/campaign/list/");
+            window.location.replace(appUrl+"/campaign/list/");
         }
     });
 })   
-var obj={}
+
+//////////////////////////////////////////////////////////////
+//              PARSE THE JSON                              //
+/////////////////////////////////////////////////////////////
+
 function parseJson(JsonArray2){
-    const groupByParent = _.groupBy(JsonArray2,'parent');
-    var parentArray=[];
-    for(var i=0; i<JsonArray2.length; i++){
+    const groupByParent  =  _.groupBy(JsonArray2,'parent');
+    var parentArray = [];
+    for(var i = 0; i<JsonArray2.length; i++){
         //if parent exists
         if(parentArray.indexOf(JsonArray2[i].parent) === -1) {
             //pushing parent into the parent array
@@ -67,19 +102,19 @@ function parseJson(JsonArray2){
         }
     }
     //a for loop till parent array length
-    for(var j=0; j<parentArray.length; j++){
+    for(var j = 0; j<parentArray.length; j++){
         //parent
-        var parent=parentArray[j];
+        var parent = parentArray[j];
         //checking total child of one parent
-        for(var k=0; k<groupByParent[parent].length; k++){
+        for(var k = 0; k<groupByParent[parent].length; k++){
             //increaasing child counter
-            var childCounter=k+1;
+            var childCounter = k+1;
             //checking if this current box is fall type
             if(groupByParent[parent][k].isFallback){
                 // if fall back adding new fall back on the user Inputs span card
                 addFallback(groupByParent[parent][k].row,groupByParent[parent][k].name,groupByParent[parent][k].parent,childCounter,groupByParent[parent][k].boxNo,groupByParent[parent][k].id)
                 //checking total responses of the current box
-                for(var respose=0; respose <groupByParent[parent][k].responses.length;respose++){
+                for(var respose = 0; respose <groupByParent[parent][k].responses.length;respose++){
                     //adding all responses on the Responses
                     addResponse(groupByParent[parent][k].boxNo,(respose+1),groupByParent[parent][k].responses[respose]);
                 }
@@ -88,12 +123,12 @@ function parseJson(JsonArray2){
                 //adding genral card on the user says
                 addGeneral(groupByParent[parent][k].row,groupByParent[parent][k].name,groupByParent[parent][k].parent,childCounter,groupByParent[parent][k].boxNo,groupByParent[parent][k].id)
                 //getting all trannig phases of the current box 
-                for(var l=0; l<groupByParent[parent][k].trainingPhrases.length;l++){
+                for(var l = 0; l<groupByParent[parent][k].trainingPhrases.length;l++){
                     //adding one by one all traning phases on the box of user says
                     addTraningPhase(groupByParent[parent][k].boxNo,(l+1),groupByParent[parent][k].trainingPhrases[l])
                 }
                 //getting all the responses of the current box
-                for(var respose=0; respose <groupByParent[parent][k].responses.length;respose++){
+                for(var respose = 0; respose <groupByParent[parent][k].responses.length;respose++){
                     // adding one by one all responses on the box
                     addResponse(groupByParent[parent][k].boxNo,(respose+1),groupByParent[parent][k].responses[respose]);
                 }
@@ -102,7 +137,7 @@ function parseJson(JsonArray2){
         }
     }
     //getting user inputs 
-    for(var userInput=0; userInput <JsonArray2.length; userInput++){
+    for(var userInput = 0; userInput <JsonArray2.length; userInput++){
         //checking if box is genral type 
         if(!JsonArray2[userInput].isFallback){
             // adding genral card
@@ -114,42 +149,56 @@ function parseJson(JsonArray2){
         }
       
     }
-    Refresh();
-    for(var json=0;json < JsonArray2.length; json++){
+    refreshDom();
+    for(var json = 0;json < JsonArray2.length; json++){
         //creating json of the current box
-        prepareOneBoxJSON(JsonArray2[json].boxNo,JsonArray2[json].row)
+        prepareJson(JsonArray2[json].boxNo,JsonArray2[json].row)
     }
 }
-function addGeneral(btnClass,generalName,parent,childCounter,boxNo,id){
+
+//////////////////////////////////////////////////////////////
+//                  Adding the genral Boxes                 //
+/////////////////////////////////////////////////////////////
+
+function addGeneral(clickedBtnRow,generalName,parent,childCounter,boxNo,id){
     counter++;
     if(parent != '0'){
         totalBoxes++;
     }
-    generalCounter=btnClass+''+counter;
-    newCounter=0;
-    if( btnClass== addNewBox){
-        createNewGenralRow(parent,childCounter,boxNo,id);
-        Refresh();
+    generalCounter = clickedBtnRow+''+counter;
+    newCounter = 0;
+    if( clickedBtnRow == addNewBox){
+        createNewGenralBoxRow(parent,childCounter,boxNo,id);
+        refreshDom();
     }
-    else{createNewGenralBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
+    else{createNewGenralBox(parseInt(clickedBtnRow)+1,parent,childCounter,boxNo,id);}
     $(`#userInputChilds${generalCounter}`).data('text',childCounter);;
     $(`#ChildCounter${boxNo}`).data('text',childCounter);
     $(`#id${boxNo}`).data('text',id);
     $(`#parent${boxNo}`).data('text',parent);
     $(`#title${boxNo}`).data('text',generalName);
     $(`#title${boxNo}`).text(generalName);
-    Refresh();
+    refreshDom();
 }
-function addFallback(btnClass,fallBackName,parent,childCounter,boxNo,id){
+
+//////////////////////////////////////////////////////////////
+//                  Adding the fallback Boxes               //
+/////////////////////////////////////////////////////////////
+
+function addFallback(clickedBtnRow,fallBackName,parent,childCounter,boxNo,id){
     totalBoxes++;
-    if( btnClass== addNewBox){createNewBoxRow(parent,childCounter,boxNo,id)}
-    else{createNewBox(parseInt(btnClass)+1,parent,childCounter,boxNo,id);}
+    if( clickedBtnRow == addNewBox){createNewFallbackBoxRow(parent,childCounter,boxNo,id)}
+    else{createNewFallbackBox(parseInt(clickedBtnRow)+1,parent,childCounter,boxNo,id);}
     $(`#id${boxNo}`).data('text',id);
     $(`#parent${boxNo}`).data('text',parent);
     $(`#title${boxNo}`).text(fallBackName);
     $(`#title${boxNo}`).data('text',fallBackName);
-    Refresh();
+    refreshDom();
 }
+
+//////////////////////////////////////////////////////////////
+//                  Adding traning Phrases                  //
+/////////////////////////////////////////////////////////////
 
 function addTraningPhase(boxNo,id,text){
     counter++;
@@ -158,10 +207,10 @@ function addTraningPhase(boxNo,id,text){
     $(`#UserSaysBody${boxNo}`).append(`
     <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>
        <div class="hypermodel-item ui-sortable-handle">
-           <div style="float:left; width:80%;" class='TraningPhaseSpan ${boxNo}' id="TraningPhasediv${boxNo}${id}" onclick="onClick(this)" data-text="Sample text">
+           <div style="float:left; width:80%;" class='TraningPhaseSpan ${boxNo}' id="TraningPhasediv${boxNo}${id}" onclick="editTraningPhrase(this)" data-text="Sample text">
                <span id='TraningPhasediv${boxNo}${id}Span' style="font-size: 90%;" data-text='Add text here' >Add text here</span>
            </div>
-           <div class="buttonClass btn ${counter} ${boxNo}"  style="width:5%;color:#CD5C5C;float: right;" onclick="Remove(this)">
+           <div class="buttonClass btn ${counter} ${boxNo}"  style="width:5%;color:#CD5C5C;float: right;" onclick="removeCard(this)">
                <i class="fa fa-times fa-xs" aria-hidden="true"></i>
            </div>
        </div>
@@ -183,20 +232,25 @@ function addTraningPhase(boxNo,id,text){
         $('#TraningPhasediv'+(boxNo+''+id)+'Span').text('Add text here')
     }
 }
+
+//////////////////////////////////////////////////////////////
+//                  Adding Responses                       //
+/////////////////////////////////////////////////////////////
+
 function addResponse(boxNo,id,response){
     counter++;
     $(`#responsesChilds${boxNo}`).data('text',id);
-    if(response.type=='delay'){
+    if(response.type =='delay'){
         $('#responsesBody'+boxNo).append(`
         <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>
             <div class="hypermodel-item ui-sortable-handle">
                 <div style="float:left; width:10%;">
                     <i class="fa fa-fw fa-clock-o fa-lg" aria-hidden="true"></i>
                 </div>
-                <div style="float:left; width:70%;" class='${boxNo}' id="delayDiv${boxNo}${id}" onclick="updateDelayModel(this)" data-text="Sample text">
+                <div style="float:left; width:70%;" class='${boxNo}' id="delayDiv${boxNo}${id}" onclick="updateDelayResponse(this)" data-text="Sample text">
                     <span id='delayDiv${boxNo}${id}Span' style="font-size: 90%; padding-left:25%;" > </span>
                 </div>
-                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%;color:#CD5C5C; float: right;" onclick="Remove(this)">
+                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%;color:#CD5C5C; float: right;" onclick="removeCard(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -224,14 +278,14 @@ function addResponse(boxNo,id,response){
         // //setting time and unit on the span of responses
         $(`#delayDiv${boxNo}${id}Span`).text(delay)
     }
-    else if(response.type=='text'){
+    else if(response.type =='text'){
         $('#responsesBody'+boxNo).append(`
         <div class="col-md-12 ${counter}"  style="margin-top:3%;" id='div${counter}'>
             <div class="hypermodel-item ui-sortable-handle">
-                <div style="float:left; width:70%;" class='${boxNo}' id="ResponseDiv${boxNo}${id}" onclick="ResponseModal(this)" data-text="Sample text">
+                <div style="float:left; width:70%;" class='${boxNo}' id="ResponseDiv${boxNo}${id}" onclick="updateTextResponse(this)" data-text="Sample text">
                     <span id='ResponseDiv${boxNo}${id}Span' style="font-size: 90%;" ></span>
                 </div>
-                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%;color:#CD5C5C;  float: right;" onclick="Remove(this)">
+                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%;color:#CD5C5C;  float: right;" onclick="removeCard(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -248,7 +302,7 @@ function addResponse(boxNo,id,response){
         }
 
     }
-    else if(response.type=='image'){
+    else if(response.type =='image'){
         // console.log(response);
         //appending the response body with the image card
         $('#responsesBody'+boxNo).append(`
@@ -257,7 +311,7 @@ function addResponse(boxNo,id,response){
                 <div style="float:left; width:70%;" class='${boxNo}' id="imagediv${boxNo}${id}" onclick="updateImage(this)" data-text="Sample text">
                     <span id='imagediv${boxNo}${id}Span' data-text(${response.payload})>  <img src=${response.payload} width='25'  class="rounded" id='imagediv${counter}SpanImage'></span>
                 </div>
-                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%; color:#CD5C5C; float: right;" onclick="Remove(this)">
+                <div class="buttonClass btn ${counter} ${boxNo}" style="width:5%; color:#CD5C5C; float: right;" onclick="removeCard(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -269,13 +323,18 @@ function addResponse(boxNo,id,response){
 
 
 }
+
+//////////////////////////////////////////////////////////////
+//                  Adding the genral card                 //
+/////////////////////////////////////////////////////////////
+
 function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
     // console.log(gen);
     counter++;
     var boxNo;
-    for(var i=0; i<JsonArray2.length; i++){
-        if(parent==JsonArray2[i].id && parent != '0'){
-            boxNo=JsonArray2[i].boxNo;
+    for(var i = 0; i<JsonArray2.length; i++){
+        if(parent == JsonArray2[i].id && parent != '0'){
+            boxNo = JsonArray2[i].boxNo;
         }
     }
     if(boxNo){
@@ -285,7 +344,7 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
                 <div style="float:left; width:80%;" id="generalDiv${row}${childCounter}" class='${row}${childCounter}' onclick="updateGeneralName(this)" data-text="Sample text">
                     <span id='generalDiv${row}${childCounter}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${counter} btnbtn ${gen} ${row} genral" id='Remove${gen}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${counter} btnbtn ${gen} ${row} genral" id='Remove${gen}' style="width:5%;color:#CD5C5C; float: right;" onclick="removeBoxes(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -299,16 +358,21 @@ function appendGeneral(row,name,parent,gen,tBoxes,childCounter,JsonArray2){
         $(`#generalDiv${row}${childCounter}Span`).data('text',name)
         //setting time and unit on the span of responses
         $(`#generalDiv${row}${childCounter}Span`).text(name)
-        Refresh();
+        refreshDom();
     }
 }
+
+//////////////////////////////////////////////////////////////
+//                  Adding fallback cards                   //
+/////////////////////////////////////////////////////////////
+
 function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
     // console.log(c);
     counter++;
     var boxNo;
-    for(var i=0; i<JsonArray2.length; i++){
-        if(parent==JsonArray2[i].id && parent != '0'){
-            boxNo=JsonArray2[i].boxNo;
+    for(var i = 0; i<JsonArray2.length; i++){
+        if(parent == JsonArray2[i].id && parent != '0'){
+            boxNo = JsonArray2[i].boxNo;
         }
     }
     if(boxNo){
@@ -318,7 +382,7 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
                 <div style="float:left; width:80%;" id="fallbackDiv${counter}" class='${addNewBox+1}${totalBoxes}' onclick="updateFallbackName(this)" data-text="Sample text">
                     <span id='fallbackDiv${counter}Span' style="font-size: 90%; " > </span>
                 </div>
-                <div class="buttonClass btn ${counter} ${addNewBox} ${c} fallback" id='Remove${c}' style="width:5%;color:#CD5C5C; float: right;" onclick="RemoveFallback(this)">
+                <div class="buttonClass btn ${counter} ${addNewBox} ${c} fallback" id='Remove${c}' style="width:5%;color:#CD5C5C; float: right;" onclick="removeBoxes(this)">
                     <i class="fa fa-times fa-xs" aria-hidden="true"></i>
                 </div>
             </div>
@@ -330,34 +394,44 @@ function appendFallback(row,name,parent,c,tBoxes,childCounter,JsonArray2){
     }
     $(`#fallbackDiv${counter}Span`).data('text',name)
     $(`#fallbackDiv${counter}Span`).text(name)
-    var parentId=`Remove${c}`;
-    var child=`a${c}`;
-    Refresh();
+    var parentId = `Remove${c}`;
+    var child = `a${c}`;
+    refreshDom();
     createLine(parentId,child);
    
     
    
 }
-var zoom=0;
-function zoomInFunction(){
+
+//////////////////////////////////////////////////////////////
+//                  Zoom IN ZOOM OUT DOM                    //
+/////////////////////////////////////////////////////////////
+
+function zoomIn(){
     if(zoom <0){
         zoom++;
         $('.hypermodel-column').width(
-            $(".hypermodel-column").width() / 0.8
+            $(".hypermodel-column").width() / zoomWidthIncreaseDescrease
         )
-        Refresh();
+        refreshDom();
     }
 }
-function  zoomOutFunction() {
+
+function  zoomOut() {
     if(zoom > -2){
         zoom--;
         $('.hypermodel-column').width(
-            $(".hypermodel-column").width() * 0.8
+            $(".hypermodel-column").width() * zoomWidthIncreaseDescrease
         )
-        Refresh();
+        refreshDom();
     }
 
 }
+
+//////////////////////////////////////////////////////////////
+//                  Drawing The Lines                       //
+/////////////////////////////////////////////////////////////
+
 $('#flowbuilder').click(function(){
     jsPlumb.ready(function(){
         setTimeout(jsPlumb.repaintEverything);
